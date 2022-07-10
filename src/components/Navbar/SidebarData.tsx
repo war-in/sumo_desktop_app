@@ -13,25 +13,25 @@ export const SidebarData = [
   },
   {
     title: 'Weighting',
-    path: '/',
+    path: '/weighting',
     icon: <FaIcons.FaWeight/>,
     cName: 'nav-text'
   },
   {
     title: 'Draw',
-    path: '/',
+    path: '/draw',
     icon: <GiIcons.GiCubes/>,
     cName: 'nav-text'
   },
   {
     title: 'Tournament',
-    path: '/',
+    path: '/tournament',
     icon: <TbIcons.TbTournament/>,
     cName: 'nav-text'
   },
   {
     title: 'Reports',
-    path: '/',
+    path: '/reports',
     icon: <TbIcons.TbReportAnalytics/>,
     cName: 'nav-text'
   }

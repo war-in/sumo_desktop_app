@@ -5,6 +5,7 @@ import * as AiIcons from 'react-icons/ai';
 import './Navbar.css';
 import {SidebarData} from "./SidebarData";
 import {IconContext} from "react-icons";
+import {Col, Container, Row} from "react-bootstrap";
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -14,51 +15,51 @@ function Navbar() {
   return (
     <>
       <IconContext.Provider value={{color: '#feb886'}}>
-        <div className="navbar">
-
-          <Link to="#" className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar}/>
-          </Link>
-
-          <ul className='nav-menu-items'>
-            {SidebarData.map((item, index) => {
+        <Container className="text-center p-0">
+          <Col className="col-12">
+            <Row className="nav-icons">
+              <Link to="#">
+                <FaIcons.FaBars onClick={showSidebar}/>
+              </Link>
+            </Row>
+            {SidebarData.map((item) => {
               return (
-                <li key={index} className='nav-icons'>
+                <Row className="nav-icons">
                   <Link to={item.path}>
                     {item.icon}
                   </Link>
-                </li>
+                </Row>
               );
             })}
-          </ul>
-        </div>
+          </Col>
+        </Container>
 
       </IconContext.Provider>
+
       <IconContext.Provider value={{color: '#f9f9f9'}}>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <Container className={sidebar ? 'nav-menu active' : 'nav-menu'}>
 
-          <ul className='nav-menu-items' onClick={showSidebar}>
-
-            <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineCloseSquare/>
+          <Col className="col-12">
+            <Row className="nav-icons">
+              <Link to="#">
+                <AiIcons.AiOutlineCloseSquare onClick={showSidebar}/>
               </Link>
-            </li>
+            </Row>
 
-            {SidebarData.map((item, index) => {
+            {SidebarData.map((item) => {
               return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                <Row className="nav-icons nav-text">
+                  <Link to={item.path} onClick={showSidebar}>
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>
-                </li>
+                </Row>
               );
             })}
-
-          </ul>
-        </nav>
+          </Col>
+        </Container>
       </IconContext.Provider>
+
     </>
   )
 }
