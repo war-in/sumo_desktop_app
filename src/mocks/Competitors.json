@@ -1,0 +1,2242 @@
+[
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "names": "Jakub",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "names": "Maciek",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "names": "Bartosz",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "names": "Maksymilian",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "names": "Paweł",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "names": "Jan",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "names": "Dyzma",
+      "surname": "Nowakowski",
+      "phoneNumber": "791861219",
+      "emailAdress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthDate": "10-05-2000",
+      "gender": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg"
+  }
+]

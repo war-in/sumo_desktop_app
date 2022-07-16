@@ -1,0 +1,54 @@
+.details-card {
+    position: absolute;
+    width: 380px;
+    height: 800px;
+    left: 200px;
+    background: #F9CDA5;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
+.photo {
+    position: absolute;
+    width: 300px;
+    height: 325px;
+    left: 40px;
+    top: 50px;
+    border-radius: 5px;
+}
+
+.details {
+    position: absolute;
+    top: 425px;
+}
+
+.detail {
+    position: relative;
+    width: 300px;
+    height: 46px;
+    left: 50px;
+    margin-bottom: 10px;
+    background: #F7F7F7;
+    border-radius: 5px;
+}
+
+.detail-text {
+    font-style: normal;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+.weight-input {
+    position: relative;
+    width: 300px;
+    height: 46px;
+    left: 50px;
+    margin-bottom: 40px;
+    background: #F7F7F7;
+    border-radius: 5px;
+}
