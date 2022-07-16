@@ -1,7 +1,5 @@
 import SimpleTable from "../simpleTable";
 import React from "react";
-// @ts-ignore
-import declared from '../../mocks/Competitors.json';
 
 const Categories = () => {
     const Columns = [
@@ -10,9 +8,11 @@ const Categories = () => {
         {"title": "Kategoria", "field": "category"},
     ]
 
+    const dataset = [{}];
+
     return (
         <>
-            <SimpleTable title={"Kategorie"} columns={Columns} data={declared}/>
+            <SimpleTable title={"Kategorie"} columns={Columns} data={dataset}/>
         </>
     )
 }
