@@ -8,20 +8,30 @@ import declared from '../../mocks/Competitors.json';
 
 function Weighting() {
     const [competitor, setCompetitor] = useState({
-        name: " ",
-        birthdate: " ",
-        country: " ",
-        club: " ",
-        sex: " ",
-        photo: "https://exnessin.com/img/avatar-blank.png"
+        name: "",
+        birthdate: "",
+        country: "",
+        club: "",
+        sex: "",
+        photo: "",
+        category: "",
+        weight: ""
     });
+
+    let weightInputValue = "";
+
+    function updateWeightInputValue(evt) {
+        weightInputValue = evt.target.value
+    }
 
     function Competitors() {
         const Columns = [
-            {"title": "Imię", "field": "personalDetails.names"},
+            {"title": "Imię", "field": "personalDetails.name"},
             {"title": "Nazwisko", "field": "personalDetails.surname"},
+            {"title": "Data urodzenia", "field": "personalDetails.birthdate"},
             {"title": "Kraj", "field": "country.name"},
-            {"title": "Kategoria", "field": "category"}
+            {"title": "Klub", "field": "club"},
+            {"title": "Płeć", "field": "personalDetails.sex"}
         ]
 
         return (
@@ -37,12 +47,16 @@ function Weighting() {
                     onRowClick={(event, rowData) => {
                         if (rowData != null) {
                             setCompetitor({
-                                name: rowData.personalDetails.names,
-                                birthdate: rowData.personalDetails.birthDate,
+                                name: rowData.personalDetails.name + " " + rowData.personalDetails.surname,
+                                birthdate: rowData.personalDetails.birthdate,
                                 country: rowData.country.name,
-                                club: rowData.personalDetails.phoneNumber,
-                                sex: rowData.personalDetails.gender,
-                                photo: rowData.personalDetails.profilePhoto
+                                club: rowData.club,
+                                sex: rowData.personalDetails.sex,
+                                photo: rowData.personalDetails.profilePhoto,
+                                category: rowData.category,
+                                //tu powinno być pobranie wartości wagi, jesli została już wprowadzona wcześniej
+                                //dla danego zawodnika
+                                weight: ""
                             })
                         }
                     }}
@@ -53,12 +67,14 @@ function Weighting() {
 
     function Categories() {
         const Columns = [
-            {"title": "Grupa wiekowa", "field": "personalDetails.names"},
-            {"title": "Płeć", "field": "personalDetails.surname"},
-            {"title": "Kategoria", "field": "category"},
+            {"title": "Grupa wiekowa", "field": "age"},
+            {"title": "Płeć", "field": "sex"},
+            {"title": "Kategoria wagowa", "field": "category"},
         ]
 
-        const dataset = [{}];
+        const dataset = [{age: competitor.birthdate,
+            sex: competitor.sex,
+            category: competitor.category}];
 
         return (
             <Box className='categories'>
@@ -76,6 +92,7 @@ function Weighting() {
     }
 
     function CompetitorDetails() {
+
         return (
             <Box className="details-card">
                 <Image className="photo" src={competitor.photo}/>
@@ -89,8 +106,25 @@ function Weighting() {
                         className="detail-text">{competitor.club}</Box></Row>
                     <Row className="detail"><Box className="detail-text">{competitor.sex}</Box></Row>
                     <Box className="weight-label">Weight:</Box>
-                    <Row className="detail"><Input className="weight-input"></Input></Row>
-                    <Row className="detail"><Button>OK</Button></Row>
+                    <Row className="detail">
+                        <Input className="weight-input" defaultValue={competitor.weight} onChange={updateWeightInputValue}></Input>
+                    </Row>
+                    <Row className="detail"><Button onClick={() => {
+                        if (weightInputValue!=""){
+                            setCompetitor({
+                                name: competitor.name,
+                                birthdate: competitor.birthdate,
+                                country: competitor.country,
+                                club: competitor.club,
+                                sex: competitor.sex,
+                                photo: competitor.photo,
+                                category: competitor.category,
+                                weight: weightInputValue
+                            })
+                            // tu powinno być zapisanie wagi konkretnego zawodnika w jakiejś strukturze,
+                            // żeby dało się ją potem pobrać
+                        }
+                    }}>OK</Button></Row>
                 </Box>
             </Box>
         );
