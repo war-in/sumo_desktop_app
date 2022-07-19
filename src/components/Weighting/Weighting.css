@@ -1,3 +1,18 @@
+.competitors {
+    position: absolute;
+    left: 600px;
+    top: 75px;
+    width: 1200px;
+}
+
+.categories {
+    position: absolute;
+    left: 600px;
+    top: 525px;
+    margin-top: 25px;
+    width: 1200px;
+}
+
 .details-card {
     position: absolute;
     width: 380px;

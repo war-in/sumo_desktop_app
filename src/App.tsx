@@ -14,8 +14,10 @@ import {Col, Container, Row} from "react-bootstrap";
 
 
 export function App() {
+
   return (
     <HashRouter>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
       <Container fluid className="p-0 overflow-hidden">
         <Row>
           <Col className="col-1 ">

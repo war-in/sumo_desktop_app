@@ -1,44 +1,22 @@
 import React, {useState} from 'react';
-import {Container, Image, Row} from "react-bootstrap";
-import Categories from "./Categories";
-import './Competitors.css';
-import './Categories.css';
-import './CompetitorDetails.css';
-import {Box, Button, Input} from "@material-ui/core";
-import {Column} from "../../objects/Column";
-import MaterialTable from "material-table";
+import {Container, Image, Row} from 'react-bootstrap';
+import {Box, Button, Input} from '@material-ui/core';
+import MaterialTable from 'material-table';
+import './Weighting.css';
 // @ts-ignore
-import declared from "../../mocks/Competitors.json";
-import Competitor from "../../objects/Competitor";
-
-
+import declared from '../../mocks/Competitors.json';
 
 function Weighting() {
-    const [competitor, setCompetitor] = useState("");
+    const [competitor, setCompetitor] = useState({
+        name: " ",
+        birthdate: " ",
+        country: " ",
+        club: " ",
+        sex: " ",
+        photo: "https://exnessin.com/img/avatar-blank.png"
+    });
 
-    const onRowClicked = () => {
-       setCompetitor("Imieeeee");
-    };
-
-    type Props ={
-        title:string,
-        columns:Column[],
-        data:{}[]
-    }
-
-    const SimpleTable:React.FC<Props> = function BasicSearch(props) {
-
-        return (
-            <MaterialTable
-                title={props.title}
-                columns = {props.columns}
-                data={props.data}
-                onRowClick={(event, rowData) => onRowClicked()}
-            />
-        )
-    }
-
-    const Competitors = () => {
+    function Competitors() {
         const Columns = [
             {"title": "Imię", "field": "personalDetails.names"},
             {"title": "Nazwisko", "field": "personalDetails.surname"},
@@ -47,22 +25,69 @@ function Weighting() {
         ]
 
         return (
-            <>
-                <SimpleTable title={"Zawodnicy"} columns={Columns} data={declared}/>
-            </>
+            <Box className='competitors'>
+                <MaterialTable
+                    title="Zawodnicy"
+                    columns={Columns}
+                    data={declared}
+                    options={{
+                        doubleHorizontalScroll: true,
+                        maxBodyHeight: 300
+                    }}
+                    onRowClick={(event, rowData) => {
+                        if (rowData != null) {
+                            setCompetitor({
+                                name: rowData.personalDetails.names,
+                                birthdate: rowData.personalDetails.birthDate,
+                                country: rowData.country.name,
+                                club: rowData.personalDetails.phoneNumber,
+                                sex: rowData.personalDetails.gender,
+                                photo: rowData.personalDetails.profilePhoto
+                            })
+                        }
+                    }}
+                />
+            </Box>
+        )
+    }
+
+    function Categories() {
+        const Columns = [
+            {"title": "Grupa wiekowa", "field": "personalDetails.names"},
+            {"title": "Płeć", "field": "personalDetails.surname"},
+            {"title": "Kategoria", "field": "category"},
+        ]
+
+        const dataset = [{}];
+
+        return (
+            <Box className='categories'>
+                <MaterialTable
+                    title="Kategorie"
+                    columns={Columns}
+                    data={dataset}
+                    options={{
+                        search: false,
+                        maxBodyHeight: 275
+                    }}
+                />
+            </Box>
         )
     }
 
     function CompetitorDetails() {
         return (
             <Box className="details-card">
-                <Image className="photo" src="https://exnessin.com/img/avatar-blank.png"/>
+                <Image className="photo" src={competitor.photo}/>
                 <Box className="details">
-                    <Row className="detail"><Box className="detail-text">{competitor}</Box></Row>
-                    <Row className="detail"><Box className="detail-text">Birthdate</Box></Row>
-                    <Row className="detail"><Box className="detail-text">Country</Box></Row>
-                    <Row className="detail"><Box className="detail-text">Club</Box></Row>
-                    <Row className="detail"><Box className="detail-text">Sex</Box></Row>
+                    <Row className="detail"><Box
+                        className="detail-text">{competitor.name}</Box></Row>
+                    <Row className="detail"><Box className="detail-text">{competitor.birthdate}</Box></Row>
+                    <Row className="detail"><Box
+                        className="detail-text">{competitor.country}</Box></Row>
+                    <Row className="detail"><Box
+                        className="detail-text">{competitor.club}</Box></Row>
+                    <Row className="detail"><Box className="detail-text">{competitor.sex}</Box></Row>
                     <Box className="weight-label">Weight:</Box>
                     <Row className="detail"><Input className="weight-input"></Input></Row>
                     <Row className="detail"><Button>OK</Button></Row>
@@ -72,16 +97,12 @@ function Weighting() {
     }
 
     return (
-    <Container className='weighting'>
-        <CompetitorDetails/>
-        <Box className='competitors'>
+        <Container className='weighting'>
+            <CompetitorDetails/>
             <Competitors/>
-        </Box>
-        <Box className='categories'>
             <Categories/>
-        </Box>
-    </Container>
-  );
+        </Container>
+    );
 }
 
 export default Weighting;
