@@ -3,7 +3,6 @@ import {Col, Container, Image, Row} from 'react-bootstrap';
 import {Box, Button, Input} from '@material-ui/core';
 import MaterialTable from 'material-table';
 import './Weighting.css';
-// @ts-ignore
 import declared from '../../mocks/Competitors.json';
 
 function Weighting() {
@@ -84,7 +83,7 @@ function Weighting() {
                     data={dataset}
                     options={{
                         search: false,
-                        maxBodyHeight: 200
+                        maxBodyHeight: 150
                     }}
                 />
             </Box>
@@ -131,6 +130,7 @@ function Weighting() {
 
     return (
         <Container className="weighting">
+            <h1 className="title">Competitors weighting</h1>
             <Row>
                 <Col className="col-3">
                     <CompetitorDetails/>

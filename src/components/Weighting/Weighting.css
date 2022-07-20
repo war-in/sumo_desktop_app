@@ -1,3 +1,9 @@
+.title {
+    font-size: 30px;
+    text-align: center;
+    margin: 10px;
+}
+
 .categories {
     margin-top: 20px;
 }
