@@ -3,21 +3,31 @@ import {Col, Container, Image, Row} from 'react-bootstrap';
 import {Box, Button, Input} from '@material-ui/core';
 import MaterialTable from 'material-table';
 import './Weighting.css';
+// @ts-ignore
 import declared from '../../mocks/Competitors.json';
+import Competitor from "../../objects/Competitor";
+import PersonalDetails from "../../objects/PersonalDetails";
+import Category from "../../objects/Category";
 
 function Weighting() {
-    const [competitor, setCompetitor] = useState({
-        name: "",
-        birthdate: "",
-        country: "",
-        club: "",
-        sex: "",
-        photo: "",
-        category: "",
-        weight: ""
-    });
+    const [personalDetails, setPersonalDetails] = useState(() => new PersonalDetails(
+            0,
+            "",
+            "",
+            "",
+            "",
+            ""));
+    const [category, setCategory] = useState(() => new Category(
+        "",
+        "",
+        ""));
+    const [competitor, setCompetitor] = useState(() => new Competitor(
+        0,
+        personalDetails,
+        category,
+        null));
 
-    let weightInputValue = "";
+    let weightInputValue: 0;
 
     function updateWeightInputValue(evt) {
         weightInputValue = evt.target.value
@@ -44,18 +54,14 @@ function Weighting() {
                 }}
                 onRowClick={(event, rowData) => {
                     if (rowData != null) {
-                        setCompetitor({
-                            name: rowData.personalDetails.name + " " + rowData.personalDetails.surname,
-                            birthdate: rowData.personalDetails.birthdate,
-                            country: rowData.country.name,
-                            club: rowData.club,
-                            sex: rowData.personalDetails.sex,
-                            photo: rowData.personalDetails.profilePhoto,
-                            category: rowData.category,
-                            //tu powinno być pobranie wartości wagi, jesli została już wprowadzona wcześniej
-                            //dla danego zawodnika
-                            weight: ""
-                        })
+                        setPersonalDetails(new PersonalDetails(0,
+                            rowData.personalDetails.name, rowData.personalDetails.surname,
+                            rowData.personalDetails.profilePhoto, rowData.personalDetails.birthdate,
+                            rowData.personalDetails.sex
+                        ))
+                        setCategory(new Category(rowData.personalDetails.birthdate,
+                            rowData.personalDetails.sex, rowData.category))
+                        setCompetitor(new Competitor(0, personalDetails, category, null))
                     }
                 }}
             />
@@ -70,9 +76,9 @@ function Weighting() {
         ]
 
         const dataset = [{
-            age: competitor.birthdate,
-            sex: competitor.sex,
-            category: competitor.category
+            age: category.age,
+            sex: category.sex,
+            category: category.weight
         }];
 
         return (
@@ -94,30 +100,21 @@ function Weighting() {
         return (
             <Box className="details-card">
                 <Box className="photo-box">
-                    <Image className="photo" src={competitor.photo}/>
+                    <Image className="photo" src={personalDetails.profilePhoto}/>
                 </Box>
                 <Box>
-                    <Row className="detail">{competitor.name}</Row>
-                    <Row className="detail">{competitor.birthdate}</Row>
-                    <Row className="detail">{competitor.country}</Row>
-                    <Row className="detail">{competitor.club}</Row>
-                    <Row className="detail">{competitor.sex}</Row>
+                    <Row className="detail">{personalDetails.name} {personalDetails.surname}</Row>
+                    <Row className="detail">{personalDetails.birthdate}</Row>
+                    <Row className="detail">Club</Row>
+                    <Row className="detail">Country</Row>
+                    <Row className="detail">{personalDetails.sex}</Row>
                     <Row>Weight:</Row>
                     <Row><Input className="detail" defaultValue={competitor.weight}
                                 onChange={updateWeightInputValue}></Input></Row>
                     <Row className="button">
                         <Button onClick={() => {
-                            if (weightInputValue != "") {
-                                setCompetitor({
-                                    name: competitor.name,
-                                    birthdate: competitor.birthdate,
-                                    country: competitor.country,
-                                    club: competitor.club,
-                                    sex: competitor.sex,
-                                    photo: competitor.photo,
-                                    category: competitor.category,
-                                    weight: weightInputValue
-                                })
+                            if (weightInputValue != 0) {
+                                setCompetitor(new Competitor(0, personalDetails, category, weightInputValue))
                                 // tu powinno być zapisanie wagi konkretnego zawodnika w jakiejś strukturze,
                                 // żeby dało się ją potem pobrać
                             }
@@ -133,11 +130,11 @@ function Weighting() {
             <h1 className="title">Competitors weighting</h1>
             <Row>
                 <Col className="col-3">
-                    <CompetitorDetails/>
+                    {<CompetitorDetails/>}
                 </Col>
                 <Col className="col-8">
-                    <Competitors/>
-                    <Categories/>
+                    {<Competitors/>}
+                    {<Categories/>}
                 </Col>
             </Row>
         </Container>

@@ -1,38 +1,34 @@
 export default class PersonalDetails {
-    private _names: string;
+    private _id: number;
+    private _name: string;
     private _surname: string;
-    private _phoneNumber: string;
-    private _emailAdress: string;
     private _profilePhoto: string;
-    private _birthDate: string;
-    private _gender: string;
-    private _id:BigInteger;
+    private _birthdate: string;
+    private _sex: string;
 
-    constructor(names: string, surname: string, phoneNumber: string, emailAdress: string, profilePhoto: string, birthDate: string, gender: string,id:BigInteger) {
+    constructor(id: number, name: string, surname: string, profilePhoto: string, birthdate: string, sex: string) {
         this._id = id;
-        this._names = names;
+        this._name = name;
         this._surname = surname;
-        this._phoneNumber = phoneNumber;
-        this._emailAdress = emailAdress;
         this._profilePhoto = profilePhoto;
-        this._birthDate = birthDate;
-        this._gender = gender;
+        this._birthdate = birthdate;
+        this._sex = sex;
     }
 
-    get id(): BigInteger {
+    get id(): number {
         return this._id;
     }
 
-    set id(value: BigInteger) {
+    set id(value: number) {
         this._id = value;
     }
 
-    get names(): string {
-        return this._names;
+    get name(): string {
+        return this._name;
     }
 
-    set names(value: string) {
-        this._names = value;
+    set name(value: string) {
+        this._name = value;
     }
 
     get surname(): string {
@@ -43,22 +39,6 @@ export default class PersonalDetails {
         this._surname = value;
     }
 
-    get phoneNumber(): string {
-        return this._phoneNumber;
-    }
-
-    set phoneNumber(value: string) {
-        this._phoneNumber = value;
-    }
-
-    get emailAdress(): string {
-        return this._emailAdress;
-    }
-
-    set emailAdress(value: string) {
-        this._emailAdress = value;
-    }
-
     get profilePhoto(): string {
         return this._profilePhoto;
     }
@@ -67,19 +47,19 @@ export default class PersonalDetails {
         this._profilePhoto = value;
     }
 
-    get birthDate(): string {
-        return this._birthDate;
+    get birthdate(): string {
+        return this._birthdate;
     }
 
-    set birthDate(value: string) {
-        this._birthDate = value;
+    set birthdate(value: string) {
+        this._birthdate = value;
     }
 
-    get gender(): string {
-        return this._gender;
+    get sex(): string {
+        return this._sex;
     }
 
-    set gender(value: string) {
-        this._gender = value;
+    set sex(value: string) {
+        this._sex = value;
     }
 }
