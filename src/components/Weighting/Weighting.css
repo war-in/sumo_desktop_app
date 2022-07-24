@@ -1,0 +1,42 @@
+.title {
+    font-size: 30px;
+    text-align: center;
+    margin: 10px;
+}
+
+.categories {
+    margin-top: 20px;
+}
+
+.details-card {
+    width: fit-content;
+    height: fit-content;
+    padding: 40px;
+    background: #F9CDA5;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
+.photo-box {
+    margin-bottom: 10px;
+}
+
+.photo {
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.detail {
+    height: 46px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #F7F7F7;
+    border-radius: 5px;
+}
+
+.button {
+    height: 46px;
+    background: #F7F7F7;
+    border-radius: 5px;
+}
