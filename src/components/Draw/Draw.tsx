@@ -1,144 +1,190 @@
-import React from 'react';
-import {Alert, Button, Col, Container, Row} from "react-bootstrap";
-import Accordion from 'react-bootstrap/Accordion';
-import Table from 'react-bootstrap/Table';
+import React, {useState} from 'react';
+import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import './Draw.css';
+import MaterialTable from "material-table";
+import {Box, Input} from "@material-ui/core";
 
 function Draw() {
 
-    function GenerateCombatsButton(){
+    const [state, setState] = useState({rowSelected: false, combatsGenerated: false});
+
+    function CategoryDetails() {
+        const Columns = [
+            {"title": undefined, "field": "id"},
+            {"title": undefined, "field": "name"},
+            {"title": undefined, "field": "club"},
+        ]
+
+        const dataset = [{
+            id: 1,
+            name: "Jakub Nowakowski",
+            club: "LUKS Lubzina"
+        }, {
+            id: 1,
+            name: "Jakub Nowakowski",
+            club: "LUKS Lubzina"
+        }, {
+            id: 1,
+            name: "Jakub Nowakowski",
+            club: "LUKS Lubzina"
+        }, {
+            id: 1,
+            name: "Jakub Nowakowski",
+            club: "LUKS Lubzina"
+        }];
+
         return (
-            <Button variant="dark">Dark</Button>
+            <Box>
+                <MaterialTable
+                    title=""
+                    columns={Columns}
+                    data={dataset}
+                    options={{
+                        header: false,
+                        toolbar: false,
+                        paging: false,
+                        sorting: false
+                    }}
+                />
+            </Box>
+        );
+    }
+
+    function Categories() {
+        const Columns = [
+            {"title": "Weight", "field": "weight"},
+            {"title": "Age", "field": "age"},
+            {"title": "Sex", "field": "sex"},
+            {"title": "Nr of competitors", "field": "nr"},
+        ]
+
+        const dataset = [{
+            weight: 60,
+            age: "Junior",
+            sex: "Female",
+            nr: 15
+        }, {
+            weight: 60,
+            age: "Junior",
+            sex: "Female",
+            nr: 15
+        }, {
+            weight: 60,
+            age: "Junior",
+            sex: "Female",
+            nr: 15
+        }, {
+            weight: 60,
+            age: "Junior",
+            sex: "Female",
+            nr: 15
+        }];
+
+        return (
+            <Box className="categories">
+                <MaterialTable
+                    title="Categories"
+                    columns={Columns}
+                    data={dataset}
+                    options={{
+                        doubleHorizontalScroll: true,
+                        maxBodyHeight: 500,
+                        search: false
+                    }}
+                    onRowClick={(rowData) => {
+                        setState({rowSelected: true, combatsGenerated: false})
+                    }}
+                    detailPanel={() => {
+                        return (
+                            <CategoryDetails/>
+                        )
+                    }}
+                />
+            </Box>
+        );
+    }
+
+    function GenerateCombatsButton() {
+        return (
+            <div>{state.rowSelected && <Button className="combat-button" variant="dark"
+            onClick={() => {
+                setState({rowSelected: false, combatsGenerated: true});
+            }}>Krzyżówka 15</Button>}</div>
         );
     }
 
     function Combats() {
         return (
-            <Table striped bordered hover>
-                <thead>
-                <tr>
-                    <th colSpan={2}>Combats</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Jakub Nowakowski</td>
-                    <td>Marcin Warchoł</td>
-                </tr>
-                <tr>
-                    <td>Jakub Nowakowski</td>
-                    <td>Marcin Warchoł</td>
-                </tr>
-                <tr>
-                    <td>Jakub Nowakowski</td>
-                    <td>Marcin Warchoł</td>
-                </tr>
-                <tr>
-                    <td>Jakub Nowakowski</td>
-                    <td>Marcin Warchoł</td>
-                </tr>
-                <tr>
-                    <td>Jakub Nowakowski</td>
-                    <td>Marcin Warchoł</td>
-                </tr>
-                <tr>
-                    <td>Jakub Nowakowski</td>
-                    <td>Marcin Warchoł</td>
-                </tr>
-                </tbody>
-            </Table>
+            <div>{state.combatsGenerated &&
+                <Box className="details-card">
+                    <Box className="combat">
+                        <Row className="detail-row">
+                            <Col className="detail">A</Col>
+                            <Col className="detail">A</Col>
+                        </Row>
+                        <Row className="details-row">
+                            <Col className="detail">B</Col>
+                            <Col className="detail">B</Col>
+                        </Row>
+                    </Box>
+                    <Box className="combat">
+                        <Row className="detail-row">
+                            <Col className="detail">A</Col>
+                            <Col className="detail">A</Col>
+                        </Row>
+                        <Row className="details-row">
+                            <Col className="detail">B</Col>
+                            <Col className="detail">B</Col>
+                        </Row>
+                    </Box>
+                    <Box className="combat">
+                        <Row className="detail-row">
+                            <Col className="detail">A</Col>
+                            <Col className="detail">A</Col>
+                        </Row>
+                        <Row className="details-row">
+                            <Col className="detail">B</Col>
+                            <Col className="detail">B</Col>
+                        </Row>
+                    </Box>
+                    <Box className="combat">
+                        <Row className="detail-row">
+                            <Col className="detail">A</Col>
+                            <Col className="detail">A</Col>
+                        </Row>
+                        <Row className="details-row">
+                            <Col className="detail">B</Col>
+                            <Col className="detail">B</Col>
+                        </Row>
+                    </Box>
+                </Box>
+            }</div>
         );
     }
 
-    function ContainerFluid() {
+    function GenerateCombatsButtons() {
         return (
-            <Container>
-                <Row>
-                    <Col>1 of 3</Col>
-                    <Col>2 of 3</Col>
-                    <Col>3 of 3</Col>
-                    <Col>3 of 3</Col>
-                </Row>
-            </Container>
+            <Box className="combats">
+                <GenerateCombatsButton/>
+                <GenerateCombatsButton/>
+                <GenerateCombatsButton/>
+            </Box>
         );
-    }
-
-    function Header(){
-        return (
-            <Alert variant={'dark'}>
-                <Container>
-                    <Row>
-                        <Col>Weight</Col>
-                        <Col>Age</Col>
-                        <Col>Sex</Col>
-                        <Col>Nr of competitors</Col>
-                    </Row>
-                </Container>
-            </Alert>
-        );
-    }
-
-    function CustomAccordionItem(props){
-        return (
-            <Accordion.Item eventKey={props.eventKey}>
-                <Accordion.Header>
-                    <ContainerFluid/>
-                </Accordion.Header>
-                <Accordion.Body>
-                    <Table striped bordered hover size="sm">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                    <GenerateCombatsButton/>
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function Categories() {
-        return (
-        <Accordion defaultActiveKey="">
-            <CustomAccordionItem eventKey={0}/>
-            <CustomAccordionItem eventKey={1}/>
-            <CustomAccordionItem eventKey={2}/>
-            <CustomAccordionItem eventKey={3}/>
-            <CustomAccordionItem eventKey={4}/>
-            <CustomAccordionItem eventKey={5}/>
-        </Accordion>);
     }
 
     return (
-    <Container className='draw'>
-        <Row>
-            <Col className="col-7">
-                <Header/>
-                <Categories/>
-            </Col>
-            <Col className="col-5">
-                <Combats/>
-            </Col>
-        </Row>
-    </Container>
-  );
+        <Container className='draw'>
+            <Row>
+                <Col className="col-6">
+                    <Categories/>
+                </Col>
+                <Col className="col-5">
+                    <GenerateCombatsButtons/>
+                    <Combats/>
+                </Col>
+            </Row>
+        </Container>
+    );
 }
 
 export default Draw;

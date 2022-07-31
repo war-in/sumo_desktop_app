@@ -1,0 +1,33 @@
+.categories {
+    margin-top: 20px;
+}
+
+.combat-button {
+    margin: 10px;
+}
+
+.details-card {
+    margin-top: 20px;
+    height: 700px;
+    width: 600px;
+    padding: 40px;
+    background: #F9CDA5;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
+.combat{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.detail-row {
+    width: 500px;
+}
+
+.detail {
+    padding: 10px;
+    margin: 10px;
+    background: #F7F7F7;
+    border-radius: 5px;
+}
