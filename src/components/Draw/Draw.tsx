@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import './Draw.css';
 import MaterialTable from "material-table";
-import {Box, Input} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 
 function Draw() {
 
@@ -91,7 +91,7 @@ function Draw() {
                         maxBodyHeight: 500,
                         search: false
                     }}
-                    onRowClick={(rowData) => {
+                    onRowClick={() => {
                         setState({rowSelected: true, combatsGenerated: false})
                     }}
                     detailPanel={() => {
