@@ -4,9 +4,13 @@ import './Draw.css';
 import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
 
+//TODO: fix onRowClick in categories table - setState function cancells togglePanel function
+//TODO: add generating logic for Buttons and Combat view
+//TODO: connect to backend
+
 function Draw() {
 
-    const [state, setState] = useState({rowSelected: false, combatsGenerated: false});
+    const [state, setState] = useState({buttonsVisible: false, combatsVisible: false});
 
     function CategoryDetails() {
         const Columns = [
@@ -34,7 +38,7 @@ function Draw() {
         }];
 
         return (
-            <Box>
+            <Box className="category-details">
                 <MaterialTable
                     title=""
                     columns={Columns}
@@ -89,15 +93,17 @@ function Draw() {
                     options={{
                         doubleHorizontalScroll: true,
                         maxBodyHeight: 500,
-                        search: false
+                        search: false,
+                        detailPanelType: "single",
+                        detailPanelColumnAlignment: "right",
+                        detailPanelColumnStyle: { display: 'none'},
                     }}
-                    onRowClick={() => {
-                        setState({rowSelected: true, combatsGenerated: false})
+                    onRowClick={(event, rowData, togglePanel) => {
+                        togglePanel();
+                        setState({buttonsVisible: true, combatsVisible: false})
                     }}
-                    detailPanel={() => {
-                        return (
-                            <CategoryDetails/>
-                        )
+                    detailPanel={ rowData => {
+                        return (<CategoryDetails/>)
                     }}
                 />
             </Box>
@@ -106,16 +112,26 @@ function Draw() {
 
     function GenerateCombatsButton() {
         return (
-            <div>{state.rowSelected && <Button className="combat-button" variant="dark"
+            <div>{state.buttonsVisible && <Button className="combat-button" variant="dark"
             onClick={() => {
-                setState({rowSelected: false, combatsGenerated: true});
+                setState({buttonsVisible: false, combatsVisible: true});
             }}>Krzyżówka 15</Button>}</div>
+        );
+    }
+
+    function GenerateCombatsButtons() {
+        return (
+            <Box className="combats">
+                <GenerateCombatsButton/>
+                <GenerateCombatsButton/>
+                <GenerateCombatsButton/>
+            </Box>
         );
     }
 
     function Combats() {
         return (
-            <div>{state.combatsGenerated &&
+            <div>{state.combatsVisible &&
                 <Box className="details-card">
                     <Box className="combat">
                         <Row className="detail-row">
@@ -162,18 +178,9 @@ function Draw() {
         );
     }
 
-    function GenerateCombatsButtons() {
-        return (
-            <Box className="combats">
-                <GenerateCombatsButton/>
-                <GenerateCombatsButton/>
-                <GenerateCombatsButton/>
-            </Box>
-        );
-    }
-
     return (
         <Container className='draw'>
+            <h1 className="title">Draw</h1>
             <Row>
                 <Col className="col-6">
                     <Categories/>
