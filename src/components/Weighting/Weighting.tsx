@@ -13,6 +13,8 @@ const desktopServerUrl = "http://localhost:8080/";
 
 //TODO: access to photos without the url - possibly no access to internet during tournament
 //TODO: the 'club' field is missing in data received from the endpoint - add the field or remove club info from front
+//TODO: fix: GET for competitor details takes two clicks on row instead of one
+//TODO: fix: POST for weighting details takes two button clicks instead of one
 
 function Weighting() {
     const [personalDetails, setPersonalDetails] = useState(() => new PersonalDetails(
