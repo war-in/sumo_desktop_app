@@ -15,24 +15,6 @@ function TournamentDraw() {
   const location = useLocation();
   const {weight, age, sex, nr} = location.state as LocationState
 
-  function generateRounds(nr: string) {
-    var number = parseInt(nr);
-    var rounds = 0;
-
-    switch (true) {
-      case number <= 5:
-        rounds = 1;
-        break;
-
-      case number <= 16:
-        rounds = 5;
-        break;
-    }
-    // return (
-    //
-    //
-  }
-
   return (
     <Container className="tournament-container h-100">
       <h1 className="h-10 p-0 m-0">{weight}kg {age} {sex}</h1>
