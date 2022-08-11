@@ -11,34 +11,29 @@ function TournamentMenu() {
   let navigate = useNavigate();
 
   function CategoriesAtCompetition() {
+    const styles: React.CSSProperties = {
+      textAlign: "center"
+    }
     const Columns = [
       {
         "title": "Weight",
         "field": "weight",
-        "cellStyle": {
-          textAlign: "center"
-        }
+        "cellStyle": styles
       },
       {
         "title": "Age",
         "field": "age",
-        "cellStyle": {
-          textAlign: "center"
-        }
+        "cellStyle": styles
       },
       {
         "title": "Sex",
         "field": "sex",
-        "cellStyle": {
-          textAlign: "center"
-        }
+        "cellStyle": styles
       },
       {
         "title": "Nr of competitors",
         "field": "nr",
-        "cellStyle": {
-          textAlign: "center"
-        }
+        "cellStyle": styles
       },
     ]
 
