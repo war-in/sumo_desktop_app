@@ -11,7 +11,6 @@ import axios from "axios";
 const competitionId = 1;
 const desktopServerUrl = "http://localhost:8080/";
 
-//TODO: access to photos without the url - possibly no access to internet during tournament
 //TODO: the 'club' field is missing in data received from the endpoint - add the field or remove club info from front
 //TODO: fix: GET for competitor details takes two clicks on row instead of one
 //TODO: fix: POST for weighting details takes two button clicks instead of one
@@ -21,7 +20,7 @@ function Weighting() {
         null,
         "",
         "",
-        "",
+        "blank.png",
         "",
         ""));
     const [competitor, setCompetitor] = useState(() => new Competitor(
@@ -157,7 +156,7 @@ function Weighting() {
         return (
             <Box className="details-card">
                 <Box className="photo-box">
-                    <Image className="photo" src={personalDetails.profilePhoto}/>
+                    <Image className="photo" src={require(`/public/images/${personalDetails.profilePhoto}`).default} />
                 </Box>
                 <Box>
                     <Row className="detail">{personalDetails.name} {personalDetails.surname}</Row>
