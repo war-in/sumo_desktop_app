@@ -129,51 +129,32 @@ function Draw() {
         );
     }
 
+    function Combat(){
+        return (
+            <Box className="combat">
+                <Row className="detail">Para 1 A</Row>
+                <Row className="detail">Para 1 B</Row>
+            </Box>
+        );
+    }
+
     function Combats() {
         return (
             <div>{state.combatsVisible &&
-                <Box className="details-card">
-                    <Box className="combat">
-                        <Row className="detail-row">
-                            <Col className="detail">A</Col>
-                            <Col className="detail">A</Col>
-                        </Row>
-                        <Row className="details-row">
-                            <Col className="detail">B</Col>
-                            <Col className="detail">B</Col>
-                        </Row>
-                    </Box>
-                    <Box className="combat">
-                        <Row className="detail-row">
-                            <Col className="detail">A</Col>
-                            <Col className="detail">A</Col>
-                        </Row>
-                        <Row className="details-row">
-                            <Col className="detail">B</Col>
-                            <Col className="detail">B</Col>
-                        </Row>
-                    </Box>
-                    <Box className="combat">
-                        <Row className="detail-row">
-                            <Col className="detail">A</Col>
-                            <Col className="detail">A</Col>
-                        </Row>
-                        <Row className="details-row">
-                            <Col className="detail">B</Col>
-                            <Col className="detail">B</Col>
-                        </Row>
-                    </Box>
-                    <Box className="combat">
-                        <Row className="detail-row">
-                            <Col className="detail">A</Col>
-                            <Col className="detail">A</Col>
-                        </Row>
-                        <Row className="details-row">
-                            <Col className="detail">B</Col>
-                            <Col className="detail">B</Col>
-                        </Row>
-                    </Box>
-                </Box>
+                <Container className="combats">
+                    <Row className="details-card">
+                        <Col>
+                            <Combat/>
+                            <Combat/>
+                            <Combat/>
+                        </Col>
+                        <Col>
+                            <Combat/>
+                            <Combat/>
+                            <Combat/>
+                        </Col>
+                    </Row>
+                </Container>
             }</div>
         );
     }
