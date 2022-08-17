@@ -11,6 +11,12 @@ import {Box} from "@material-ui/core";
 function Draw() {
 
     const [state, setState] = useState({buttonsVisible: false, combatsVisible: false});
+    const showButtons = () => {
+        setState({buttonsVisible: true, combatsVisible: false})
+    }
+    const showFights = () => {
+        setState({buttonsVisible: false, combatsVisible: true})
+    }
 
     function CategoryDetails() {
         const Columns = [
@@ -87,24 +93,27 @@ function Draw() {
         return (
             <Box className="categories">
                 <MaterialTable
-                    title="Categories"
+                    title="Multiple Detail Panels Preview"
                     columns={Columns}
                     data={dataset}
                     options={{
                         doubleHorizontalScroll: true,
                         maxBodyHeight: 500,
-                        search: false,
-                        detailPanelType: "single",
-                        detailPanelColumnAlignment: "right",
-                        detailPanelColumnStyle: { display: 'none'},
+                        search: false
                     }}
                     onRowClick={(event, rowData, togglePanel) => {
-                        togglePanel();
-                        setState({buttonsVisible: true, combatsVisible: false})
+                        showButtons()
                     }}
-                    detailPanel={ rowData => {
-                        return (<CategoryDetails/>)
-                    }}
+                    detailPanel={[
+                        {
+                            tooltip: 'zawodnicy',
+                            render: rowData => {
+                                return (
+                                    <CategoryDetails/>
+                                )
+                            },
+                        }
+                    ]}
                 />
             </Box>
         );
@@ -113,9 +122,9 @@ function Draw() {
     function GenerateCombatsButton() {
         return (
             <div>{state.buttonsVisible && <Button className="combat-button" variant="dark"
-            onClick={() => {
-                setState({buttonsVisible: false, combatsVisible: true});
-            }}>Krzyżówka 15</Button>}</div>
+                                                  onClick={() => {
+                                                      setState({buttonsVisible: false, combatsVisible: true});
+                                                  }}>Krzyżówka 15</Button>}</div>
         );
     }
 
@@ -129,7 +138,7 @@ function Draw() {
         );
     }
 
-    function Combat(){
+    function Combat() {
         return (
             <Box className="combat">
                 <Row className="detail">Para 1 A</Row>
