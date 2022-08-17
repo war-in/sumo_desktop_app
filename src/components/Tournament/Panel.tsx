@@ -1,7 +1,14 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
+import {DrawType, Model} from "./Model";
+import React from "react";
 
-function Panel() {
+type Props = {
+  model: Model,
+  drawType: DrawType,
+}
+
+const Panel: React.FC<Props> = (props) => {
   return (
     <Container>
       <Row className="h-100">
@@ -11,7 +18,10 @@ function Panel() {
         <Col className="col-8">
           <Row>
             <Col>
-              <Button className="panel-button-current">Marcin Warchoł</Button>
+              <Button className="panel-button-current" onClick={ () => {
+                props.drawType.roundNames[0] = "zmiana"
+              }
+              }>Marcin Warchoł</Button>
             </Col>
             <Col>
               <Button className="panel-button-current">Jakub Nowakowski</Button>

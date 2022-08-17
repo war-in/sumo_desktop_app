@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function TournamentMenu() {
 
-  const [state, setState] = useState({rowSelected: false, combatsGenerated: false});
+  const [state, setState] = useState({rowSelected: false});
   let navigate = useNavigate();
 
   function CategoriesAtCompetition() {
@@ -64,6 +64,39 @@ function TournamentMenu() {
       nr: 15
     }];
 
+    const drawTypes = [
+      {
+        numberOfCompetitors: 14,
+        region: "EUROPE",
+        numberOfRounds: 5,
+        roundNames: ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"]
+      },
+      {
+        numberOfCompetitors: 14,
+        region: "EUROPE",
+        numberOfRounds: 5,
+        roundNames: ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"]
+      },
+      {
+        numberOfCompetitors: 14,
+        region: "EUROPE",
+        numberOfRounds: 5,
+        roundNames: ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"]
+      },
+      {
+        numberOfCompetitors: 14,
+        region: "EUROPE",
+        numberOfRounds: 5,
+        roundNames: ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"]
+      },
+      {
+        numberOfCompetitors: 14,
+        region: "EUROPE",
+        numberOfRounds: 5,
+        roundNames: ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"]
+      }
+    ]
+
     return (
       <Container className="tournament-box">
         <MaterialTable
@@ -83,9 +116,10 @@ function TournamentMenu() {
             },
           }}
           onRowClick={(event, rowData, toggleDetailPanel) => {
-            setState({rowSelected: true, combatsGenerated: false});
+            setState({rowSelected: true});
+            console.log("tutaj")
             console.log(rowData)
-            navigate("/tournament-draw", {state: rowData})
+            navigate("/tournament-draw", {state: {rowData: rowData, drawType: drawTypes[rowData.tableData.id]}})
           }}
         />
       </Container>
