@@ -1,35 +1,71 @@
 import React from "react";
 import {Model} from "./Model";
 import {Round} from "../../objects/fightModel/Round";
-import {Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import Competitor from "../../objects/Competitor";
+import {IDraw} from "../../objects/fightModel/draws/IDraw";
+import IndividualMatch from "../../objects/fightModel/IndividualMatch";
 
 type Props = {
   model: Model,
   roundId: number
 }
 
+function generateGroup(draw: IDraw, start: number, end: number) {
+  const matches: IndividualMatch[] = draw.matches
+
+  return (
+    matches.map((match, index) => {
+      if(start <= index && index <= end) {
+        return (
+          <Container id={index.toString()}>
+            <Button>
+              {match.firstCompetitor.personalDetails.name + ' ' + match.firstCompetitor.personalDetails.surname}
+            </Button>
+            <Button>
+              {match.secondCompetitor.personalDetails.name + ' ' + match.secondCompetitor.personalDetails.surname}
+            </Button>
+          </Container>
+      )
+      }
+    })
+  )
+}
+
+function generateWinners(draw: IDraw, start: number, end: number) {
+  const matches: IndividualMatch[] = draw.matches
+
+  return (
+    matches.map((match, index) => {
+      if(start <= index && index <= end) {
+        return (
+          <Button>
+            {match.winner?.personalDetails.name + ' ' + match.winner?.personalDetails.surname}
+          </Button>
+        )
+      }
+    })
+  )
+}
+
 const Slide: React.FC<Props> =  (props) => {
   const name: string = props.model.drawType.roundNames[props.roundId];
   const roundData: Round = props.model.draw.rounds[props.roundId];
-  // @ts-ignore
-  const numOfFights: number = 10;
-  const competitors: Competitor[] = props.model.draw.competitors;
   return (
     <Container>
       <h2>{name}</h2>
       <Row>
         <Col className="col-3">
-          <h3>"tu"</h3>
+          {generateGroup(props.model.draw, roundData.firstFightIndex, (roundData.firstFightIndex+roundData.lastFightIndex)/2)}
         </Col>
         <Col className="col-3">
-          <h3>"tu"</h3>
+          {generateWinners(props.model.draw, roundData.firstFightIndex, (roundData.firstFightIndex+roundData.lastFightIndex)/2)}
         </Col>
         <Col className="col-3">
-          <h3>"tu"</h3>
+          {generateWinners(props.model.draw, (roundData.firstFightIndex+roundData.lastFightIndex)/2+1, roundData.lastFightIndex)}
         </Col>
         <Col className="col-3">
-          <h3>"tu"</h3>
+          {generateGroup(props.model.draw, (roundData.firstFightIndex+roundData.lastFightIndex)/2+1, roundData.lastFightIndex)}
         </Col>
       </Row>
     </Container>

@@ -9,6 +9,14 @@ type Props = {
 }
 
 const Panel: React.FC<Props> = (props) => {
+
+  const currenFightId = props.model.draw.actualFightIndex;
+  const firstCompetitor = props.model.draw.matches[currenFightId].firstCompetitor
+  const secondCompetitor = props.model.draw.matches[currenFightId].secondCompetitor
+
+  const nextFirstCompetitor = props.model.draw.matches[currenFightId+1].firstCompetitor
+  const nextSecondCompetitor = props.model.draw.matches[currenFightId+1].secondCompetitor
+
   return (
     <Container>
       <Row className="h-100">
@@ -18,21 +26,26 @@ const Panel: React.FC<Props> = (props) => {
         <Col className="col-8">
           <Row>
             <Col>
-              <Button className="panel-button-current" onClick={ () => {
-                props.drawType.roundNames[0] = "zmiana"
-              }
-              }>Marcin Warchoł</Button>
+              <Button className="panel-button-current">
+                {firstCompetitor.personalDetails.name + '' + firstCompetitor.personalDetails.surname}
+              </Button>
             </Col>
             <Col>
-              <Button className="panel-button-current">Jakub Nowakowski</Button>
+              <Button className="panel-button-current">
+                {secondCompetitor.personalDetails.name + '' + secondCompetitor.personalDetails.surname}
+              </Button>
             </Col>
           </Row>
           <Row>
             <Col>
-              <Button className="panel-button-next" style={{float: "right"}}>Adam Nowak</Button>
+              <Button className="panel-button-next" style={{float: "right"}}>
+                {nextFirstCompetitor.personalDetails.name + '' + nextFirstCompetitor.personalDetails.surname}
+              </Button>
             </Col>
             <Col>
-              <Button className="panel-button-next" style={{float: "left"}}>Gabriela Erazmus</Button>
+              <Button className="panel-button-next" style={{float: "left"}}>
+                {nextSecondCompetitor.personalDetails.name + '' + nextSecondCompetitor.personalDetails.surname}
+              </Button>
             </Col>
           </Row>
         </Col>
