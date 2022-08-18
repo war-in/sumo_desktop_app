@@ -1,22 +1,25 @@
 import {useLocation} from "react-router-dom";
-import {Location} from "history";
 import {Col, Container, Row} from "react-bootstrap";
 import Carousel from 'react-bootstrap/Carousel';
 import Panel from "./Panel";
 import Slide from "./Slide";
 import {useState} from "react";
-import {DrawType, Model, RowData} from "./Model";
+import {DrawFromDatabase, Model, RowData} from "./Model";
+// @ts-ignore
+import competitors from "../../mocks/CompetitorsAtCategory.json";
 
 
 type LocationState = {
   rowData: RowData,
-  drawType: DrawType
+  drawFromDatabase: DrawFromDatabase
 }
 
 function slider(model: Model) {
   const slides = []
 
-  for (let i=0; i < model.drawType.numberOfRounds; i++)
+  console.log(model)
+
+  for (let i=0; i < model.drawFromDatabase.drawType.numberOfRounds; i++)
     slides.push(<Slide model={model} roundId={i}/>)
 
   return (
@@ -33,9 +36,9 @@ function slider(model: Model) {
 
 function TournamentDraw() {
   const location = useLocation();
-  const {rowData, drawType} = location.state as LocationState
+  const {rowData, drawFromDatabase} = location.state as LocationState
 
-  const [model, setModel] = useState<Model>(new Model(drawType, rowData, []));
+  const [model, setModel] = useState<Model>(new Model(drawFromDatabase, rowData, competitors));
 
   return (
     <Container className="tournament-container h-100">
@@ -44,7 +47,7 @@ function TournamentDraw() {
         {slider(model)}
       </Row>
       <Row className="panel">
-        <Panel model={model} drawType={drawType}/>
+        <Panel model={model} setModel={setModel}/>
       </Row>
     </Container>
   )

@@ -1,0 +1,71 @@
+{
+  "dataset": [
+    {
+      "weight": 60,
+      "age": "Junior",
+      "sex": "Female"
+    },
+    {
+      "weight": 100,
+      "age": "Senior",
+      "sex": "Male"
+    },
+    {
+      "weight": 115,
+      "age": "Senior",
+      "sex": "Female"
+    }
+  ],
+  "draws" : [
+    {
+      "id": 1,
+      "drawType": {
+        "id": 1,
+        "numberOfCompetitors": 14,
+        "region": "EUROPE",
+        "numberOfRounds": 5,
+        "roundNames": [
+          "Round 1",
+          "Round 2",
+          "Round 3",
+          "Round 4",
+          "Round 5"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "drawType": {
+        "id": 3,
+        "numberOfCompetitors": 8,
+        "region": "EUROPE",
+        "numberOfRounds": 4,
+        "roundNames": [
+          "Round 1",
+          "Round 2",
+          "Round 3",
+          "Round 4"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "drawType": {
+        "id": 2,
+        "numberOfCompetitors": 32,
+        "region": "EUROPE",
+        "numberOfRounds": 8,
+        "roundNames": [
+          "Round 1",
+          "Round 2",
+          "Round 3",
+          "Round 4",
+          "Round 5",
+          "Round 6",
+          "Round 7",
+          "Round 8"
+        ]
+      }
+    }
+  ]
+}

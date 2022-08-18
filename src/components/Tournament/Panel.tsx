@@ -1,14 +1,16 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
-import {DrawType, Model} from "./Model";
+import {Model} from "./Model";
 import React from "react";
 
 type Props = {
   model: Model,
-  drawType: DrawType,
+  setModel: React.Dispatch<React.SetStateAction<Model>>
 }
 
 const Panel: React.FC<Props> = (props) => {
+
+  console.log(props.model)
 
   const currenFightId = props.model.draw.actualFightIndex;
   const firstCompetitor = props.model.draw.matches[currenFightId].firstCompetitor

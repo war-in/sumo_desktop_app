@@ -2,11 +2,14 @@ import {IDraw} from "../../objects/fightModel/draws/IDraw";
 import RoundRobinDraw from "../../objects/fightModel/draws/RoundRobinDraw";
 import Competitor from "../../objects/Competitor";
 
-export type DrawType = {
-  numberOfCompetitors: number,
-  region: string,
-  numberOfRounds: bigint,
-  roundNames: [name: string]
+export type DrawFromDatabase = {
+  id: number,
+  drawType: {
+    numberOfCompetitors: number,
+    region: string,
+    numberOfRounds: bigint,
+    roundNames: [name: string]
+  }
 }
 
 export type RowData = {
@@ -17,13 +20,14 @@ export type RowData = {
 }
 
 export class Model {
-  drawType: DrawType;
+  drawFromDatabase: DrawFromDatabase;
   rowData: RowData;
   draw: IDraw;
 
-  constructor(drawType: DrawType, rowData: RowData, competitors: Competitor[]) {
-    this.drawType = drawType;
+  constructor(drawFromDatabase: DrawFromDatabase, rowData: RowData, competitors: Competitor[]) {
+    this.drawFromDatabase = drawFromDatabase;
     this.rowData = rowData;
+    // @ts-ignore
     this.draw = new RoundRobinDraw(competitors);
   }
 }
