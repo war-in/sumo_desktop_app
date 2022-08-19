@@ -26,11 +26,13 @@ export default class RoundRobinDraw implements IDraw {
         let lastConnected = carusele.length - 1
         let actualFightIndex = 0
         console.log(carusele)
-        this.matches.forEach(function (match: IndividualMatch) {
+        this.matches.forEach(function(part, index, theArray) {
             console.log(carusele[startConnected])
-            match.firstCompetitor = carusele[startConnected]
-            match.secondCompetitor = carusele[lastConnected]
-            console.log(match)
+
+            theArray[index].firstCompetitor =  structuredClone(carusele[startConnected])
+            theArray[index].secondCompetitor =structuredClone(carusele[lastConnected])
+            console.log(theArray[index])
+
 
             startConnected++;
             lastConnected--;
