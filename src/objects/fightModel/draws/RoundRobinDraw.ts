@@ -9,27 +9,28 @@ export default class RoundRobinDraw implements IDraw {
     rounds: Round[];
     competitors: Competitor[]
 
-
     constructor(competitors: Competitor[]) {
+        this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = [new Round("Round robin", 0, undefined)]
         let numberOfMatches = (competitors.length * (competitors.length - 1) / 2)
         this.matches = new Array(numberOfMatches).fill(new IndividualMatch(null, null, null))
         let carusele = competitors.length % 2 == 0 ? new Array(competitors.length) : new Array(competitors.length + 1)
         let startConnected = 0;
-        let lastConnected = competitors.length % 2 ? competitors.length - 1 : competitors.length - 2
+        let lastConnected = carusele.length - 1
         let actualFightIndex = 0
-        this.matches.forEach(function (match:IndividualMatch){
-            match.firstCompetitor = competitors[startConnected]
-            match.secondCompetitor = competitors[lastConnected]
+        this.matches.forEach(function (match: IndividualMatch) {
+            match.firstCompetitor = carusele[startConnected]
+            match.secondCompetitor = carusele[lastConnected]
             startConnected++;
             lastConnected--;
-
-            if(lastConnected<=startConnected){
+            if (lastConnected <= startConnected) {
                 let startConnected = 0;
-                let lastConnected = competitors.length % 2 ? competitors.length - 1 : competitors.length - 2
-
-            //    tutaj przesłuwam tablice
+                let lastConnected = carusele.length - 1
+                if (competitors.length % 2) {
+                    carusele.reverse()
+                    carusele = carusele.slice(0,1).concat(carusele.slice(1,lastConnected))
+                }
             }
         })
     }
@@ -56,6 +57,10 @@ export default class RoundRobinDraw implements IDraw {
 
     playActualMatch(firstWinn: boolean): void {
         this.getActualMatch().playMatch(firstWinn);
+    }
+
+    getActualRound(): Round {
+        return this.rounds[0]
     }
 
 
