@@ -2,6 +2,8 @@ import {IDraw} from "./IDraw";
 import IndividualMatch from "../IndividualMatch";
 import {Round} from "../Round";
 import Competitor from "../../Competitor";
+import PersonalDetails from "../../PersonalDetails";
+import Category from "../../Category";
 
 export default class RoundRobinDraw implements IDraw {
     actualFightIndex: number;
@@ -10,18 +12,26 @@ export default class RoundRobinDraw implements IDraw {
     competitors: Competitor[]
 
     constructor(competitors: Competitor[]) {
+        let personal = new PersonalDetails(null,"Wolny Los","Wolny Los","Wolny Los","Wolny Los","Wolny Los")
+        let competitor = new Competitor(null,personal,"Wolny Los","Wolny Los",new Category("Wolny Los","Wolny Los","Wolny Los"),0)
         this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = [new Round("Round robin", 0, undefined)]
         let numberOfMatches = (competitors.length * (competitors.length - 1) / 2)
         this.matches = new Array(numberOfMatches).fill(new IndividualMatch(null, null, null))
-        let carusele = competitors.length % 2 == 0 ? new Array(competitors.length) : new Array(competitors.length + 1)
+        let carusele = competitors.slice()
+         carusele = carusele.length % 2 == 0 ? carusele : carusele.concat([competitor]).reverse()
+
         let startConnected = 0;
         let lastConnected = carusele.length - 1
         let actualFightIndex = 0
+        console.log(carusele)
         this.matches.forEach(function (match: IndividualMatch) {
+            console.log(carusele[startConnected])
             match.firstCompetitor = carusele[startConnected]
             match.secondCompetitor = carusele[lastConnected]
+            console.log(match)
+
             startConnected++;
             lastConnected--;
             if (lastConnected <= startConnected) {
