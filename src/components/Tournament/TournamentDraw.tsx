@@ -7,6 +7,8 @@ import {useState} from "react";
 import {DrawFromDatabase, Model, RowData} from "./Model";
 // @ts-ignore
 import competitors from "../../mocks/CompetitorsAtCategory.json";
+import Competitor from "../../objects/Competitor";
+import PersonalDetails from "../../objects/PersonalDetails";
 
 
 type LocationState = {
@@ -34,11 +36,24 @@ function slider(model: Model) {
   )
 }
 
+function createCompetitors(competitors: Competitor[]) {
+  return (
+    competitors.map(competitor => {
+
+      const personal_details = new PersonalDetails(competitor.personalDetails.id, competitor.personalDetails.name, competitor.personalDetails.surname, null, null, null);
+      return new Competitor(competitor.id, personal_details, null, null, null, null);
+    })
+  )
+
+}
+
 function TournamentDraw() {
   const location = useLocation();
   const {rowData, drawFromDatabase} = location.state as LocationState
 
-  const [model, setModel] = useState<Model>(new Model(drawFromDatabase, rowData, competitors));
+  const [model, setModel] = useState<Model>(new Model(drawFromDatabase, rowData, createCompetitors(competitors)));
+
+  console.log(model)
 
   return (
     <Container className="tournament-container h-100">

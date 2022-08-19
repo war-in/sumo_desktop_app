@@ -10,7 +10,7 @@ type Props = {
 
 const Panel: React.FC<Props> = (props) => {
 
-  console.log(props.model)
+  console.log(props.model.draw.matches)
 
   const currenFightId = props.model.draw.actualFightIndex;
   const firstCompetitor = props.model.draw.matches[currenFightId].firstCompetitor
@@ -18,6 +18,9 @@ const Panel: React.FC<Props> = (props) => {
 
   const nextFirstCompetitor = props.model.draw.matches[currenFightId+1].firstCompetitor
   const nextSecondCompetitor = props.model.draw.matches[currenFightId+1].secondCompetitor
+
+  console.log(firstCompetitor);
+  console.log(secondCompetitor);
 
   return (
     <Container>
