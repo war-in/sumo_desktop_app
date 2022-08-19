@@ -19,6 +19,9 @@ export default class IndividualMatch{
 
     set firstCompetitor(value: Competitor|null) {
         this._firstCompetitor = value;
+        console.log("setuje pierwszego")
+        console.log(value)
+
     }
 
     get secondCompetitor(): Competitor|null {
