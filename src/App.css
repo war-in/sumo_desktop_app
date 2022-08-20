@@ -2,13 +2,19 @@
 
 * {
     font-family: 'Lato', sans-serif;
+    background-color: #FFFCF5;
+}
+
+.main-container {
+    height: 100vh;
 }
 
 .home,
 .tournament,
 .reports,
 .weighting,
-.draw
+.draw,
+.team-fight
 {
     margin-top: 20px;
     align-items: center;

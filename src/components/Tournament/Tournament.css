@@ -1,0 +1,42 @@
+.tournament-box {
+    width: 50%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.tournament-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.draw-row {
+    height: 75%;
+}
+
+.panel {
+    height: 25%;
+}
+
+.panel-button-current {
+    width: 70%;
+}
+
+.panel-button-next {
+    width: 50%;
+    align-content: end;
+    margin: 1%;
+    opacity: 0.5;
+}
+
+.carousel {
+    height: 100%;
+}
+
+.round {
+    vertical-align: middle !important;
+}

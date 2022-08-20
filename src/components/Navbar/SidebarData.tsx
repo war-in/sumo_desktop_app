@@ -7,7 +7,7 @@ import * as TbIcons from 'react-icons/tb';
 export const SidebarData = [
   {
     title: 'Home',
-    path: '/',
+    path: '/team-fight',
     icon: <FiIcons.FiHome/>,
     cName: 'nav-text'
   },

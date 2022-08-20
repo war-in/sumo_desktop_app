@@ -1,0 +1,121 @@
+[
+  {
+    "personalDetails": {
+      "id": 1,
+      "name": "Jakub",
+      "surname": "Nowakowski",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "name": "Maciek",
+      "surname": "Nowakowski",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthdate": "17-08-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "80kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "name": "Bartosz",
+      "surname": "Nowakowski",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "name": "Maksymilian",
+      "surname": "Nowakowski",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "name": "Paweł",
+      "surname": "Nowakowski",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "name": "Jan",
+      "surname": "Nowakowski",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "name": "Dyzma",
+      "surname": "Nowakowski",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://avatars.githubusercontent.com/u/61011609?s=400&u=41647a0aad302f518e14d40cd980f2f41278c57e&v=4",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  }
+]
