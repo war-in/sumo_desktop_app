@@ -1,20 +1,17 @@
 import PersonalDetails from "./PersonalDetails";
-import Category from "./Category";
 
 export default class Competitor {
     private _id: number | null;
-    private _personalDetails: PersonalDetails;
-    private _country: string;
-    private _club: string;
-    private _category: Category;
+    private _personalDetails: PersonalDetails | null;
+    private _country: string  | null;
+    private _club: string | null;
     private _weight: number | null;
 
-    constructor(id: number | null, personalDetails: PersonalDetails, country: string, club: string, category: Category, weight: number | null) {
+    constructor(id: number | null, personalDetails: PersonalDetails | null, country: string | null, club: string | null, weight: number | null) {
         this._id = id;
         this._personalDetails = personalDetails;
         this._country = country;
         this._club = club;
-        this._category = category;
         this._weight = weight;
     }
 
@@ -26,36 +23,28 @@ export default class Competitor {
         this._id = value;
     }
 
-    get personalDetails(): PersonalDetails {
+    get personalDetails(): PersonalDetails  | null{
         return this._personalDetails;
     }
 
-    set personalDetails(value: PersonalDetails) {
+    set personalDetails(value: PersonalDetails | null) {
         this._personalDetails = value;
     }
 
-    get country(): string {
+    get country(): string  | null{
         return this._country;
     }
 
-    set country(value: string) {
+    set country(value: string | null) {
         this._country = value;
     }
 
-    get club(): string {
+    get club(): string  | null{
         return this._club;
     }
 
-    set club(value: string) {
+    set club(value: string | null) {
         this._club = value;
-    }
-
-    get category(): Category {
-        return this._category;
-    }
-
-    set category(value: Category) {
-        this._category = value;
     }
 
     get weight(): number | null {
