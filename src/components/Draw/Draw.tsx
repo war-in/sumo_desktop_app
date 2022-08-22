@@ -1,13 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Row} from "react-bootstrap";
 import './Draw.css';
 import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
+import axios from "axios";
+
+//TODO: competitionId and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
+const competitionId = 1;
+const desktopServerUrl = "http://localhost:8080/";
 
 //TODO: add generating logic for Buttons and Combat view
 //TODO: connect to backend
 
 function Draw() {
+    const [categories, setCategories] = useState([]);
+
+    let categoriesToIndexes = {};
 
     const [state, setState] = useState({buttonsVisible: false, combatsVisible: false});
     const showButtons = () => {
@@ -17,34 +25,30 @@ function Draw() {
         setState({buttonsVisible: false, combatsVisible: true})
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + competitionId)
+                .then(response => {
+                    setCategories(response.data)
+                })
+        }
+        fetchData()
+    }, []);
+
     function combatsAlreadyGenerated(category: number) {
         return category > 60;
     }
 
-    function CategoryDetails() {
+    function CategoryDetails({categoryId}) {
         const Columns = [
             {"title": undefined, "field": "id"},
-            {"title": undefined, "field": "name"},
-            {"title": undefined, "field": "club"},
+            {"title": undefined, "field": "personalDetails.surname"},
+            {"title": undefined, "field": "personalDetails.name"},
+            {"title": undefined, "field": "country"},
         ]
 
-        const dataset = [{
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }, {
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }, {
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }, {
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }];
+        //console.log(categoriesToIndexes[categoryId])
+        const dataset = categories[categoriesToIndexes[categoryId]].competitors;
 
         return (
             <Box className="category-details">
@@ -65,40 +69,24 @@ function Draw() {
 
     function Categories() {
         const Columns = [
-            {"title": "Weight", "field": "weight"},
-            {"title": "Age", "field": "age"},
-            {"title": "Sex", "field": "sex"},
-            {"title": "Nr of competitors", "field": "nr"},
+            {"title": "Weight", "field": "category.weightCategory"},
+            {"title": "Age", "field": "category.ageCategory.name"},
+            {"title": "Sex", "field": "category.sex.sex"},
+            {"title": "Nr of competitors", "field": "competitors.length"},
         ]
 
-        const dataset = [{
-            weight: 60,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }, {
-            weight: 70,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }, {
-            weight: 60,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }, {
-            weight: 60,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }];
+        useEffect(() => {
+            for (let i = 0; i < categories.length; i++) {
+                categoriesToIndexes[categories[i].category.id] = i;
+            }
+        }, []);
 
         return (
             <Box className="categories">
                 <MaterialTable
                     title="Categories"
                     columns={Columns}
-                    data={dataset}
+                    data={categories}
                     options={{
                         doubleHorizontalScroll: true,
                         maxBodyHeight: 500,
@@ -118,7 +106,7 @@ function Draw() {
                             tooltip: 'Competitors',
                             render: rowData => {
                                 return (
-                                    <CategoryDetails/>
+                                    <CategoryDetails categoryId={rowData.category.id}/>
                                 )
                             },
                         }
@@ -181,7 +169,7 @@ function Draw() {
                 <Col className="col-6">
                     <Categories/>
                 </Col>
-                <Col className="col-5">
+                <Col className="col-6">
                     <GenerateCombatsButtons/>
                     <Combats/>
                 </Col>
