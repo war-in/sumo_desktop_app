@@ -4,7 +4,6 @@ import './Draw.css';
 import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
 
-//TODO: fix onRowClick in categories table - setState function cancells togglePanel function
 //TODO: add generating logic for Buttons and Combat view
 //TODO: connect to backend
 
@@ -16,6 +15,10 @@ function Draw() {
     }
     const showFights = () => {
         setState({buttonsVisible: false, combatsVisible: true})
+    }
+
+    function combatsAlreadyGenerated(category: number) {
+        return category > 60;
     }
 
     function CategoryDetails() {
@@ -74,7 +77,7 @@ function Draw() {
             sex: "Female",
             nr: 15
         }, {
-            weight: 60,
+            weight: 70,
             age: "Junior",
             sex: "Female",
             nr: 15
@@ -93,20 +96,26 @@ function Draw() {
         return (
             <Box className="categories">
                 <MaterialTable
-                    title="Multiple Detail Panels Preview"
+                    title="Categories"
                     columns={Columns}
                     data={dataset}
                     options={{
                         doubleHorizontalScroll: true,
                         maxBodyHeight: 500,
-                        search: false
+                        search: false,
+                        detailPanelType: "single"
                     }}
-                    onRowClick={(event, rowData, togglePanel) => {
-                        showButtons()
+                    onRowClick={(event, rowData) => {
+                        if (rowData == null) return
+                        if (combatsAlreadyGenerated(rowData.weight)) {
+                            showFights()
+                        } else {
+                            showButtons()
+                        }
                     }}
                     detailPanel={[
                         {
-                            tooltip: 'zawodnicy',
+                            tooltip: 'Competitors',
                             render: rowData => {
                                 return (
                                     <CategoryDetails/>
@@ -120,12 +129,9 @@ function Draw() {
     }
 
     function GenerateCombatsButton() {
-        return (
-            <div>{state.buttonsVisible && <Button className="combat-button" variant="dark"
-                                                  onClick={() => {
-                                                      setState({buttonsVisible: false, combatsVisible: true});
-                                                  }}>Krzyżówka 15</Button>}</div>
-        );
+        return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={() => {
+            showFights();
+        }}>Krzyżówka 15</Button>}</div>);
     }
 
     function GenerateCombatsButtons() {
