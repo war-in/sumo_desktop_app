@@ -151,8 +151,8 @@ function Draw() {
     function Combat({combat}) {
         return (
             <Box className="combat">
-                <Row className="detail">{combat[0].id}</Row>
-                <Row className="detail">{combat[1].id}</Row>
+                <Row className="detail">{combat[0].personalDetails!=null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
+                <Row className="detail">{combat[1].personalDetails!=null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
             </Box>
         );
     }

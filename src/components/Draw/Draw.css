@@ -10,6 +10,12 @@
     margin: 10px;
 }
 
+.save-button {
+    width: 150px;
+    margin-top: 20px;
+    margin-left: 220px;
+}
+
 .combats{
     margin-top: 20px;
 }
