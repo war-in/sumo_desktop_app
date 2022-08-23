@@ -156,22 +156,7 @@ function Draw() {
             let body = {
                 competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
                 drawType: selectedDrawType,
-                categoryAtCompetition: {
-                    id: 2,
-                    competition: {
-                        id: 1,
-                        idFromServer: 1,
-                        name: "Mistrzostwa europy Warszawa",
-                        city: "Warszawa",
-                        startDate: "2022-07-18",
-                        endDate: "2022-07-20",
-                        type: {
-                            type: "Mistrzostwa europy"
-                        }
-                    },
-                    category: categories[categoriesToIndexes[selectedCategoryId]].category,
-                    date: "2022-07-19"
-                }
+                categoryAtCompetitionId: selectedCategoryId
             }
             await axios.post(desktopServerUrl + `draw/save-draw`, body)
         }}>Save</Button>);
