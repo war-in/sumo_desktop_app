@@ -5,15 +5,16 @@ import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
 import axios from "axios";
 
-//TODO: competitionId and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
+//TODO: competitionId, region and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
 const competitionId = 1;
+const region = "EUROPE";
 const desktopServerUrl = "http://localhost:8080/";
-
-//TODO: add generating logic for Buttons and Combat view
-//TODO: connect to backend
 
 function Draw() {
     const [categories, setCategories] = useState([]);
+    const [buttons, setButtons] = useState([]);
+    const [combats, setCombats] = useState([[], []]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState();
 
     let categoriesToIndexes = {};
 
@@ -21,7 +22,7 @@ function Draw() {
     const showButtons = () => {
         setState({buttonsVisible: true, combatsVisible: false})
     }
-    const showFights = () => {
+    const showCombats = () => {
         setState({buttonsVisible: false, combatsVisible: true})
     }
 
@@ -35,6 +36,7 @@ function Draw() {
         fetchData()
     }, []);
 
+    //TODO: get this function to work properly
     function combatsAlreadyGenerated(category: number) {
         return category > 60;
     }
@@ -47,7 +49,6 @@ function Draw() {
             {"title": undefined, "field": "country"},
         ]
 
-        //console.log(categoriesToIndexes[categoryId])
         const dataset = categories[categoriesToIndexes[categoryId]].competitors;
 
         return (
@@ -93,11 +94,16 @@ function Draw() {
                         search: false,
                         detailPanelType: "single"
                     }}
-                    onRowClick={(event, rowData) => {
+                    onRowClick={async (event, rowData) => {
                         if (rowData == null) return
                         if (combatsAlreadyGenerated(rowData.weight)) {
-                            showFights()
+                            showCombats()
                         } else {
+                            setSelectedCategoryId(rowData.category.id)
+                            await axios.get(desktopServerUrl + `draw/suggested-draw-types?numberOfCompetitors=` + rowData.competitors.length + `&region=` + region)
+                                .then(response => {
+                                    setButtons(response.data)
+                                })
                             showButtons()
                         }
                     }}
@@ -116,45 +122,64 @@ function Draw() {
         );
     }
 
-    function GenerateCombatsButton() {
-        return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={() => {
-            showFights();
-        }}>Krzyżówka 15</Button>}</div>);
+    function GenerateCombatsButton({drawType}) {
+        return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={async () => {
+            let body = {
+                competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
+                drawType: drawType
+            }
+            await axios.post(desktopServerUrl + `draw`, body)
+                .then(response => {
+                    setCombats(response.data)
+                })
+            showCombats();
+        }}>Draw for {drawType.numberOfCompetitors} competitors</Button>}</div>);
     }
 
     function GenerateCombatsButtons() {
+        let buttonsList = [];
+        buttons.forEach((button) => {
+            buttonsList.push(<GenerateCombatsButton drawType={button}/>)
+        })
         return (
             <Box className="combats">
-                <GenerateCombatsButton/>
-                <GenerateCombatsButton/>
-                <GenerateCombatsButton/>
+                {buttonsList}
             </Box>
         );
     }
 
-    function Combat() {
+    function Combat({combat}) {
         return (
             <Box className="combat">
-                <Row className="detail">Para 1 A</Row>
-                <Row className="detail">Para 1 B</Row>
+                <Row className="detail">{combat[0].id}</Row>
+                <Row className="detail">{combat[1].id}</Row>
             </Box>
         );
     }
 
+    //TODO: combats generation working for all draw types
     function Combats() {
+        let leftList = [];
+        let rightList = [];
+        for (const element of combats[0]) {
+            for (const x of element){
+                leftList.push(<Combat combat={x}/>)
+            }
+        }
+        for (const element of combats[1]) {
+            for (const x of element){
+                rightList.push(<Combat combat={x}/>)
+            }
+        }
         return (
             <div>{state.combatsVisible &&
                 <Container className="combats">
                     <Row className="details-card">
                         <Col>
-                            <Combat/>
-                            <Combat/>
-                            <Combat/>
+                            {leftList}
                         </Col>
                         <Col>
-                            <Combat/>
-                            <Combat/>
-                            <Combat/>
+                            {rightList}
                         </Col>
                     </Row>
                 </Container>
