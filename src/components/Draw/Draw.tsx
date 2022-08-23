@@ -16,6 +16,7 @@ function Draw() {
     const [combats, setCombats] = useState([[], []]);
     const [selectedCategoryId, setSelectedCategoryId] = useState();
     const [selectedDrawType, setSelectedDrawType] = useState();
+    const [generatedCombats, setGeneratedCombats] = useState({});
 
     let categoriesToIndexes = {};
 
@@ -37,9 +38,8 @@ function Draw() {
         fetchData()
     }, []);
 
-    //TODO: get this function to work properly
-    function combatsAlreadyGenerated(category: number) {
-        return category > 60;
+    function combatsAlreadyGenerated(categoryId: number) {
+        return generatedCombats[categoryId] != null;
     }
 
     function CategoryDetails({categoryId}) {
@@ -97,7 +97,8 @@ function Draw() {
                     }}
                     onRowClick={async (event, rowData) => {
                         if (rowData == null) return
-                        if (combatsAlreadyGenerated(rowData.weight)) {
+                        if (combatsAlreadyGenerated(rowData.category.id)) {
+                            setCombats(generatedCombats[rowData.category.id])
                             showCombats()
                         } else {
                             setSelectedCategoryId(rowData.category.id)
@@ -150,7 +151,6 @@ function Draw() {
         );
     }
 
-    //TODO: categoryAtCompetition in saving - how to get it?
     function SaveCombatsButton() {
         return (<Button className="save-button" variant="dark" onClick={async () => {
             let body = {
@@ -159,6 +159,7 @@ function Draw() {
                 categoryAtCompetitionId: selectedCategoryId
             }
             await axios.post(desktopServerUrl + `draw/save-draw`, body)
+            generatedCombats[selectedCategoryId] = combats;
         }}>Save</Button>);
     }
 
