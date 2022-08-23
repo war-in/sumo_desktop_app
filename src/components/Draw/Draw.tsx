@@ -15,6 +15,7 @@ function Draw() {
     const [buttons, setButtons] = useState([]);
     const [combats, setCombats] = useState([[], []]);
     const [selectedCategoryId, setSelectedCategoryId] = useState();
+    const [selectedDrawType, setSelectedDrawType] = useState();
 
     let categoriesToIndexes = {};
 
@@ -132,6 +133,7 @@ function Draw() {
                 .then(response => {
                     setCombats(response.data)
                 })
+            setSelectedDrawType(drawType);
             showCombats();
         }}>Draw for {drawType.numberOfCompetitors} competitors</Button>}</div>);
     }
@@ -148,11 +150,40 @@ function Draw() {
         );
     }
 
+    //TODO: categoryAtCompetition in saving - how to get it?
+    function SaveCombatsButton() {
+        return (<Button className="save-button" variant="dark" onClick={async () => {
+            let body = {
+                competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
+                drawType: selectedDrawType,
+                categoryAtCompetition: {
+                    id: 2,
+                    competition: {
+                        id: 1,
+                        idFromServer: 1,
+                        name: "Mistrzostwa europy Warszawa",
+                        city: "Warszawa",
+                        startDate: "2022-07-18",
+                        endDate: "2022-07-20",
+                        type: {
+                            type: "Mistrzostwa europy"
+                        }
+                    },
+                    category: categories[categoriesToIndexes[selectedCategoryId]].category,
+                    date: "2022-07-19"
+                }
+            }
+            await axios.post(desktopServerUrl + `draw/save-draw`, body)
+        }}>Save</Button>);
+    }
+
     function Combat({combat}) {
         return (
             <Box className="combat">
-                <Row className="detail">{combat[0].personalDetails!=null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
-                <Row className="detail">{combat[1].personalDetails!=null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
+                <Row
+                    className="detail">{combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
+                <Row
+                    className="detail">{combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
             </Box>
         );
     }
@@ -162,27 +193,30 @@ function Draw() {
         let leftList = [];
         let rightList = [];
         for (const element of combats[0]) {
-            for (const x of element){
+            for (const x of element) {
                 leftList.push(<Combat combat={x}/>)
             }
         }
         for (const element of combats[1]) {
-            for (const x of element){
+            for (const x of element) {
                 rightList.push(<Combat combat={x}/>)
             }
         }
         return (
             <div>{state.combatsVisible &&
-                <Container className="combats">
-                    <Row className="details-card">
-                        <Col>
-                            {leftList}
-                        </Col>
-                        <Col>
-                            {rightList}
-                        </Col>
-                    </Row>
-                </Container>
+                <div>
+                    <Container className="combats">
+                        <Row className="details-card">
+                            <Col>
+                                {leftList}
+                            </Col>
+                            <Col>
+                                {rightList}
+                            </Col>
+                        </Row>
+                    </Container>
+                    <SaveCombatsButton/>
+                </div>
             }</div>
         );
     }
