@@ -21,3 +21,8 @@
     justify-content: center;
     height: 100vh;
 }
+
+.competitorBox{
+    min-width: 200px;
+    min-height: 60px;
+}

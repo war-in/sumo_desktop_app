@@ -1,6 +1,10 @@
 import {IDraw} from "../../objects/fightModel/draws/IDraw";
 import RoundRobinDraw from "../../objects/fightModel/draws/RoundRobinDraw";
 import Competitor from "../../objects/Competitor";
+import {IDrawVisualizer} from "../../objects/fightModel/draws/IDrawVisualizer";
+import RoundRobinDrawVisualizer from "../../objects/fightModel/draws/RoundRobinVisualizer";
+import TreeDrawUnder8 from "../../objects/fightModel/draws/TreeDrawUnder8";
+import TreeDrawUnder16 from "../../objects/fightModel/draws/TreeDrawUnder16";
 
 export type DrawFromDatabase = {
   id: number,
@@ -27,7 +31,6 @@ export class Model {
   constructor(drawFromDatabase: DrawFromDatabase, rowData: RowData, competitors: Competitor[]) {
     this.drawFromDatabase = drawFromDatabase;
     this.rowData = rowData;
-    // @ts-ignore
-    this.draw = new RoundRobinDraw(competitors);
+    this.draw = new TreeDrawUnder16(competitors);
   }
 }
