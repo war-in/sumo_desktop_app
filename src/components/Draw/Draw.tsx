@@ -126,6 +126,7 @@ function Draw() {
 
     function GenerateCombatsButton({drawType}) {
         return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={async () => {
+            setSelectedDrawType(null);
             let body = {
                 competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
                 drawType: drawType
@@ -167,25 +168,77 @@ function Draw() {
         return (
             <Box className="combat">
                 <Row
-                    className="detail">{combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
+                    className="detail">{combat[0] != null && combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
                 <Row
-                    className="detail">{combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
+                    className="detail">{combat[1] != null && combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
             </Box>
         );
     }
 
-    //TODO: combats generation working for all draw types
     function Combats() {
         let leftList = [];
         let rightList = [];
-        for (const element of combats[0]) {
-            for (const x of element) {
-                leftList.push(<Combat combat={x}/>)
+        if (selectedDrawType != null) {
+            if (selectedDrawType.numberOfCompetitors == 5) {
+                leftList.push(<Combat combat={[combats[0][0], combats[0][1]]}/>)
+                rightList.push(<Combat combat={[combats[0][2], combats[0][3]]}/>)
+                leftList.push(<Combat combat={[combats[0][4], null]}/>)
             }
-        }
-        for (const element of combats[1]) {
-            for (const x of element) {
-                rightList.push(<Combat combat={x}/>)
+            if (selectedDrawType.numberOfCompetitors == 10) {
+                leftList.push(<Combat combat={[combats[0][0], combats[0][1]]}/>)
+                leftList.push(<Combat combat={[combats[0][2], combats[0][3]]}/>)
+                leftList.push(<Combat combat={[combats[0][4], null]}/>)
+                rightList.push(<Combat combat={[combats[1][0], combats[1][1]]}/>)
+                rightList.push(<Combat combat={[combats[1][2], combats[1][3]]}/>)
+                rightList.push(<Combat combat={[combats[1][4], null]}/>)
+            }
+            if (selectedDrawType.numberOfCompetitors == 16) {
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        leftList.push(<Combat combat={x}/>)
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        rightList.push(<Combat combat={x}/>)
+                    }
+                }
+            }
+            if (selectedDrawType.numberOfCompetitors == 32) {
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            leftList.push(<Combat combat={y}/>)
+                        }
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            rightList.push(<Combat combat={y}/>)
+                        }
+                    }
+                }
+            }
+            if (selectedDrawType.numberOfCompetitors == 64) {
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            for (const z of y) {
+                                leftList.push(<Combat combat={z}/>)
+                            }
+                        }
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            for (const z of y) {
+                                rightList.push(<Combat combat={z}/>)
+                            }
+                        }
+                    }
+                }
             }
         }
         return (
