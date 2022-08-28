@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button, Col, Container, Row} from "react-bootstrap";
 import './Draw.css';
 import MaterialTable from "material-table";
@@ -10,15 +10,17 @@ const competitionId = 1;
 const region = "EUROPE";
 const desktopServerUrl = "http://localhost:8080/";
 
+let selectedDrawType = {};
+let generatedCombats = {};
+let combats = {};
+let categoriesToIndexes = {};
+
+
 function Draw() {
     const [categories, setCategories] = useState([]);
     const [buttons, setButtons] = useState([]);
-    const [combats, setCombats] = useState([[], []]);
     const [selectedCategoryId, setSelectedCategoryId] = useState();
-    const [selectedDrawType, setSelectedDrawType] = useState();
-    const [generatedCombats, setGeneratedCombats] = useState({});
-
-    let categoriesToIndexes = {};
+    const [lists, setLists] = useState({leftList: [], rightList: []})
 
     const [state, setState] = useState({buttonsVisible: false, combatsVisible: false});
     const showButtons = () => {
@@ -40,6 +42,84 @@ function Draw() {
 
     function combatsAlreadyGenerated(categoryId: number) {
         return generatedCombats[categoryId] != null;
+    }
+
+    function arrangeCombats() {
+        let l = []
+        let r = []
+        if (selectedDrawType != null) {
+            if (selectedDrawType.numberOfCompetitors == 5) {
+                l.push([combats[0][0], combats[0][1]])
+                r.push([combats[0][2], combats[0][3]])
+                l.push([combats[0][4], null])
+            }
+            if (selectedDrawType.numberOfCompetitors == 10) {
+                l.push([combats[0][0], combats[0][1]])
+                l.push([combats[0][2], combats[0][3]])
+                l.push([combats[0][4], null])
+                r.push([combats[1][0], combats[1][1]])
+                r.push([combats[1][2], combats[1][3]])
+                r.push([combats[1][4], null])
+            }
+            if (selectedDrawType.numberOfCompetitors == 16) {
+                let index = 0;
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        l.push(x)
+                        index = index + 2;
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        r.push(x)
+                        index = index + 2;
+                    }
+                }
+            }
+            if (selectedDrawType.numberOfCompetitors == 32) {
+                let index = 0;
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            l.push(y)
+                            index = index + 2;
+                        }
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            r.push(y)
+                            index = index + 2;
+                        }
+                    }
+                }
+            }
+            if (selectedDrawType.numberOfCompetitors == 64) {
+                let index = 0;
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            for (const z of y) {
+                                l.push(z)
+                                index = index + 2;
+                            }
+                        }
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            for (const z of y) {
+                                r.push(z)
+                                index = index + 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        setLists({leftList: l, rightList: r})
     }
 
     function CategoryDetails({categoryId}) {
@@ -98,8 +178,10 @@ function Draw() {
                     onRowClick={async (event, rowData) => {
                         if (rowData == null) return
                         if (combatsAlreadyGenerated(rowData.category.id)) {
-                            setCombats(generatedCombats[rowData.category.id])
-                            showCombats()
+                            selectedDrawType = generatedCombats[rowData.category.id].drawType;
+                            combats = generatedCombats[rowData.category.id].combats;
+                            arrangeCombats();
+                            showCombats();
                         } else {
                             setSelectedCategoryId(rowData.category.id)
                             await axios.get(desktopServerUrl + `draw/suggested-draw-types?numberOfCompetitors=` + rowData.competitors.length + `&region=` + region)
@@ -126,17 +208,18 @@ function Draw() {
 
     function GenerateCombatsButton({drawType}) {
         return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={async () => {
-            setSelectedDrawType(null);
+            selectedDrawType = null;
             let body = {
                 competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
                 drawType: drawType
             }
             await axios.post(desktopServerUrl + `draw`, body)
                 .then(response => {
-                    setCombats(response.data)
+                    combats = response.data;
+                    selectedDrawType = drawType;
+                    arrangeCombats();
+                    showCombats();
                 })
-            setSelectedDrawType(drawType);
-            showCombats();
         }}>Draw for {drawType.numberOfCompetitors} competitors</Button>}</div>);
     }
 
@@ -160,97 +243,95 @@ function Draw() {
                 categoryAtCompetitionId: selectedCategoryId
             }
             await axios.post(desktopServerUrl + `draw/save-draw`, body)
-            generatedCombats[selectedCategoryId] = combats;
+            generatedCombats[selectedCategoryId] = { combats: combats, drawType: selectedDrawType };
         }}>Save</Button>);
     }
 
-    function Combat({combat}) {
-        return (
-            <Box className="combat">
-                <Row
-                    className="detail">{combat[0] != null && combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
-                <Row
-                    className="detail">{combat[1] != null && combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
-            </Box>
-        );
-    }
-
     function Combats() {
-        let leftList = [];
-        let rightList = [];
-        if (selectedDrawType != null) {
-            if (selectedDrawType.numberOfCompetitors == 5) {
-                leftList.push(<Combat combat={[combats[0][0], combats[0][1]]}/>)
-                rightList.push(<Combat combat={[combats[0][2], combats[0][3]]}/>)
-                leftList.push(<Combat combat={[combats[0][4], null]}/>)
-            }
-            if (selectedDrawType.numberOfCompetitors == 10) {
-                leftList.push(<Combat combat={[combats[0][0], combats[0][1]]}/>)
-                leftList.push(<Combat combat={[combats[0][2], combats[0][3]]}/>)
-                leftList.push(<Combat combat={[combats[0][4], null]}/>)
-                rightList.push(<Combat combat={[combats[1][0], combats[1][1]]}/>)
-                rightList.push(<Combat combat={[combats[1][2], combats[1][3]]}/>)
-                rightList.push(<Combat combat={[combats[1][4], null]}/>)
-            }
-            if (selectedDrawType.numberOfCompetitors == 16) {
-                for (const element of combats[0]) {
-                    for (const x of element) {
-                        leftList.push(<Combat combat={x}/>)
-                    }
+        const dragItem = useRef();
+        const dragOverItem = useRef();
+        const dragStart = (e, position) => {
+            dragItem.current = position;
+        };
+        const dragEnter = (e, position) => {
+            dragOverItem.current = position;
+        };
+
+        const drop = (e) => {
+            const copyLeftList = [...lists.leftList];
+            const copyRightList = [...lists.rightList];
+            if (dragItem.current.list=="L") {
+                const dragItemContent = copyLeftList[dragItem.current.combatIndex][dragItem.current.competitorIndex];
+                if (dragOverItem.current.list=="L") {
+                    const dragOverItemContent = copyLeftList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
+                    copyLeftList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
+                    copyLeftList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
+                } else {
+                    const dragOverItemContent = copyRightList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
+                    copyLeftList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
+                    copyRightList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
                 }
-                for (const element of combats[1]) {
-                    for (const x of element) {
-                        rightList.push(<Combat combat={x}/>)
-                    }
-                }
-            }
-            if (selectedDrawType.numberOfCompetitors == 32) {
-                for (const element of combats[0]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            leftList.push(<Combat combat={y}/>)
-                        }
-                    }
-                }
-                for (const element of combats[1]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            rightList.push(<Combat combat={y}/>)
-                        }
-                    }
+            } else {
+                const dragItemContent = copyRightList[dragItem.current.combatIndex][dragItem.current.competitorIndex];
+                if (dragOverItem.current.list=="L") {
+                    const dragOverItemContent = copyLeftList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
+                    copyRightList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
+                    copyLeftList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
+                } else {
+                    const dragOverItemContent = copyRightList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
+                    copyRightList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
+                    copyRightList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
                 }
             }
-            if (selectedDrawType.numberOfCompetitors == 64) {
-                for (const element of combats[0]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            for (const z of y) {
-                                leftList.push(<Combat combat={z}/>)
-                            }
-                        }
-                    }
-                }
-                for (const element of combats[1]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            for (const z of y) {
-                                rightList.push(<Combat combat={z}/>)
-                            }
-                        }
-                    }
-                }
-            }
-        }
+            dragItem.current = null;
+            dragOverItem.current = null;
+            setLists({leftList: copyLeftList, rightList: copyRightList})
+        };
+
         return (
             <div>{state.combatsVisible &&
                 <div>
                     <Container className="combats">
                         <Row className="details-card">
                             <Col>
-                                {leftList}
+                                <>
+                                    {
+                                        lists.leftList&&
+                                        lists.leftList.map((combat, index) => (
+                                            <Box className="combat">
+                                                <Row className="detail"
+                                                     onDragStart={(e) => dragStart(e, {list: "L", combatIndex: index, competitorIndex: 0})}
+                                                     onDragEnter={(e) => dragEnter(e, {list: "L", combatIndex: index, competitorIndex: 0})}
+                                                     onDragEnd={drop}
+                                                     draggable>{combat[0] != null && combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
+                                                <Row className="detail"
+                                                     onDragStart={(e) => dragStart(e, {list: "L", combatIndex: index, competitorIndex: 1})}
+                                                     onDragEnter={(e) => dragEnter(e, {list: "L", combatIndex: index, competitorIndex: 1})}
+                                                     onDragEnd={drop}
+                                                     draggable>{combat[1] != null && combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
+                                            </Box>
+                                        ))}
+                                </>
                             </Col>
                             <Col>
-                                {rightList}
+                                <>
+                                    {
+                                        lists.rightList&&
+                                        lists.rightList.map((combat, index) => (
+                                            <Box className="combat">
+                                                <Row className="detail"
+                                                     onDragStart={(e) => dragStart(e, {list: "R", combatIndex: index, competitorIndex: 0})}
+                                                     onDragEnter={(e) => dragEnter(e, {list: "R", combatIndex: index, competitorIndex: 0})}
+                                                     onDragEnd={drop}
+                                                     draggable>{combat[0] != null && combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
+                                                <Row className="detail"
+                                                     onDragStart={(e) => dragStart(e, {list: "R", combatIndex: index, competitorIndex: 1})}
+                                                     onDragEnter={(e) => dragEnter(e, {list: "R", combatIndex: index, competitorIndex: 1})}
+                                                     onDragEnd={drop}
+                                                     draggable>{combat[1] != null && combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
+                                            </Box>
+                                        ))}
+                                </>
                             </Col>
                         </Row>
                     </Container>
