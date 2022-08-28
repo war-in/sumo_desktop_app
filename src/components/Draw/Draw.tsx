@@ -1,50 +1,56 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Row} from "react-bootstrap";
 import './Draw.css';
 import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
+import axios from "axios";
 
-//TODO: add generating logic for Buttons and Combat view
-//TODO: connect to backend
+//TODO: competitionId, region and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
+const competitionId = 1;
+const region = "EUROPE";
+const desktopServerUrl = "http://localhost:8080/";
 
 function Draw() {
+    const [categories, setCategories] = useState([]);
+    const [buttons, setButtons] = useState([]);
+    const [combats, setCombats] = useState([[], []]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState();
+    const [selectedDrawType, setSelectedDrawType] = useState();
+    const [generatedCombats, setGeneratedCombats] = useState({});
+
+    let categoriesToIndexes = {};
 
     const [state, setState] = useState({buttonsVisible: false, combatsVisible: false});
     const showButtons = () => {
         setState({buttonsVisible: true, combatsVisible: false})
     }
-    const showFights = () => {
+    const showCombats = () => {
         setState({buttonsVisible: false, combatsVisible: true})
     }
 
-    function combatsAlreadyGenerated(category: number) {
-        return category > 60;
+    useEffect(() => {
+        const fetchData = async () => {
+            await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + competitionId)
+                .then(response => {
+                    setCategories(response.data)
+                })
+        }
+        fetchData()
+    }, []);
+
+    function combatsAlreadyGenerated(categoryId: number) {
+        return generatedCombats[categoryId] != null;
     }
 
-    function CategoryDetails() {
+    function CategoryDetails({categoryId}) {
         const Columns = [
             {"title": undefined, "field": "id"},
-            {"title": undefined, "field": "name"},
-            {"title": undefined, "field": "club"},
+            {"title": undefined, "field": "personalDetails.surname"},
+            {"title": undefined, "field": "personalDetails.name"},
+            {"title": undefined, "field": "country"},
         ]
 
-        const dataset = [{
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }, {
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }, {
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }, {
-            id: 1,
-            name: "Jakub Nowakowski",
-            club: "LUKS Lubzina"
-        }];
+        const dataset = categories[categoriesToIndexes[categoryId]].competitors;
 
         return (
             <Box className="category-details">
@@ -65,51 +71,41 @@ function Draw() {
 
     function Categories() {
         const Columns = [
-            {"title": "Weight", "field": "weight"},
-            {"title": "Age", "field": "age"},
-            {"title": "Sex", "field": "sex"},
-            {"title": "Nr of competitors", "field": "nr"},
+            {"title": "Weight", "field": "category.weightCategory"},
+            {"title": "Age", "field": "category.ageCategory.name"},
+            {"title": "Sex", "field": "category.sex.sex"},
+            {"title": "Nr of competitors", "field": "competitors.length"},
         ]
 
-        const dataset = [{
-            weight: 60,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }, {
-            weight: 70,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }, {
-            weight: 60,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }, {
-            weight: 60,
-            age: "Junior",
-            sex: "Female",
-            nr: 15
-        }];
+        useEffect(() => {
+            for (let i = 0; i < categories.length; i++) {
+                categoriesToIndexes[categories[i].category.id] = i;
+            }
+        }, []);
 
         return (
             <Box className="categories">
                 <MaterialTable
                     title="Categories"
                     columns={Columns}
-                    data={dataset}
+                    data={categories}
                     options={{
                         doubleHorizontalScroll: true,
                         maxBodyHeight: 500,
                         search: false,
                         detailPanelType: "single"
                     }}
-                    onRowClick={(event, rowData) => {
+                    onRowClick={async (event, rowData) => {
                         if (rowData == null) return
-                        if (combatsAlreadyGenerated(rowData.weight)) {
-                            showFights()
+                        if (combatsAlreadyGenerated(rowData.category.id)) {
+                            setCombats(generatedCombats[rowData.category.id])
+                            showCombats()
                         } else {
+                            setSelectedCategoryId(rowData.category.id)
+                            await axios.get(desktopServerUrl + `draw/suggested-draw-types?numberOfCompetitors=` + rowData.competitors.length + `&region=` + region)
+                                .then(response => {
+                                    setButtons(response.data)
+                                })
                             showButtons()
                         }
                     }}
@@ -118,7 +114,7 @@ function Draw() {
                             tooltip: 'Competitors',
                             render: rowData => {
                                 return (
-                                    <CategoryDetails/>
+                                    <CategoryDetails categoryId={rowData.category.id}/>
                                 )
                             },
                         }
@@ -128,48 +124,138 @@ function Draw() {
         );
     }
 
-    function GenerateCombatsButton() {
-        return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={() => {
-            showFights();
-        }}>Krzyżówka 15</Button>}</div>);
+    function GenerateCombatsButton({drawType}) {
+        return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={async () => {
+            setSelectedDrawType(null);
+            let body = {
+                competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
+                drawType: drawType
+            }
+            await axios.post(desktopServerUrl + `draw`, body)
+                .then(response => {
+                    setCombats(response.data)
+                })
+            setSelectedDrawType(drawType);
+            showCombats();
+        }}>Draw for {drawType.numberOfCompetitors} competitors</Button>}</div>);
     }
 
     function GenerateCombatsButtons() {
+        let buttonsList = [];
+        buttons.forEach((button) => {
+            buttonsList.push(<GenerateCombatsButton drawType={button}/>)
+        })
         return (
             <Box className="combats">
-                <GenerateCombatsButton/>
-                <GenerateCombatsButton/>
-                <GenerateCombatsButton/>
+                {buttonsList}
             </Box>
         );
     }
 
-    function Combat() {
+    function SaveCombatsButton() {
+        return (<Button className="save-button" variant="dark" onClick={async () => {
+            let body = {
+                competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
+                drawType: selectedDrawType,
+                categoryAtCompetitionId: selectedCategoryId
+            }
+            await axios.post(desktopServerUrl + `draw/save-draw`, body)
+            generatedCombats[selectedCategoryId] = combats;
+        }}>Save</Button>);
+    }
+
+    function Combat({combat}) {
         return (
             <Box className="combat">
-                <Row className="detail">Para 1 A</Row>
-                <Row className="detail">Para 1 B</Row>
+                <Row
+                    className="detail">{combat[0] != null && combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
+                <Row
+                    className="detail">{combat[1] != null && combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
             </Box>
         );
     }
 
     function Combats() {
+        let leftList = [];
+        let rightList = [];
+        if (selectedDrawType != null) {
+            if (selectedDrawType.numberOfCompetitors == 5) {
+                leftList.push(<Combat combat={[combats[0][0], combats[0][1]]}/>)
+                rightList.push(<Combat combat={[combats[0][2], combats[0][3]]}/>)
+                leftList.push(<Combat combat={[combats[0][4], null]}/>)
+            }
+            if (selectedDrawType.numberOfCompetitors == 10) {
+                leftList.push(<Combat combat={[combats[0][0], combats[0][1]]}/>)
+                leftList.push(<Combat combat={[combats[0][2], combats[0][3]]}/>)
+                leftList.push(<Combat combat={[combats[0][4], null]}/>)
+                rightList.push(<Combat combat={[combats[1][0], combats[1][1]]}/>)
+                rightList.push(<Combat combat={[combats[1][2], combats[1][3]]}/>)
+                rightList.push(<Combat combat={[combats[1][4], null]}/>)
+            }
+            if (selectedDrawType.numberOfCompetitors == 16) {
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        leftList.push(<Combat combat={x}/>)
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        rightList.push(<Combat combat={x}/>)
+                    }
+                }
+            }
+            if (selectedDrawType.numberOfCompetitors == 32) {
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            leftList.push(<Combat combat={y}/>)
+                        }
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            rightList.push(<Combat combat={y}/>)
+                        }
+                    }
+                }
+            }
+            if (selectedDrawType.numberOfCompetitors == 64) {
+                for (const element of combats[0]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            for (const z of y) {
+                                leftList.push(<Combat combat={z}/>)
+                            }
+                        }
+                    }
+                }
+                for (const element of combats[1]) {
+                    for (const x of element) {
+                        for (const y of x) {
+                            for (const z of y) {
+                                rightList.push(<Combat combat={z}/>)
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return (
             <div>{state.combatsVisible &&
-                <Container className="combats">
-                    <Row className="details-card">
-                        <Col>
-                            <Combat/>
-                            <Combat/>
-                            <Combat/>
-                        </Col>
-                        <Col>
-                            <Combat/>
-                            <Combat/>
-                            <Combat/>
-                        </Col>
-                    </Row>
-                </Container>
+                <div>
+                    <Container className="combats">
+                        <Row className="details-card">
+                            <Col>
+                                {leftList}
+                            </Col>
+                            <Col>
+                                {rightList}
+                            </Col>
+                        </Row>
+                    </Container>
+                    <SaveCombatsButton/>
+                </div>
             }</div>
         );
     }
@@ -181,7 +267,7 @@ function Draw() {
                 <Col className="col-6">
                     <Categories/>
                 </Col>
-                <Col className="col-5">
+                <Col className="col-6">
                     <GenerateCombatsButtons/>
                     <Combats/>
                 </Col>

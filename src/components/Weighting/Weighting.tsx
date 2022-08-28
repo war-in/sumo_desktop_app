@@ -185,7 +185,6 @@ function Weighting() {
                             for (const wd of weightingDetails) {
                                 let body = wd
                                 body.weight = dict[personalDetails.id].weightDetails.weight
-                                console.log(body)
                                 await axios.post(desktopServerUrl + `weighting/update-weighing-details`, body)
                             }
                         }}>OK</Button>
