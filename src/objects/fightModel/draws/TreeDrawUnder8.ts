@@ -11,7 +11,8 @@ export default class TreeDrawUnder8 implements IDraw {
     actualFightIndexToArrayIndex: Map<number, number>
 
     constructor(competitors: Competitor[]) {
-        this.matches = new Array(12)
+        // this.matches = new Array(12)
+        this.matches = new Array(30).fill(new IndividualMatch())
         this.competitors = competitors
         let actualCompetitor = 0;
         this.actualFightIndex = 0
@@ -50,6 +51,7 @@ export default class TreeDrawUnder8 implements IDraw {
         this.matches[1] = new IndividualMatch(null, null, null)
         this.actualFightIndexToArrayIndex.set(fightIndex, 1)
         this.rounds.push(new Round("Finał", startFightIndex, fightIndex - 1))
+        this.matches[4].actualPlaying = true
     }
 
     getActualMatch(): IndividualMatch {
@@ -65,11 +67,16 @@ export default class TreeDrawUnder8 implements IDraw {
     }
 
     goToNextMatch(): void {
-        this.actualFightIndex++;
+        this.getActualMatch().actualPlaying = false
+        this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length - 1);
+        this.getActualMatch().actualPlaying = true
+
     }
 
     goToPrevMatch(): void {
-        this.actualFightIndex--;
+        this.getActualMatch().actualPlaying = false
+        this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length - 1);
+        this.getActualMatch().actualPlaying = true
     }
 
     playActualMatch(firstWinn: boolean): void {
@@ -131,11 +138,17 @@ export default class TreeDrawUnder8 implements IDraw {
             }
         }
 
+        this.getActualMatch().actualPlaying = false
         this.actualFightIndex++
+        if (this.getActualMatch()) {
+            this.getActualMatch().actualPlaying = true
+        }
     }
 
     getActualRound(): Round {
         return this.rounds[0];
     }
+
+
 
 }

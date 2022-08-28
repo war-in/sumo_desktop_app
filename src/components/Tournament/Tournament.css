@@ -24,6 +24,8 @@
 
 .panel-button-current {
     width: 70%;
+    background-color: #feb886 !important;
+    border-color: #f59d6c !important;
 }
 
 .panel-button-next {
@@ -31,10 +33,13 @@
     align-content: end;
     margin: 1%;
     opacity: 0.5;
+    background-color: #feb886 !important;
+    border-color: #f59d6c !important;
 }
 
 .carousel {
-    height: 100%;
+    /*height: 100%;*/
+    width: 100%;
 }
 
 .round {

@@ -45,5 +45,19 @@ export default class RoundRobinDrawVisualizer implements IDrawVisualizer {
         }
     }
 
+    fullDraw(): React.ReactNode {
+        return (<>
+            {this.draw.competitors.map(competitor => {
+                return (<>{competitor.personalDetails.name + " " + competitor.personalDetails.name + " " +
+                    competitor.points}
+                    < br/> </>)
+                    })}
+                </>)
+            }
 
-}
+                results(): React.ReactNode {
+                return undefined;
+            }
+
+
+            }

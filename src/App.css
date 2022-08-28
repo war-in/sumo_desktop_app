@@ -26,3 +26,15 @@
     min-width: 200px;
     min-height: 60px;
 }
+
+.competitorBox-inFullDraw{
+    min-width: 8VW;
+    min-height: 60px;
+}
+
+
+
+.fullscreen-modal{
+    width: 100VW;
+    height: 100VH;
+}

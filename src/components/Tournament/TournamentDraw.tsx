@@ -1,22 +1,27 @@
 import {useLocation} from "react-router-dom";
-import {Container, Row} from "react-bootstrap";
+import {Button, Container, Row} from "react-bootstrap";
 import Carousel from 'react-bootstrap/Carousel';
 import Panel from "./Panel";
-import {useState} from "react";
+import React, {useState} from "react";
 import {DrawFromDatabase, Model, RowData} from "./Model";
 // @ts-ignore
 import competitors from "../../mocks/CompetitorsAtCategory.json";
+import competitors8 from "../../mocks/CompetitorsAtCategory8.json";
+import competitors5 from "../../mocks/CompetitorsAtCategory5.json";
 import Competitor from "../../objects/Competitor";
 import PersonalDetails from "../../objects/PersonalDetails";
 import Category from "../../objects/Category";
 import IndividualMatch from "../../objects/fightModel/IndividualMatch";
-import RoundRobinDrawVisualizer from "../../objects/fightModel/draws/RoundRobinVisualizer";
-import RoundRobinDraw from "../../objects/fightModel/draws/RoundRobinDraw";
-import Slide from "./Slide";
-import TreeDrawUnder8Visualizer from "../../objects/fightModel/draws/TreeDrawUnder8Visualizer";
-import TreeDrawUnder8 from "../../objects/fightModel/draws/TreeDrawUnder8";
 import TreeDrawUnder16Visualizer from "../../objects/fightModel/draws/TreeDrawUnder16Visualizer";
 import TreeDrawUnder16 from "../../objects/fightModel/draws/TreeDrawUnder16";
+import * as GiIcons from 'react-icons/gi';
+import * as RiIcons from 'react-icons/ri';
+import { IconContext } from "react-icons";
+import FullDrawModal from "./TeamFight/FullScreenModal";
+import {IDrawVisualizer} from "../../objects/fightModel/draws/IDrawVisualizer";
+import FullScreenModal from "./TeamFight/FullScreenModal";
+import {IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
+
 
 
 type LocationState = {
@@ -24,7 +29,7 @@ type LocationState = {
     drawFromDatabase: DrawFromDatabase
 }
 
-function slider(model: Model) {
+function slider(model: Model,visualizer:IDrawVisualizer) {
     let slides = []
 
     console.log(model)
@@ -34,16 +39,17 @@ function slider(model: Model) {
     // console.log("tutaj jest tabilica slajdów")
     // console.log(slides)
 
-    let visualizer = new TreeDrawUnder16Visualizer(model.draw as TreeDrawUnder16)
     slides = visualizer.getSlidesForRounds()
     console.log("tutaj jest tabilica slajdów")
     console.log(slides)
+    // setFullDrawContent(visualizer.fullDraw())
 
     // for (let i=0; i < model.drawFromDatabase.drawType.numberOfRounds; i++)
     //     slides.push(<Slide model={model} roundId={i}/>)
 
     return (
-        <Carousel variant={"dark"} interval={null} className={"carousel"}>
+        <IconContext.Provider value={{color: '#feb886',size:'60px'}}>
+        <Carousel variant={"dark"} interval={null} className={"carousel"} prevIcon={<IoIosArrowBack/>} nextIcon={<IoIosArrowForward/>}>
             {slides.map(slide => {
                 return (
                     <Carousel.Item>
@@ -52,6 +58,7 @@ function slider(model: Model) {
                 )
             })}
         </Carousel>
+        </IconContext.Provider>
     )
 }
 
@@ -70,10 +77,14 @@ function TournamentDraw() {
     const location = useLocation();
     const {rowData, drawFromDatabase} = location.state as LocationState
 
-    const [model, setModel] = useState<Model>(new Model(drawFromDatabase, rowData, createCompetitors(competitors)));
-    const [matches,setMatches] = useState<IndividualMatch[]>(model.draw.matches)
-    const [active,setActive] = useState<boolean[]>(new Array(matches.length).fill(false))
-    const updateModelVisualize = ()=>{
+    const [model, setModel] = useState<Model>(new Model(drawFromDatabase, rowData, createCompetitors(competitors5)));
+    const [fullDrawVisible,setFullDrawVisible] = useState<boolean>(false)
+    const [resultsVisible,setResultsVisible] = useState<boolean>(false)
+    const hideFullDrawModal = ()=>{setFullDrawVisible(false)}
+    const hideResults = ()=>{setResultsVisible(false)}
+    let visualizer = model.drawVisualizer
+
+    const updateModelVisualize = () => {
         let newModel = Object.assign({}, model);
         setModel(newModel)
         console.log("nowy model")
@@ -84,10 +95,16 @@ function TournamentDraw() {
 
     return (
         <Container className="tournament-container h-100">
-            <h1 className="h-10 p-0 m-0">{rowData.weight}kg {rowData.age} {rowData.sex}</h1>
+                <h1 className="h-10 p-0 m-0">{rowData.weight}kg {rowData.age} {rowData.sex}</h1>
+                <IconContext.Provider value={{color: '#feb886',size:'60px'}}>
+                        <RiIcons.RiFullscreenLine onClick={()=>setFullDrawVisible(true)}/>
+                        <GiIcons.GiPodium onClick={()=>setResultsVisible(true)}/>
+                </IconContext.Provider>
+            <FullScreenModal show={fullDrawVisible} onHide={hideFullDrawModal} content={visualizer.fullDraw()} header="Cała krzyżówka"/>
+            <FullScreenModal show={resultsVisible} onHide={hideResults} content={visualizer.results()} header="Wyniki"/>
+
             <Row className="draw-row h-90">
-                {slider(model)}
-                {/*<MatchVisualisation/>*/}
+                {slider(model,visualizer)}
             </Row>
             <Row className="panel">
                 <Panel model={model} setModel={setModel} updateModelView={updateModelVisualize}/>

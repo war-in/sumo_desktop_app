@@ -27,7 +27,8 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
             {
                 mirrorView ?
                     (
-                        <div className={props.match.actualPlaying ? "border-bottom border-2 border-success" : ""}>
+                        <div
+                            className={props.match.actualPlaying ? "border border-2 border-success" : ""}>
                             <Row className="row-2 ">
                                 <Col className="col-2"/>
                                 <Col className="col-2">
@@ -68,7 +69,9 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
                             </Row>
                         </div>
                     ) :
-                    (<div className={props.match.actualPlaying ? "border-bottom border-2 border-success" : ""}>
+                    (<div
+                        className={props.match.actualPlaying ? "border border-2 border-success" : ""}>
+
                         <Row className="row-2 ">
                             <Col className="col-2">
                                 <div className="border border-3 rounded m-3 competitorBox">

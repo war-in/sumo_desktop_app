@@ -74,6 +74,7 @@ export default class TreeDrawUnder16 implements IDraw {
         this.matches[1] = new IndividualMatch(null, null, null)
         this.actualFightIndexToArrayIndex.set(fightIndex, 1)
         this.rounds.push(new Round("Finał", startFightIndex, startFightIndex))
+        this.matches[8].actualPlaying = true
     }
 
     getActualMatch(): IndividualMatch {
@@ -89,11 +90,16 @@ export default class TreeDrawUnder16 implements IDraw {
     }
 
     goToNextMatch(): void {
-        this.actualFightIndex++;
+        this.getActualMatch().actualPlaying = false
+        this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length - 1);
+        this.getActualMatch().actualPlaying = true
+
     }
 
     goToPrevMatch(): void {
-        this.actualFightIndex--;
+        this.getActualMatch().actualPlaying = false
+        this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length - 1);
+        this.getActualMatch().actualPlaying = true
     }
 
     playActualMatch(firstWinn: boolean): void {
@@ -125,19 +131,19 @@ export default class TreeDrawUnder16 implements IDraw {
                 case 8:
                     debugger
                     this.matches[20].secondCompetitor = this.getActualMatch().losser
-                    this.matches[20].firstCompetitor = firstWinn? this.matches[8].losser : this.matches[9].losser
+                    this.matches[20].firstCompetitor = firstWinn ? this.matches[8].losser : this.matches[9].losser
                     break;
                 case 9:
                     this.matches[21].secondCompetitor = this.getActualMatch().losser
-                    this.matches[21].firstCompetitor = firstWinn? this.matches[10].losser : this.matches[11].losser
+                    this.matches[21].firstCompetitor = firstWinn ? this.matches[10].losser : this.matches[11].losser
                     break;
                 case 10:
                     this.matches[22].secondCompetitor = this.getActualMatch().losser
-                    this.matches[22].firstCompetitor = firstWinn? this.matches[12].losser : this.matches[13].losser
+                    this.matches[22].firstCompetitor = firstWinn ? this.matches[12].losser : this.matches[13].losser
                     break;
                 case 11:
                     this.matches[23].secondCompetitor = this.getActualMatch().losser
-                    this.matches[23].firstCompetitor = firstWinn? this.matches[14].losser : this.matches[15].losser
+                    this.matches[23].firstCompetitor = firstWinn ? this.matches[14].losser : this.matches[15].losser
                     break;
             }
         }
@@ -182,8 +188,11 @@ export default class TreeDrawUnder16 implements IDraw {
                     break;
             }
         }
-
+        this.getActualMatch().actualPlaying = false
         this.actualFightIndex++
+        if (this.getActualMatch()) {
+            this.getActualMatch().actualPlaying = true
+        }
     }
 
     getActualRound(): Round {

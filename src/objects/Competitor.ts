@@ -8,7 +8,7 @@ export default class Competitor {
     private _club: string;
     private _category: Category;
     private _weight: number | null;
-    private _points: number = 0;
+    private _points: number;
 
     constructor(id: number | null, personalDetails: PersonalDetails, country: string, club: string, category: Category, weight: number | null) {
         this._id = id;
@@ -17,6 +17,7 @@ export default class Competitor {
         this._club = club;
         this._category = category;
         this._weight = weight;
+        this._points = 0
     }
 
     get id(): number | null {

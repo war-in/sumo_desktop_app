@@ -77,15 +77,31 @@ export default class RoundRobinDraw implements IDraw {
     }
 
     goToNextMatch(): void {
-        this.actualFightIndex++;
+        this.getActualMatch().actualPlaying = false
+        this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length - 1);
+        this.getActualMatch().actualPlaying = true
+
     }
 
     goToPrevMatch(): void {
-        this.actualFightIndex--;
+        this.getActualMatch().actualPlaying = false
+        this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length - 1);
+        this.getActualMatch().actualPlaying = true
     }
 
     playActualMatch(firstWinn: boolean): void {
+        try{
+            if(firstWinn){
+                this.getActualMatch().firstCompetitor.points ++
+            }else{
+                this.getActualMatch().secondCompetitor.points ++
+            }
+        }catch (e){
+            console.log(e)
+        }
+
         this.getActualMatch().playMatch(firstWinn);
+
         this.actualFightIndex++
     }
 

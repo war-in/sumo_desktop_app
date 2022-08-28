@@ -7,4 +7,6 @@ import React from "react";
 export interface IDrawVisualizer {
     draw:IDraw
     getSlidesForRounds():React.ReactNode[]
+    results():React.ReactNode
+    fullDraw():React.ReactNode
 }
