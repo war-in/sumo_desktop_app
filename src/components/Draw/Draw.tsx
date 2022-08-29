@@ -12,15 +12,13 @@ const desktopServerUrl = "http://localhost:8080/";
 
 let selectedDrawType = {};
 let generatedCombats = {};
-let combats = {};
 let categoriesToIndexes = {};
-
 
 function Draw() {
     const [categories, setCategories] = useState([]);
     const [buttons, setButtons] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState();
-    const [lists, setLists] = useState({leftList: [], rightList: []})
+    const [combats, setCombats] = useState([]);
 
     const [state, setState] = useState({buttonsVisible: false, combatsVisible: false});
     const showButtons = () => {
@@ -42,84 +40,6 @@ function Draw() {
 
     function combatsAlreadyGenerated(categoryId: number) {
         return generatedCombats[categoryId] != null;
-    }
-
-    function arrangeCombats() {
-        let l = []
-        let r = []
-        if (selectedDrawType != null) {
-            if (selectedDrawType.numberOfCompetitors == 5) {
-                l.push([combats[0][0], combats[0][1]])
-                r.push([combats[0][2], combats[0][3]])
-                l.push([combats[0][4], null])
-            }
-            if (selectedDrawType.numberOfCompetitors == 10) {
-                l.push([combats[0][0], combats[0][1]])
-                l.push([combats[0][2], combats[0][3]])
-                l.push([combats[0][4], null])
-                r.push([combats[1][0], combats[1][1]])
-                r.push([combats[1][2], combats[1][3]])
-                r.push([combats[1][4], null])
-            }
-            if (selectedDrawType.numberOfCompetitors == 16) {
-                let index = 0;
-                for (const element of combats[0]) {
-                    for (const x of element) {
-                        l.push(x)
-                        index = index + 2;
-                    }
-                }
-                for (const element of combats[1]) {
-                    for (const x of element) {
-                        r.push(x)
-                        index = index + 2;
-                    }
-                }
-            }
-            if (selectedDrawType.numberOfCompetitors == 32) {
-                let index = 0;
-                for (const element of combats[0]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            l.push(y)
-                            index = index + 2;
-                        }
-                    }
-                }
-                for (const element of combats[1]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            r.push(y)
-                            index = index + 2;
-                        }
-                    }
-                }
-            }
-            if (selectedDrawType.numberOfCompetitors == 64) {
-                let index = 0;
-                for (const element of combats[0]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            for (const z of y) {
-                                l.push(z)
-                                index = index + 2;
-                            }
-                        }
-                    }
-                }
-                for (const element of combats[1]) {
-                    for (const x of element) {
-                        for (const y of x) {
-                            for (const z of y) {
-                                r.push(z)
-                                index = index + 2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        setLists({leftList: l, rightList: r})
     }
 
     function CategoryDetails({categoryId}) {
@@ -179,8 +99,7 @@ function Draw() {
                         if (rowData == null) return
                         if (combatsAlreadyGenerated(rowData.category.id)) {
                             selectedDrawType = generatedCombats[rowData.category.id].drawType;
-                            combats = generatedCombats[rowData.category.id].combats;
-                            arrangeCombats();
+                            setCombats(generatedCombats[rowData.category.id].combats);
                             showCombats();
                         } else {
                             setSelectedCategoryId(rowData.category.id)
@@ -207,20 +126,24 @@ function Draw() {
     }
 
     function GenerateCombatsButton({drawType}) {
+        let displayName;
+        if (drawType.numberOfCompetitors == 0) {
+            displayName = "Round Robin Draw";
+        } else {
+            displayName = "Draw for " + drawType.numberOfCompetitors + " competitors";
+        }
         return (<div>{state.buttonsVisible && <Button className="combat-button" variant="dark" onClick={async () => {
-            selectedDrawType = null;
             let body = {
                 competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
                 drawType: drawType
             }
             await axios.post(desktopServerUrl + `draw`, body)
                 .then(response => {
-                    combats = response.data;
                     selectedDrawType = drawType;
-                    arrangeCombats();
+                    setCombats(response.data)
                     showCombats();
                 })
-        }}>Draw for {drawType.numberOfCompetitors} competitors</Button>}</div>);
+        }}>{displayName}</Button>}</div>);
     }
 
     function GenerateCombatsButtons() {
@@ -238,13 +161,20 @@ function Draw() {
     function SaveCombatsButton() {
         return (<Button className="save-button" variant="dark" onClick={async () => {
             let body = {
-                competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
+                competitors: combats,
                 drawType: selectedDrawType,
                 categoryAtCompetitionId: selectedCategoryId
             }
             await axios.post(desktopServerUrl + `draw/save-draw`, body)
-            generatedCombats[selectedCategoryId] = { combats: combats, drawType: selectedDrawType };
+            generatedCombats[selectedCategoryId] = {combats: combats, drawType: selectedDrawType};
         }}>Save</Button>);
+    }
+
+    function CancelButton() {
+        return (<Button className="cancel-button" variant="danger" onClick={async () => {
+            generatedCombats[selectedCategoryId] = null;
+            showButtons()
+        }}>Cancel</Button>);
     }
 
     function Combats() {
@@ -258,35 +188,80 @@ function Draw() {
         };
 
         const drop = (e) => {
-            const copyLeftList = [...lists.leftList];
-            const copyRightList = [...lists.rightList];
-            if (dragItem.current.list=="L") {
-                const dragItemContent = copyLeftList[dragItem.current.combatIndex][dragItem.current.competitorIndex];
-                if (dragOverItem.current.list=="L") {
-                    const dragOverItemContent = copyLeftList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
-                    copyLeftList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
-                    copyLeftList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
-                } else {
-                    const dragOverItemContent = copyRightList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
-                    copyLeftList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
-                    copyRightList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
-                }
-            } else {
-                const dragItemContent = copyRightList[dragItem.current.combatIndex][dragItem.current.competitorIndex];
-                if (dragOverItem.current.list=="L") {
-                    const dragOverItemContent = copyLeftList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
-                    copyRightList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
-                    copyLeftList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
-                } else {
-                    const dragOverItemContent = copyRightList[dragOverItem.current.combatIndex][dragOverItem.current.competitorIndex];
-                    copyRightList[dragItem.current.combatIndex].splice(dragItem.current.competitorIndex, 1, dragOverItemContent);
-                    copyRightList[dragOverItem.current.combatIndex].splice(dragOverItem.current.competitorIndex, 1, dragItemContent);
-                }
-            }
+            const copyCombats = [...combats];
+            const dragItemContent = copyCombats[dragItem.current];
+            const dragOverItemContent = copyCombats[dragOverItem.current];
+            copyCombats.splice(dragItem.current, 1, dragOverItemContent);
+            copyCombats.splice(dragOverItem.current, 1, dragItemContent);
             dragItem.current = null;
             dragOverItem.current = null;
-            setLists({leftList: copyLeftList, rightList: copyRightList})
+            setCombats(copyCombats);
         };
+
+        let left = [];
+        let right = [];
+        if (selectedDrawType.numberOfCompetitors == 0 || selectedDrawType.numberOfCompetitors == 5) {
+            for (let i = 0; i < combats.length; i++) {
+                left.push(<Box className="combat">
+                        <Row className="detail"
+                             onDragStart={(e) => dragStart(e, i)}
+                             onDragEnter={(e) => dragEnter(e, i)}
+                             onDragEnd={drop}
+                             draggable>{combats[i] != null && combats[i].personalDetails != null && <>{combats[i].personalDetails.surname} {combats[i].personalDetails.name}</>}</Row>
+                    </Box>
+                );
+            }
+        } else if (selectedDrawType.numberOfCompetitors == 10) {
+            for (let i = 0; i < combats.length / 2; i++) {
+                left.push(<Box className="combat">
+                        <Row className="detail"
+                             onDragStart={(e) => dragStart(e, i)}
+                             onDragEnter={(e) => dragEnter(e, i)}
+                             onDragEnd={drop}
+                             draggable>{combats[i] != null && combats[i].personalDetails != null && <>{combats[i].personalDetails.surname} {combats[i].personalDetails.name}</>}</Row>
+                    </Box>
+                );
+            }
+            for (let i = combats.length / 2; i < combats.length; i++) {
+                right.push(<Box className="combat">
+                        <Row className="detail"
+                             onDragStart={(e) => dragStart(e, i)}
+                             onDragEnter={(e) => dragEnter(e, i)}
+                             onDragEnd={drop}
+                             draggable>{combats[i] != null && combats[i].personalDetails != null && <>{combats[i].personalDetails.surname} {combats[i].personalDetails.name}</>}</Row>
+                    </Box>
+                );
+            }
+        } else {
+            for (let i = 0; i < combats.length / 2; i += 2) {
+                left.push(<Box className="combat">
+                    <Row className="detail"
+                         onDragStart={(e) => dragStart(e, i)}
+                         onDragEnter={(e) => dragEnter(e, i)}
+                         onDragEnd={drop}
+                         draggable>{combats[i] != null && combats[i].personalDetails != null && <>{combats[i].personalDetails.surname} {combats[i].personalDetails.name}</>}</Row>
+                    <Row className="detail"
+                         onDragStart={(e) => dragStart(e, i + 1)}
+                         onDragEnter={(e) => dragEnter(e, i + 1)}
+                         onDragEnd={drop}
+                         draggable>{combats[i + 1] != null && combats[i + 1].personalDetails != null && <>{combats[i + 1].personalDetails.surname} {combats[i + 1].personalDetails.name}</>}</Row>
+                </Box>);
+            }
+            for (let i = combats.length / 2; i < combats.length; i += 2) {
+                right.push(<Box className="combat">
+                    <Row className="detail"
+                         onDragStart={(e) => dragStart(e, i)}
+                         onDragEnter={(e) => dragEnter(e, i)}
+                         onDragEnd={drop}
+                         draggable>{combats[i] != null && combats[i].personalDetails != null && <>{combats[i].personalDetails.surname} {combats[i].personalDetails.name}</>}</Row>
+                    <Row className="detail"
+                         onDragStart={(e) => dragStart(e, i + 1)}
+                         onDragEnter={(e) => dragEnter(e, i + 1)}
+                         onDragEnd={drop}
+                         draggable>{combats[i + 1] != null && combats[i + 1].personalDetails != null && <>{combats[i + 1].personalDetails.surname} {combats[i + 1].personalDetails.name}</>}</Row>
+                </Box>);
+            }
+        }
 
         return (
             <div>{state.combatsVisible &&
@@ -295,47 +270,18 @@ function Draw() {
                         <Row className="details-card">
                             <Col>
                                 <>
-                                    {
-                                        lists.leftList&&
-                                        lists.leftList.map((combat, index) => (
-                                            <Box className="combat">
-                                                <Row className="detail"
-                                                     onDragStart={(e) => dragStart(e, {list: "L", combatIndex: index, competitorIndex: 0})}
-                                                     onDragEnter={(e) => dragEnter(e, {list: "L", combatIndex: index, competitorIndex: 0})}
-                                                     onDragEnd={drop}
-                                                     draggable>{combat[0] != null && combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
-                                                <Row className="detail"
-                                                     onDragStart={(e) => dragStart(e, {list: "L", combatIndex: index, competitorIndex: 1})}
-                                                     onDragEnter={(e) => dragEnter(e, {list: "L", combatIndex: index, competitorIndex: 1})}
-                                                     onDragEnd={drop}
-                                                     draggable>{combat[1] != null && combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
-                                            </Box>
-                                        ))}
+                                    {left}
                                 </>
                             </Col>
                             <Col>
                                 <>
-                                    {
-                                        lists.rightList&&
-                                        lists.rightList.map((combat, index) => (
-                                            <Box className="combat">
-                                                <Row className="detail"
-                                                     onDragStart={(e) => dragStart(e, {list: "R", combatIndex: index, competitorIndex: 0})}
-                                                     onDragEnter={(e) => dragEnter(e, {list: "R", combatIndex: index, competitorIndex: 0})}
-                                                     onDragEnd={drop}
-                                                     draggable>{combat[0] != null && combat[0].personalDetails != null && <>{combat[0].personalDetails.surname} {combat[0].personalDetails.name}</>}</Row>
-                                                <Row className="detail"
-                                                     onDragStart={(e) => dragStart(e, {list: "R", combatIndex: index, competitorIndex: 1})}
-                                                     onDragEnter={(e) => dragEnter(e, {list: "R", combatIndex: index, competitorIndex: 1})}
-                                                     onDragEnd={drop}
-                                                     draggable>{combat[1] != null && combat[1].personalDetails != null && <>{combat[1].personalDetails.surname} {combat[1].personalDetails.name}</>}</Row>
-                                            </Box>
-                                        ))}
+                                    {right}
                                 </>
                             </Col>
                         </Row>
                     </Container>
                     <SaveCombatsButton/>
+                    <CancelButton/>
                 </div>
             }</div>
         );
