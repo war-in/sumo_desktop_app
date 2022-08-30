@@ -16,6 +16,7 @@
 .draw,
 .team-fight
 {
+    overflow-y: scroll;
     margin-top: 20px;
     align-items: center;
     justify-content: center;

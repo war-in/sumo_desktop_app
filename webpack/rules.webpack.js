@@ -1,3 +1,4 @@
+const path = require("path");
 module.exports = [
   {
     test: /\.node$/,
@@ -21,14 +22,19 @@ module.exports = [
     }
   },
   {
-    test: /\.(png|jpe?g|gif)$/i,
-    loader: 'file-loader',
-    options: {
-      name: '[path][name].[ext]',
-    },
-  },
-  {
     test: /\.css/,
     use: ["style-loader", "css-loader"]
   },
+  {
+    test: /\.(png|gif|jpe?g|svg|ico)$/,
+    include: [
+      path.join(__dirname, '..', 'public')
+    ],
+    use: [{
+      loader: 'file-loader',
+      options: {
+        name: 'images/[name]-[hash].[ext]'
+      }
+    }]
+  }
 ]
