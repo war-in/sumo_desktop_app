@@ -62,7 +62,7 @@ function Draw() {
                         header: false,
                         toolbar: false,
                         paging: false,
-                        sorting: false
+                        sorting: false,
                     }}
                 />
             </Box>
@@ -93,7 +93,8 @@ function Draw() {
                         doubleHorizontalScroll: true,
                         maxBodyHeight: 500,
                         search: false,
-                        detailPanelType: "single"
+                        detailPanelType: "single",
+                        grouping: true,
                     }}
                     onRowClick={async (event, rowData) => {
                         if (rowData == null) return

@@ -99,12 +99,15 @@ function Weighting() {
                         .then(response => {
                             cat = response.data;
                         })
+
                     let wd = [];
                     for (const category of cat) {
                         await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
                             .then(response => {
                                 wd.push(response.data)
-                            })
+                            }).catch(e => {
+                              console.log(e)
+                          })
                     }
                     dict[comp.personalDetails.id] = { categories: cat, weightDetails: wd }
                 }
@@ -129,7 +132,8 @@ function Weighting() {
                 data={competitorsData}
                 options={{
                     doubleHorizontalScroll: true,
-                    maxBodyHeight: 250
+                    maxBodyHeight: 250,
+                    grouping:true,
                 }}
                 onRowClick={(_event, rowData) => {
                     if (rowData == null) return
@@ -172,10 +176,26 @@ function Weighting() {
 
     function CompetitorDetails() {
 
+      function showImage(personalDetails) {
+
+        let fileExists = true;
+        try {
+          require(`/public/images/${personalDetails.profilePhoto}`);
+        } catch {
+          fileExists = false;
+        }
+
+        return fileExists;
+      }
+
         return (
             <Box className="details-card">
                 <Box className="photo-box">
-                    <Image className="photo" src={require(`/public/images/${personalDetails.profilePhoto}`).default} />
+                  {
+                    showImage(personalDetails) ?
+                      (<Image className="photo" src={require(`/public/images/${personalDetails.profilePhoto}`).default}/>):
+                      (<Image className="photo" src={require(`/public/images/blank.png`).default}/>)
+                  }
                 </Box>
                 <Box>
                     <Row className="detail">{personalDetails.name} {personalDetails.surname}</Row>
