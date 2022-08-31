@@ -8,12 +8,15 @@ import PersonalDetails from "../../objects/PersonalDetails";
 import axios from "axios";
 
 //TODO: competitionId and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
-const competitionId = 1;
+const competitionId = 10;
 const desktopServerUrl = "http://localhost:8080/";
 
 //TODO: the 'club' field is missing in data received from the endpoint - add the field or remove club info from front
 
 function Weighting() {
+
+
+
     const [personalDetails, setPersonalDetails] = useState(() => new PersonalDetails(
         null,
         "",
@@ -85,6 +88,7 @@ function Weighting() {
         fetchData()
     }, []);
 
+
     function Competitors() {
 
         useEffect(() => {
@@ -116,6 +120,8 @@ function Weighting() {
             {"title": "Sex", "field": "personalDetails.sex.sex"}
         ]
 
+        console.log("kategorie na zawodach")
+        console.log(competitorsData)
         return (
             <MaterialTable
                 title="Competitors"

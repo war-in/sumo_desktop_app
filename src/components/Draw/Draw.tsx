@@ -6,7 +6,7 @@ import {Box} from "@material-ui/core";
 import axios from "axios";
 
 //TODO: competitionId, region and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
-const competitionId = 1;
+const competitionId = 10;
 const region = "EUROPE";
 const desktopServerUrl = "http://localhost:8080/";
 

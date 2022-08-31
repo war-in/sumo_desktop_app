@@ -13,6 +13,8 @@ export default class RoundRobinDraw implements IDraw {
     carusele:Competitor[]
 
     constructor(competitors: Competitor[]) {
+        console.log("zawodnicy w round robin")
+        console.log(competitors)
         let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
         let competitor = new Competitor(null, personal, "Wolny Los", "Wolny Los", new Category("Wolny Los", "Wolny Los", "Wolny Los"), 0)
         this.actualFightIndex = 0
@@ -61,7 +63,8 @@ export default class RoundRobinDraw implements IDraw {
         this.rounds[this.rounds.length - 1].lastFightIndex = numberOfMatches - 1
         console.log("mecze")
         console.log(this.matches)
-        this.matches[0].actualPlaying = true
+        if (this.matches.length>0)
+            this.matches[0].actualPlaying = true
     }
 
     getActualMatch(): IndividualMatch {

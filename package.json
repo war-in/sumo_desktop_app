@@ -42,6 +42,7 @@
     "git": "^0.1.5",
     "i": "^0.3.7",
     "material-table": "1.69.3",
+    "@material-table/core": "^5.0.4",
     "node.js": "^0.0.1-security",
     "npm": "^8.18.0",
     "react": "17.0.2",

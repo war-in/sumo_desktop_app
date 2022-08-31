@@ -23,6 +23,7 @@ export type RowData = {
   age: string,
   sex: string,
   nr: string
+  id:string
 }
 
 export class Model {
@@ -41,8 +42,7 @@ export class Model {
     else if(competitors.length == 8){
       this.draw = new TreeDrawUnder8(competitors);
       this.drawVisualizer =  new TreeDrawUnder8Visualizer(this.draw as TreeDrawUnder8)
-    }
-    else{
+    }else{
       this.draw = new RoundRobinDraw(competitors);
       this.drawVisualizer =  new RoundRobinDrawVisualizer(this.draw as RoundRobinDraw)
     }

@@ -14,6 +14,7 @@ type Props = {
 const Panel: React.FC<Props> = (props) => {
     const [actualMatch, setActualMatch] = useState<IndividualMatch>(props.model.draw.getActualMatch())
     const [nextMatch, setNextMatch] = useState<IndividualMatch>(props.model.draw.getNextMatch())
+    const [hidden, setHidden] = useState<boolean>(false)
 
     const playActualMatch = (firstWin: boolean) => {
         props.model.draw.playActualMatch(firstWin)
@@ -37,8 +38,16 @@ const Panel: React.FC<Props> = (props) => {
         setNextMatch(props.model.draw.getNextMatch())
         console.log(props.model)
     }
-
+    const start = () => {
+        setActualMatch(props.model.draw.getActualMatch())
+        setNextMatch(props.model.draw.getNextMatch())
+        setHidden(true)
+    }
+    console.log("mecze z panelu")
     console.log(props.model.draw.matches)
+    console.log(actualMatch)
+    console.log(props.model.draw.getActualMatch())
+
     const currenFightId = props.model.draw.actualFightIndex;
     const firstCompetitor = actualMatch ? actualMatch.firstCompetitor : null
     const secondCompetitor = actualMatch ? actualMatch.secondCompetitor : null
@@ -55,16 +64,21 @@ const Panel: React.FC<Props> = (props) => {
 
                 <Row className="h-100">
                     <Col className="col-2">
-                        <IoIosArrowDown size={60} onClick={()=>goToPrevMatch()}/>
+                        <IoIosArrowDown size={60} onClick={() => goToPrevMatch()}/>
                     </Col>
                     <Col className="col-8">
                         <Row>
                             <Col>
-                                <Button  className="panel-button-current" onClick={() => {
+                                <Button className="panel-button-current" onClick={() => {
                                     playActualMatch(true)
                                 }}>
                                     {firstCompetitor ? firstCompetitor.personalDetails.name + ' ' + firstCompetitor.personalDetails.surname : ""}
                                 </Button>
+                            </Col>
+                            <Col>
+                                <Button className={"panel-button-current " + (hidden?"visually-hidden":"")} onClick={() => {
+                                    start()
+                                }}>Start</Button>
                             </Col>
                             <Col>
                                 <Button className="panel-button-current" onClick={() => {
@@ -88,7 +102,7 @@ const Panel: React.FC<Props> = (props) => {
                         </Row>
                     </Col>
                     <Col className="col-2">
-                        <IoIosArrowUp size={60} onClick={()=>goToNextMatch()}/>
+                        <IoIosArrowUp size={60} onClick={() => goToNextMatch()}/>
                     </Col>
                 </Row>
             </Container>

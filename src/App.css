@@ -2,7 +2,11 @@
 
 * {
     font-family: 'Lato', sans-serif;
-    background-color: #FFFCF5;
+    /*background-color: #FFFCF5;*/
+}
+
+#root{
+    background-color: #FFFCF5
 }
 
 .main-container {
