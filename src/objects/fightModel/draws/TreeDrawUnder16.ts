@@ -91,14 +91,14 @@ export default class TreeDrawUnder16 implements IDraw {
 
     goToNextMatch(): void {
         this.getActualMatch().actualPlaying = false
-        this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length - 1);
+        this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true
 
     }
 
     goToPrevMatch(): void {
         this.getActualMatch().actualPlaying = false
-        this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length - 1);
+        this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true
     }
 

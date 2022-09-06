@@ -41,20 +41,20 @@ export default class RoundRobinDraw implements IDraw {
                 console.log(this.carusele)
                 startConnected = 0;
                 lastConnected = this.carusele.length - 1
-                if ((competitors.length % 2) == 0) {
-                    let last = this.carusele.slice(this.carusele.length - 1, this.carusele.length)
-                    let rest = this.carusele.slice(0, this.carusele.length - 1)
-                    this.carusele = last.concat(rest)
-                    console.log("po obróceniu")
-                    console.log(this.carusele)
-                } else {
+                // if ((competitors.length % 2) == 0) {
+                //     let last = this.carusele.slice(this.carusele.length - 1, this.carusele.length)
+                //     let rest = this.carusele.slice(0, this.carusele.length - 1)
+                //     this.carusele = last.concat(rest)
+                //     console.log("po obróceniu")
+                //     console.log(this.carusele)
+                // } else {
                     let first = this.carusele.slice(this.carusele.length - 2, this.carusele.length - 1)
                     let middle = this.carusele.slice(0, length - 2)
                     let last = this.carusele.slice(this.carusele.length - 1, this.carusele.length)
                     this.carusele = first.concat(middle).concat(last)
                     console.log("po obróceniu")
                     console.log(this.carusele)
-                }
+                // }
             }
             this.matches.push(new IndividualMatch(this.carusele[startConnected], this.carusele[lastConnected], null))
             startConnected++;
@@ -81,14 +81,14 @@ export default class RoundRobinDraw implements IDraw {
 
     goToNextMatch(): void {
         this.getActualMatch().actualPlaying = false
-        this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length - 1);
+        this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true
 
     }
 
     goToPrevMatch(): void {
         this.getActualMatch().actualPlaying = false
-        this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length - 1);
+        this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true
     }
 
@@ -105,7 +105,7 @@ export default class RoundRobinDraw implements IDraw {
 
         this.getActualMatch().playMatch(firstWinn);
 
-        this.actualFightIndex++
+        this.goToNextMatch();
     }
 
     getActualRound(): Round {

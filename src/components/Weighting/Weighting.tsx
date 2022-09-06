@@ -139,7 +139,7 @@ function Weighting() {
                     if (rowData == null) return
                     setCategories(dict[rowData.personalDetails.id].categories);
                     setWeightingDetails(dict[rowData.personalDetails.id].weightDetails);
-                    setWeight(dict[rowData.personalDetails.id].weightDetails[0].weight)
+                    setWeight(dict[rowData.personalDetails.id].weightDetails[0].weight);
                     setPersonalDetails(new PersonalDetails(rowData.personalDetails.id,
                         rowData.personalDetails.name, rowData.personalDetails.surname,
                         rowData.personalDetails.linkToProfilePicture, rowData.personalDetails.birthDate[0],

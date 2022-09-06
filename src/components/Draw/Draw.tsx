@@ -92,7 +92,6 @@ function Draw() {
                     options={{
                         doubleHorizontalScroll: true,
                         maxBodyHeight: 500,
-                        search: false,
                         detailPanelType: "single",
                         grouping: true,
                     }}
