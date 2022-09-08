@@ -13,14 +13,16 @@ export default class RoundRobinDraw implements IDraw {
     carousel:Competitor[]
 
     constructor(competitors: Competitor[]) {
-        let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
-        let competitor = new Competitor(null, personal, "Wolny Los", "Wolny Los", 0)
         this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = []
         this.carousel = competitors.slice()
-        this.carousel = this.carousel.length % 2 == 0 ? this.carousel : this.carousel.concat([competitor])
+
+        let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
+        let freeFight = new Competitor(null, personal, "Wolny Los", "Wolny Los", 0)
+
         let numberOfMatches = (this.carousel.length * (this.carousel.length - 1) / 2)
+        let numberOfRounds = this.carousel.length
         this.matches = []
         let startConnected = 0;
         let lastConnected = this.carousel.length - 1
@@ -31,16 +33,30 @@ export default class RoundRobinDraw implements IDraw {
             if (lastConnected <= startConnected) {
                 roundIndex++
                 this.rounds[this.rounds.length - 1].lastFightIndex = i - 1
-                this.rounds.push(new Round("Runda" + roundIndex, i, undefined))
-                startConnected = 0;
-                lastConnected = this.carousel.length - 1
 
-                let first = this.carousel.slice(this.carousel.length - 2, this.carousel.length - 1)
-                let middle = this.carousel.slice(0, length - 2)
-                let last = this.carousel.slice(this.carousel.length - 1, this.carousel.length)
-                this.carousel = first.concat(middle).concat(last)
+                if (numberOfRounds != 4 || roundIndex != 4)
+                    this.rounds.push(new Round("Runda " + roundIndex, i, undefined))
+
+                if (numberOfRounds % 2 == 0 && roundIndex == Math.floor(numberOfRounds / 2) + 1) {
+                    this.carousel = this.carousel.concat([freeFight])
+                } else if (numberOfRounds % 2 == 0 && roundIndex > Math.floor(numberOfRounds / 2) + 1) {
+                    let last = this.carousel.slice(this.carousel.length - 1, this.carousel.length)
+                    let first = this.carousel.slice(this.carousel.length - 2, this.carousel.length - 1)
+                    let middle = this.carousel.slice(0, this.carousel.length - 2)
+                    this.carousel = first.concat(middle).concat(last)
+                } else {
+                    let first = this.carousel.slice(this.carousel.length - 1, this.carousel.length)
+                    let rest = this.carousel.slice(0, length - 1)
+                    this.carousel = first.concat(rest)
+                }
+
+                startConnected = 0;
+                lastConnected = this.carousel.length - 1;
             }
-            this.matches.push(new IndividualMatch(this.carousel[startConnected], this.carousel[lastConnected], null))
+            if (this.carousel[lastConnected] != freeFight)
+                this.matches.push(new IndividualMatch(this.carousel[startConnected], this.carousel[lastConnected], null));
+            else i--;
+
             startConnected++;
             lastConnected--;
         }
