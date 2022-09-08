@@ -544,7 +544,7 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
             1. {this.draw.matches[1]?.winner?.personalDetails.name +" "+ this.draw.matches[1]?.winner?.personalDetails.surname}
         </Row>
         <Row>
-            2. {this.draw.matches[1]?.losser?.personalDetails.name +" "+ this.draw.matches[1]?.losser?.personalDetails.surname}
+            2. {this.draw.matches[1]?.looser?.personalDetails.name +" "+ this.draw.matches[1]?.looser?.personalDetails.surname}
         </Row>
         <Row>
             3. {this.draw.matches[8]?.winner?.personalDetails.name +" "+ this.draw.matches[8]?.winner?.personalDetails.surname}
@@ -553,10 +553,10 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
             3. {this.draw.matches[9]?.winner?.personalDetails.name +" "+ this.draw.matches[9]?.winner?.personalDetails.surname}
         </Row>
         <Row>
-            5. {this.draw.matches[8]?.losser?.personalDetails.name +" "+ this.draw.matches[8]?.losser?.personalDetails.surname}
+            5. {this.draw.matches[8]?.looser?.personalDetails.name +" "+ this.draw.matches[8]?.looser?.personalDetails.surname}
         </Row>
         <Row>
-            5. {this.draw.matches[9]?.losser?.personalDetails.name +" "+ this.draw.matches[9]?.losser?.personalDetails.surname}
+            5. {this.draw.matches[9]?.looser?.personalDetails.name +" "+ this.draw.matches[9]?.looser?.personalDetails.surname}
         </Row>
 
         </>);
