@@ -3,7 +3,6 @@ import IndividualMatch from "../IndividualMatch";
 import {Round} from "../Round";
 import Competitor from "../../Competitor";
 import PersonalDetails from "../../PersonalDetails";
-import Category from "../../Category";
 
 export default class RoundRobinDraw implements IDraw {
     actualFightIndex: number;
@@ -93,9 +92,9 @@ export default class RoundRobinDraw implements IDraw {
     playActualMatch(firstWin: boolean): void {
         try{
             if(firstWin){
-                this.getActualMatch().firstCompetitor.points ++
+                this.getActualMatch().firstCompetitor!.points ++
             }else{
-                this.getActualMatch().secondCompetitor.points ++
+                this.getActualMatch().secondCompetitor!.points ++
             }
         }catch (e){
             console.log(e)

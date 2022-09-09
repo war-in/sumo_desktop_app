@@ -22,8 +22,8 @@ export type RowData = {
   weight: string,
   age: string,
   sex: string,
-  nr: string
-  id:string
+  nr: string,
+  id: number,
 }
 
 export class Model {

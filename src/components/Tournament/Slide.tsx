@@ -20,10 +20,10 @@ function generateGroup(draw: IDraw, start: number, end: number) {
                 return (
                     <Container id={index.toString()}>
                         <Button>
-                          {match.firstCompetitor.personalDetails.name + ' ' + match.firstCompetitor.personalDetails.surname}
+                          {match.firstCompetitor?.personalDetails?.name + ' ' + match.firstCompetitor?.personalDetails?.surname}
                         </Button>
                         <Button>
-                          {match.secondCompetitor.personalDetails.name + ' ' + match.secondCompetitor.personalDetails.surname}
+                          {match.secondCompetitor?.personalDetails?.name + ' ' + match.secondCompetitor?.personalDetails?.surname}
                         </Button>
                     </Container>
                 )
@@ -40,7 +40,7 @@ function generateWinners(draw: IDraw, start: number, end: number) {
             if (start <= index && index <= end) {
                 return (
                     <Button>
-                        {match.winner?.personalDetails.name + ' ' + match.winner?.personalDetails.surname}
+                        {match.winner?.personalDetails?.name + ' ' + match.winner?.personalDetails?.surname}
                     </Button>
                 )
             }
@@ -56,16 +56,16 @@ const Slide: React.FC<Props> = (props) => {
             <h2>{name}</h2>
             <Row>
                 <Col className="col-3">
-                  {generateGroup(props.model.draw, roundData.firstFightIndex, (roundData.firstFightIndex+roundData.lastFightIndex)/2)}
+                  {generateGroup(props.model.draw, roundData.firstFightIndex, (roundData.firstFightIndex+roundData.lastFightIndex!)/2)}
                 </Col>
                 <Col className="col-3">
-                  {generateWinners(props.model.draw, roundData.firstFightIndex, (roundData.firstFightIndex+roundData.lastFightIndex)/2)}
+                  {generateWinners(props.model.draw, roundData.firstFightIndex, (roundData.firstFightIndex+roundData.lastFightIndex!)/2)}
                 </Col>
                 <Col className="col-3">
-                  {generateWinners(props.model.draw, (roundData.firstFightIndex+roundData.lastFightIndex)/2+1, roundData.lastFightIndex)}
+                  {generateWinners(props.model.draw, (roundData.firstFightIndex+roundData.lastFightIndex!)/2+1, roundData.lastFightIndex!)}
                 </Col>
                 <Col className="col-3">
-                  {generateGroup(props.model.draw, (roundData.firstFightIndex+roundData.lastFightIndex)/2+1, roundData.lastFightIndex)}
+                  {generateGroup(props.model.draw, (roundData.firstFightIndex+roundData.lastFightIndex!)/2+1, roundData.lastFightIndex!)}
                 </Col>
             </Row>
         </Container>

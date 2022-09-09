@@ -12,7 +12,7 @@ export default class TreeDrawUnder8 implements IDraw {
 
     constructor(competitors: Competitor[]) {
         // this.matches = new Array(12)
-        this.matches = new Array(30).fill(new IndividualMatch())
+        this.matches = new Array(30).fill(new IndividualMatch(null, null, null))
         this.competitors = competitors
         let actualCompetitor = 0;
         this.actualFightIndex = 0
@@ -80,9 +80,6 @@ export default class TreeDrawUnder8 implements IDraw {
     }
 
     playActualMatch(firstWinn: boolean): void {
-        console.log("po rozegraniu meczuuu")
-        console.log(this.actualFightIndex)
-        console.log(this)
         this.getActualMatch().playMatch(firstWinn);
         //przepisanie wygranego z eliminacji do pół finałów
         //a przegranego do repasarzy

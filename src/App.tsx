@@ -12,7 +12,6 @@ import Weighting from './components/Weighting/Weighting';
 import Reports from './components/Reports/Reports';
 import {Col, Container, Row} from "react-bootstrap";
 import TournamentDraw from "./components/Tournament/TournamentDraw";
-import TeamFight from "./components/Tournament/TeamFight/TeamFight";
 
 
 export function App() {
@@ -39,7 +38,7 @@ export function App() {
               <Route path='/tournament' element={<TournamentMenu />} />
               <Route path='/weighting' element={<Weighting />} />
               <Route path='/tournament-draw' element={<TournamentDraw />} />
-              <Route path='/team-fight' element={<TeamFight model=""/>} />
+              {/*<Route path='/team-fight' element={<TeamFight model={undefined}/>} />*/}
             </Routes>
           </Col>
         </Row>

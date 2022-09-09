@@ -34,9 +34,9 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
                                 <Col className="col-2">
                                     <div className="border border-3 rounded m-3 competitorBox">
                                         <>
-                                            {props.match.firstCompetitor?.personalDetails.name}
+                                            {props.match.firstCompetitor?.personalDetails?.name}
                                             <br/>
-                                            {props.match.firstCompetitor?.personalDetails.surname}
+                                            {props.match.firstCompetitor?.personalDetails?.surname}
                                         </>
 
                                     </div>
@@ -47,9 +47,9 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
                                     <Row>
                                         <Col className="col-2">
                                             <div className="border border-3 rounded m-3 competitorBox">
-                                                {props.match?.winner?.personalDetails.name}
+                                                {props.match?.winner?.personalDetails?.name}
                                                 <br/>
-                                                {props.match?.winner?.personalDetails.surname}
+                                                {props.match?.winner?.personalDetails?.surname}
                                             </div>
                                         </Col>
                                     </Row>
@@ -60,9 +60,9 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
                                 <Col className="col-2">
                                     <div className="border border-3 rounded m-3 competitorBox">
                                         <>
-                                            {props.match.secondCompetitor?.personalDetails.name}
+                                            {props.match.secondCompetitor?.personalDetails?.name}
                                             <br/>
-                                            {props.match.secondCompetitor?.personalDetails.surname}
+                                            {props.match.secondCompetitor?.personalDetails?.surname}
                                         </>
                                     </div>
                                 </Col>
@@ -76,9 +76,9 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
                             <Col className="col-2">
                                 <div className="border border-3 rounded m-3 competitorBox">
                                     <>
-                                        {props.match.firstCompetitor?.personalDetails.name}
+                                        {props.match.firstCompetitor?.personalDetails?.name}
                                         <br/>
-                                        {props.match.firstCompetitor?.personalDetails.surname}
+                                        {props.match.firstCompetitor?.personalDetails?.surname}
                                     </>
 
                                 </div>
@@ -90,9 +90,9 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
                                     <Col className="col-2"/>
                                     <Col className="col-2">
                                         <div className="border border-3 rounded m-3 competitorBox">
-                                            {props.match?.winner?.personalDetails.name}
+                                            {props.match?.winner?.personalDetails?.name}
                                             <br/>
-                                            {props.match?.winner?.personalDetails.surname}
+                                            {props.match?.winner?.personalDetails?.surname}
                                         </div>
                                     </Col>
                                 </Row>
@@ -102,9 +102,9 @@ const MatchVisualisation: React.FC<Props> = (props: Props) => {
                             <Col className="col-2">
                                 <div className="border border-3 rounded m-3 competitorBox">
                                     <>
-                                        {props.match.secondCompetitor?.personalDetails.name}
+                                        {props.match.secondCompetitor?.personalDetails?.name}
                                         <br/>
-                                        {props.match.secondCompetitor?.personalDetails.surname}
+                                        {props.match.secondCompetitor?.personalDetails?.surname}
                                     </>
                                 </div>
                             </Col>

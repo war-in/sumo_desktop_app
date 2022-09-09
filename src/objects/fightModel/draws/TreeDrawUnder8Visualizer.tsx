@@ -3,9 +3,7 @@ import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import TreeDrawUnder8 from "./TreeDrawUnder8";
 import MatchVisualisation from "../../../components/Tournament/MatchVisualisation";
-import IndividualMatch from "../IndividualMatch";
 import Competitor from "../../Competitor";
-import Category from "../../Category";
 import PersonalDetails from "../../PersonalDetails";
 
 export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
@@ -15,19 +13,16 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
     constructor(draw: TreeDrawUnder8) {
         this.draw = draw;
         this.slidersForRounds = []
-        this.reinitializeslider()
+        this.reinitializeSlider()
 
     }
 
     getSlidesForRounds(): React.ReactNode[] {
-        this.reinitializeslider()
+        this.reinitializeSlider()
         return this.slidersForRounds;
     }
 
-    reinitializeslider() {
-        let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
-        let competitor = new Competitor(null, personal, "Wolny Los", "Wolny Los", new Category("Wolny Los", "Wolny Los", "Wolny Los"), 0)
-
+    reinitializeSlider() {
         this.slidersForRounds = []
         for (let i = 0; i < this.draw.rounds.length; i++) {
             let actualRound = this.draw.rounds[i]
@@ -129,9 +124,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className={"border border-3 rounded m-3 competitorBox-inFullDraw"}>
-                                {this.draw.matches[4]?.firstCompetitor?.personalDetails.name}
+                                {this.draw.matches[4]?.firstCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[4]?.firstCompetitor?.personalDetails.surname}
+                                {this.draw.matches[4]?.firstCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -148,145 +143,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[6]?.firstCompetitor?.personalDetails.name}
+                                {this.draw.matches[6]?.firstCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[6]?.firstCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[2]?.firstCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[2]?.firstCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[3]?.firstCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[3]?.firstCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[4]?.secondCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[4]?.secondCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[6]?.secondCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[6]?.secondCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[1]?.firstCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[1]?.firstCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[1]?.secondCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[1]?.secondCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[5]?.firstCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[5]?.firstCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[7]?.firstCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[7]?.firstCompetitor?.personalDetails.surname}
+                                {this.draw.matches[6]?.firstCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -302,9 +161,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[2]?.secondCompetitor?.personalDetails.name}
+                                {this.draw.matches[2]?.firstCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[2]?.secondCompetitor?.personalDetails.surname}
+                                {this.draw.matches[2]?.firstCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -315,9 +174,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[3]?.secondCompetitor?.personalDetails.name}
+                                {this.draw.matches[3]?.firstCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[3]?.secondCompetitor?.personalDetails.surname}
+                                {this.draw.matches[3]?.firstCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -333,9 +192,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[5]?.secondCompetitor?.personalDetails.name}
+                                {this.draw.matches[4]?.secondCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[5]?.secondCompetitor?.personalDetails.surname}
+                                {this.draw.matches[4]?.secondCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -352,9 +211,145 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[7]?.secondCompetitor?.personalDetails.name}
+                                {this.draw.matches[6]?.secondCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[7]?.secondCompetitor?.personalDetails.surname}
+                                {this.draw.matches[6]?.secondCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[1]?.firstCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[1]?.firstCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[1]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[1]?.secondCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[5]?.firstCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[5]?.firstCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[7]?.firstCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[7]?.firstCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[2]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[2]?.secondCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[3]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[3]?.secondCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[5]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[5]?.secondCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[7]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[7]?.secondCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -367,9 +362,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                     <Row>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[10]?.firstCompetitor?.personalDetails.name}
+                                {this.draw.matches[10]?.firstCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[10]?.firstCompetitor?.personalDetails.surname}
+                                {this.draw.matches[10]?.firstCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -392,77 +387,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[11]?.firstCompetitor?.personalDetails.name}
+                                {this.draw.matches[11]?.firstCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[11]?.firstCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[10]?.winner?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[10]?.winner?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[11]?.winner?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[11]?.winner?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[10]?.secondCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[10]?.secondCompetitor?.personalDetails.surname}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
-                        </Col>
-                        <Col>
-                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[11]?.secondCompetitor?.personalDetails.name}
-                                <br/>
-                                {this.draw.matches[11]?.secondCompetitor?.personalDetails.surname}
+                                {this.draw.matches[11]?.firstCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                     </Row>
@@ -471,13 +398,81 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
                         </Col>
                         <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[10]?.winner?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[10]?.winner?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[2]?.secondCompetitor?.personalDetails.name}
+                                {this.draw.matches[11]?.winner?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[2]?.secondCompetitor?.personalDetails.surname}
+                                {this.draw.matches[11]?.winner?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[10]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[10]?.secondCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[11]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[11]?.secondCompetitor?.personalDetails?.surname}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw d-none"/>
+                        </Col>
+                        <Col>
+                            <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
+                                {this.draw.matches[2]?.secondCompetitor?.personalDetails?.name}
+                                <br/>
+                                {this.draw.matches[2]?.secondCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -488,9 +483,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[3]?.secondCompetitor?.personalDetails.name}
+                                {this.draw.matches[3]?.secondCompetitor?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[3]?.secondCompetitor?.personalDetails.surname}
+                                {this.draw.matches[3]?.secondCompetitor?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -506,9 +501,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[11]?.winner?.personalDetails.name}
+                                {this.draw.matches[11]?.winner?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[11]?.winner?.personalDetails.surname}
+                                {this.draw.matches[11]?.winner?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -525,9 +520,9 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                         <Col>
                             <div className="border border-3 rounded m-3 competitorBox-inFullDraw">
-                                {this.draw.matches[15]?.winner?.personalDetails.name}
+                                {this.draw.matches[15]?.winner?.personalDetails?.name}
                                 <br/>
-                                {this.draw.matches[15]?.winner?.personalDetails.surname}
+                                {this.draw.matches[15]?.winner?.personalDetails?.surname}
                             </div>
                         </Col>
                         <Col>
@@ -541,22 +536,22 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
     results(): React.ReactNode {
         return (<>
         <Row>
-            1. {this.draw.matches[1]?.winner?.personalDetails.name +" "+ this.draw.matches[1]?.winner?.personalDetails.surname}
+            1. {this.draw.matches[1]?.winner?.personalDetails?.name +" "+ this.draw.matches[1]?.winner?.personalDetails?.surname}
         </Row>
         <Row>
-            2. {this.draw.matches[1]?.looser?.personalDetails.name +" "+ this.draw.matches[1]?.looser?.personalDetails.surname}
+            2. {this.draw.matches[1]?.looser?.personalDetails?.name +" "+ this.draw.matches[1]?.looser?.personalDetails?.surname}
         </Row>
         <Row>
-            3. {this.draw.matches[8]?.winner?.personalDetails.name +" "+ this.draw.matches[8]?.winner?.personalDetails.surname}
+            3. {this.draw.matches[8]?.winner?.personalDetails?.name +" "+ this.draw.matches[8]?.winner?.personalDetails?.surname}
         </Row>
         <Row>
-            3. {this.draw.matches[9]?.winner?.personalDetails.name +" "+ this.draw.matches[9]?.winner?.personalDetails.surname}
+            3. {this.draw.matches[9]?.winner?.personalDetails?.name +" "+ this.draw.matches[9]?.winner?.personalDetails?.surname}
         </Row>
         <Row>
-            5. {this.draw.matches[8]?.looser?.personalDetails.name +" "+ this.draw.matches[8]?.looser?.personalDetails.surname}
+            5. {this.draw.matches[8]?.looser?.personalDetails?.name +" "+ this.draw.matches[8]?.looser?.personalDetails?.surname}
         </Row>
         <Row>
-            5. {this.draw.matches[9]?.looser?.personalDetails.name +" "+ this.draw.matches[9]?.looser?.personalDetails.surname}
+            5. {this.draw.matches[9]?.looser?.personalDetails?.name +" "+ this.draw.matches[9]?.looser?.personalDetails?.surname}
         </Row>
 
         </>);
