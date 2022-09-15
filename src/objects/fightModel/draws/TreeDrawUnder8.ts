@@ -67,6 +67,10 @@ export default class TreeDrawUnder8 implements IDraw {
     }
 
     goToNextMatch(): void {
+        if (this.actualFightIndex + 1 == this.matches.length ||
+            (this.getNextMatch().firstCompetitor == null && this.getNextMatch().secondCompetitor == null)
+        ) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length - 1);
         this.getActualMatch().actualPlaying = true
@@ -74,6 +78,8 @@ export default class TreeDrawUnder8 implements IDraw {
     }
 
     goToPrevMatch(): void {
+        if (this.actualFightIndex == 0) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length - 1);
         this.getActualMatch().actualPlaying = true

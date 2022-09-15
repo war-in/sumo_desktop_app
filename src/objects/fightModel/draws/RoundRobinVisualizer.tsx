@@ -11,16 +11,15 @@ export default class RoundRobinDrawVisualizer implements IDrawVisualizer {
     constructor(draw: RoundRobinDraw) {
         this.draw = draw;
         this.slidersForRounds = []
-        this.reinitializeslider()
-
+        this.reinitializeSlider()
     }
 
     getSlidesForRounds(): React.ReactNode[] {
-        this.reinitializeslider()
+        this.reinitializeSlider()
         return this.slidersForRounds;
     }
 
-    reinitializeslider() {
+    reinitializeSlider() {
         this.slidersForRounds = []
         for (let i = 0; i < this.draw.rounds.length; i++) {
             let actualRound = this.draw.rounds[i]
@@ -46,18 +45,25 @@ export default class RoundRobinDrawVisualizer implements IDrawVisualizer {
     }
 
     fullDraw(): React.ReactNode {
-        return (<>
-            {this.draw.competitors.map(competitor => {
-                return (<>{competitor.personalDetails!.name + " " + competitor.personalDetails!.name + " " +
-                    competitor.points}
-                    < br/> </>)
-                    })}
-                </>)
+        return (
+            <>
+            {
+                this.draw.competitors.map(competitor => {
+                    return (
+                        <>
+                        {
+                            competitor.personalDetails!.name + " " + competitor.personalDetails!.name + " " +
+                            competitor.points
+                        }
+                        < br/>
+                        </>)
+                })
             }
+            </>
+        )
+    }
 
-                results(): React.ReactNode {
-                return undefined;
-            }
-
-
-            }
+    results(): React.ReactNode {
+        return undefined;
+    }
+}
