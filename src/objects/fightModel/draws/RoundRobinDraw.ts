@@ -13,14 +13,16 @@ export default class RoundRobinDraw implements IDraw {
     carousel: Competitor[];
     bucket: Bucket;
     playedMatches: number;
+    currentBucket: Bucket | null;
 
     constructor(competitors: Competitor[]) {
         this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = []
         this.carousel = competitors.slice()
-        this.bucket = new Bucket(this.competitors)
+        this.bucket = new Bucket(this.competitors, null)
         this.playedMatches = 0
+        this.currentBucket = this.bucket
 
         let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
         let freeFight = new Competitor(null, personal, "Wolny Los", "Wolny Los", 0)
@@ -95,6 +97,9 @@ export default class RoundRobinDraw implements IDraw {
     }
 
     playActualMatch(firstWin: boolean): void {
+        console.log("rounds")
+        console.log(this.rounds)
+        console.log(this.matches)
         try{
             if(firstWin){
                 this.getActualMatch().firstCompetitor!.points ++
@@ -105,75 +110,86 @@ export default class RoundRobinDraw implements IDraw {
             console.log(e)
         }
 
+        this.getActualMatch().playMatch(firstWin);
         if (this.getActualMatch().winner != null)
             this.playedMatches++;
-        this.getActualMatch().playMatch(firstWin);
 
         if (this.playedMatches == this.matches.length) {
             let flag: boolean = true;
+            let stepBack: boolean = false;
             do {
-                this.generateBuckets();
+                if (!stepBack)
+                    this.generateBuckets();
 
                 let bucketWithOvertime = this.findBucketWithOvertime();
+                console.log("overtime ", bucketWithOvertime)
+
                 if (bucketWithOvertime != null) {
                     this.generateNewRounds();
+                    this.currentBucket = bucketWithOvertime;
                     flag = false;
+                    stepBack = false;
+                    this.goToNextMatch();
                 } else {
                     this.setCompetitorsInProperOrder();
+                    this.currentBucket = this.currentBucket!.parent
+                    stepBack = true;
                 }
-            } while (flag || this.getCurrentBucket() != this.bucket)
+            } while (flag && this.currentBucket != null)
         }
-
-        this.goToNextMatch();
+        else {
+            this.goToNextMatch();
+        }
     }
 
     getActualRound(): Round {
         return this.rounds[0]
     }
 
-    getCurrentBucket(): Bucket {
-        let currentBucket = this.bucket;
-        while (currentBucket.buckets.length != 0)
-            currentBucket = currentBucket.buckets[currentBucket.currentBucketIndex]
-
-        return currentBucket;
-    }
-
     generateBuckets() {
-        let currentBucket = this.getCurrentBucket();
-        currentBucket.competitors.sort(function (a, b) {return b.points - a.points});
+        console.log("currentBucket ", this.bucket)
+        let currentBucket = this.currentBucket;
+        currentBucket!.competitors.sort(function (a, b) {return b.points - a.points});
 
-        currentBucket.addBucket(new Bucket([currentBucket.competitors[0]]));
+        console.log("competitors ", currentBucket!.competitors)
+
+        currentBucket!.addBucket(new Bucket([currentBucket!.competitors[0]], currentBucket));
         let numberOfCompetitorsInBucket: number = 1;
-        for (let i=1; i<currentBucket.competitors.length; i++) {
-            if (currentBucket.buckets[currentBucket.currentBucketIndex].competitors[0].points
-                != currentBucket.competitors[i].points) {
-                currentBucket.addBucket(new Bucket([currentBucket.competitors[i]]));
+        for (let i=1; i<currentBucket!.competitors.length; i++) {
+            if (currentBucket!.buckets[currentBucket!.currentBucketIndex].competitors[0].points
+                != currentBucket!.competitors[i].points) {
+                currentBucket!.addBucket(new Bucket([currentBucket!.competitors[i]], currentBucket));
 
                 if (numberOfCompetitorsInBucket < 3)
-                    currentBucket.buckets[currentBucket.currentBucketIndex].done = true;
+                    currentBucket!.buckets[currentBucket!.currentBucketIndex].done = true;
 
-                currentBucket.currentBucketIndex++;
+                currentBucket!.currentBucketIndex++;
                 numberOfCompetitorsInBucket = 1;
             } else {
-                currentBucket.buckets[currentBucket.currentBucketIndex].addCompetitor(currentBucket.competitors[i])
+                currentBucket!.buckets[currentBucket!.currentBucketIndex].addCompetitor(currentBucket!.competitors[i])
                 numberOfCompetitorsInBucket++;
             }
         }
 
-        currentBucket.currentBucketIndex = 0;
+        if (numberOfCompetitorsInBucket < 3)
+            currentBucket!.buckets[currentBucket!.currentBucketIndex].done = true;
+
+        currentBucket!.currentBucketIndex = 0;
+        console.log("generated ", currentBucket!.buckets)
     }
 
     findBucketWithOvertime(): Bucket | null {
-        let currentBucket = this.getCurrentBucket();
+        let currentBucket = this.currentBucket;
 
-        while (currentBucket.currentBucketIndex < currentBucket.buckets.length && currentBucket.buckets[currentBucket.currentBucketIndex].done) {
-            currentBucket.currentBucketIndex++;
+        while (currentBucket!.currentBucketIndex < currentBucket!.buckets.length && currentBucket!.buckets[currentBucket!.currentBucketIndex].done) {
+            currentBucket!.currentBucketIndex++;
         }
 
-        if (currentBucket.currentBucketIndex == currentBucket.buckets.length)
+        console.log("index ", currentBucket!.currentBucketIndex)
+
+        if (currentBucket!.currentBucketIndex == currentBucket!.buckets.length)
             return null
-        return currentBucket.buckets[currentBucket.currentBucketIndex]
+        return currentBucket!.buckets[currentBucket!.currentBucketIndex]
     }
 
     generateNewRounds() {
@@ -192,7 +208,7 @@ export default class RoundRobinDraw implements IDraw {
         let roundsBefore = this.rounds.length
         let roundIndex = this.rounds.length + 1
 
-        this.rounds.push(new Round("Runda " + roundIndex, this.playedMatches + 1, undefined))
+        this.rounds.push(new Round("Runda " + roundIndex, this.playedMatches, undefined))
         for (let i = 0; i < numberOfMatches; i++) {
             if (lastConnected <= startConnected) {
                 roundIndex++
@@ -224,20 +240,21 @@ export default class RoundRobinDraw implements IDraw {
             startConnected++;
             lastConnected--;
         }
-        this.rounds[this.rounds.length - 1].lastFightIndex = numberOfMatches - 1
+        this.rounds[this.rounds.length - 1].lastFightIndex = this.playedMatches + numberOfMatches - 1
 
         this.matches[this.playedMatches+1].actualPlaying = true
     }
 
     setCompetitorsInProperOrder() {
-        let currentBucket = this.getCurrentBucket();
+        let currentBucket = this.currentBucket;
         let localRanking: Competitor[] = []
-        for (let i=0; i<currentBucket.buckets.length; i++) {
-            localRanking.concat(currentBucket.buckets[i].competitors);
+        for (let i=0; i<currentBucket!.buckets.length; i++) {
+            localRanking.concat(currentBucket!.buckets[i].competitors);
         }
 
-        currentBucket.competitors = localRanking;
-        currentBucket.buckets = [];
+        currentBucket!.competitors = localRanking;
+        currentBucket!.buckets = [];
+        currentBucket!.done = true;
     }
 
 
