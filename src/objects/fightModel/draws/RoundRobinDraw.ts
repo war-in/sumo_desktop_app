@@ -97,9 +97,6 @@ export default class RoundRobinDraw implements IDraw {
     }
 
     playActualMatch(firstWin: boolean): void {
-        console.log("rounds")
-        console.log(this.rounds)
-        console.log(this.matches)
         try{
             if(firstWin){
                 this.getActualMatch().firstCompetitor!.points ++
@@ -122,20 +119,19 @@ export default class RoundRobinDraw implements IDraw {
                     this.generateBuckets();
 
                 let bucketWithOvertime = this.findBucketWithOvertime();
-                console.log("overtime ", bucketWithOvertime)
-
                 if (bucketWithOvertime != null) {
                     this.generateNewRounds();
                     this.currentBucket = bucketWithOvertime;
                     flag = false;
                     stepBack = false;
-                    this.goToNextMatch();
                 } else {
                     this.setCompetitorsInProperOrder();
                     this.currentBucket = this.currentBucket!.parent
                     stepBack = true;
                 }
             } while (flag && this.currentBucket != null)
+            if (this.currentBucket != null)
+                this.goToNextMatch();
         }
         else {
             this.goToNextMatch();
@@ -147,11 +143,8 @@ export default class RoundRobinDraw implements IDraw {
     }
 
     generateBuckets() {
-        console.log("currentBucket ", this.bucket)
         let currentBucket = this.currentBucket;
         currentBucket!.competitors.sort(function (a, b) {return b.points - a.points});
-
-        console.log("competitors ", currentBucket!.competitors)
 
         currentBucket!.addBucket(new Bucket([currentBucket!.competitors[0]], currentBucket));
         let numberOfCompetitorsInBucket: number = 1;
@@ -175,7 +168,6 @@ export default class RoundRobinDraw implements IDraw {
             currentBucket!.buckets[currentBucket!.currentBucketIndex].done = true;
 
         currentBucket!.currentBucketIndex = 0;
-        console.log("generated ", currentBucket!.buckets)
     }
 
     findBucketWithOvertime(): Bucket | null {
@@ -184,8 +176,6 @@ export default class RoundRobinDraw implements IDraw {
         while (currentBucket!.currentBucketIndex < currentBucket!.buckets.length && currentBucket!.buckets[currentBucket!.currentBucketIndex].done) {
             currentBucket!.currentBucketIndex++;
         }
-
-        console.log("index ", currentBucket!.currentBucketIndex)
 
         if (currentBucket!.currentBucketIndex == currentBucket!.buckets.length)
             return null
