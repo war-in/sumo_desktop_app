@@ -191,7 +191,7 @@ export default class TreeDrawUnder16Visualizer implements IDrawVisualizer {
                     1. {this.draw.matches[1]?.winner?.personalDetails.name +" "+ this.draw.matches[1]?.winner?.personalDetails.surname}
                 </Row>
                 <Row>
-                    2. {this.draw.matches[1]?.losser?.personalDetails.name +" "+ this.draw.matches[1]?.losser?.personalDetails.surname}
+                    2. {this.draw.matches[1]?.looser?.personalDetails.name +" "+ this.draw.matches[1]?.looser?.personalDetails.surname}
                 </Row>
                 <Row>
                     3. {this.draw.matches[16]?.winner?.personalDetails.name +" "+ this.draw.matches[16]?.winner?.personalDetails.surname}
@@ -200,10 +200,10 @@ export default class TreeDrawUnder16Visualizer implements IDrawVisualizer {
                     3. {this.draw.matches[17]?.winner?.personalDetails.name +" "+ this.draw.matches[17]?.winner?.personalDetails.surname}
                 </Row>
                 <Row>
-                    5. {this.draw.matches[16]?.losser?.personalDetails.name +" "+ this.draw.matches[16]?.losser?.personalDetails.surname}
+                    5. {this.draw.matches[16]?.looser?.personalDetails.name +" "+ this.draw.matches[16]?.looser?.personalDetails.surname}
                 </Row>
                 <Row>
-                    5. {this.draw.matches[17]?.losser?.personalDetails.name +" "+ this.draw.matches[17]?.losser?.personalDetails.surname}
+                    5. {this.draw.matches[17]?.looser?.personalDetails.name +" "+ this.draw.matches[17]?.looser?.personalDetails.surname}
                 </Row>
             </Container>
         )

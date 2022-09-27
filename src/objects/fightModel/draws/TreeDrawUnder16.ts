@@ -130,20 +130,20 @@ export default class TreeDrawUnder16 implements IDraw {
             switch (this.actualFightIndex) {
                 case 8:
                     debugger
-                    this.matches[20].secondCompetitor = this.getActualMatch().losser
-                    this.matches[20].firstCompetitor = firstWinn ? this.matches[8].losser : this.matches[9].losser
+                    this.matches[20].secondCompetitor = this.getActualMatch().looser
+                    this.matches[20].firstCompetitor = firstWinn ? this.matches[8].looser : this.matches[9].looser
                     break;
                 case 9:
-                    this.matches[21].secondCompetitor = this.getActualMatch().losser
-                    this.matches[21].firstCompetitor = firstWinn ? this.matches[10].losser : this.matches[11].losser
+                    this.matches[21].secondCompetitor = this.getActualMatch().looser
+                    this.matches[21].firstCompetitor = firstWinn ? this.matches[10].looser : this.matches[11].looser
                     break;
                 case 10:
-                    this.matches[22].secondCompetitor = this.getActualMatch().losser
-                    this.matches[22].firstCompetitor = firstWinn ? this.matches[12].losser : this.matches[13].losser
+                    this.matches[22].secondCompetitor = this.getActualMatch().looser
+                    this.matches[22].firstCompetitor = firstWinn ? this.matches[12].looser : this.matches[13].looser
                     break;
                 case 11:
-                    this.matches[23].secondCompetitor = this.getActualMatch().losser
-                    this.matches[23].firstCompetitor = firstWinn ? this.matches[14].losser : this.matches[15].losser
+                    this.matches[23].secondCompetitor = this.getActualMatch().looser
+                    this.matches[23].firstCompetitor = firstWinn ? this.matches[14].looser : this.matches[15].looser
                     break;
             }
         }

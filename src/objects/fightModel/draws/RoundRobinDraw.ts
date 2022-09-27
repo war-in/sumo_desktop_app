@@ -10,59 +10,57 @@ export default class RoundRobinDraw implements IDraw {
     matches: IndividualMatch[];
     rounds: Round[];
     competitors: Competitor[]
-    carusele:Competitor[]
+    carousel:Competitor[]
 
     constructor(competitors: Competitor[]) {
-        console.log("zawodnicy w round robin")
-        console.log(competitors)
-        let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
-        let competitor = new Competitor(null, personal, "Wolny Los", "Wolny Los", new Category("Wolny Los", "Wolny Los", "Wolny Los"), 0)
         this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = []
-        this.carusele = competitors.slice()
-        this.carusele = this.carusele.length % 2 == 0 ? this.carusele : this.carusele.concat([competitor])
-        let numberOfMatches = (this.carusele.length * (this.carusele.length - 1) / 2)
+        this.carousel = competitors.slice()
+
+        let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
+        let freeFight = new Competitor(null, personal, "Wolny Los", "Wolny Los", 0)
+
+        let numberOfMatches = (this.carousel.length * (this.carousel.length - 1) / 2)
+        let numberOfRounds = this.carousel.length
         this.matches = []
         let startConnected = 0;
-        let lastConnected = this.carusele.length - 1
-        let actualFightIndex = 0
+        let lastConnected = this.carousel.length - 1
         let roundIndex = 1
-        console.log("karuzela")
-        console.log(this.carusele)
 
         this.rounds.push(new Round("Runda " + roundIndex, 0, undefined))
         for (let i = 0; i < numberOfMatches; i++) {
             if (lastConnected <= startConnected) {
                 roundIndex++
                 this.rounds[this.rounds.length - 1].lastFightIndex = i - 1
-                this.rounds.push(new Round("Rouna" + roundIndex, i, undefined))
-                console.log("karuzela przed obracaniem")
-                console.log(this.carusele)
+
+                if (numberOfRounds != 4 || roundIndex != 4)
+                    this.rounds.push(new Round("Runda " + roundIndex, i, undefined))
+
+                if (numberOfRounds % 2 == 0 && roundIndex == Math.floor(numberOfRounds / 2) + 1) {
+                    this.carousel = this.carousel.concat([freeFight])
+                } else if (numberOfRounds % 2 == 0 && roundIndex > Math.floor(numberOfRounds / 2) + 1) {
+                    let last = this.carousel.slice(this.carousel.length - 1, this.carousel.length)
+                    let first = this.carousel.slice(this.carousel.length - 2, this.carousel.length - 1)
+                    let middle = this.carousel.slice(0, this.carousel.length - 2)
+                    this.carousel = first.concat(middle).concat(last)
+                } else {
+                    let first = this.carousel.slice(this.carousel.length - 1, this.carousel.length)
+                    let rest = this.carousel.slice(0, length - 1)
+                    this.carousel = first.concat(rest)
+                }
+
                 startConnected = 0;
-                lastConnected = this.carusele.length - 1
-                // if ((competitors.length % 2) == 0) {
-                //     let last = this.carusele.slice(this.carusele.length - 1, this.carusele.length)
-                //     let rest = this.carusele.slice(0, this.carusele.length - 1)
-                //     this.carusele = last.concat(rest)
-                //     console.log("po obróceniu")
-                //     console.log(this.carusele)
-                // } else {
-                    let first = this.carusele.slice(this.carusele.length - 2, this.carusele.length - 1)
-                    let middle = this.carusele.slice(0, length - 2)
-                    let last = this.carusele.slice(this.carusele.length - 1, this.carusele.length)
-                    this.carusele = first.concat(middle).concat(last)
-                    console.log("po obróceniu")
-                    console.log(this.carusele)
-                // }
+                lastConnected = this.carousel.length - 1;
             }
-            this.matches.push(new IndividualMatch(this.carusele[startConnected], this.carusele[lastConnected], null))
+            if (this.carousel[lastConnected] != freeFight)
+                this.matches.push(new IndividualMatch(this.carousel[startConnected], this.carousel[lastConnected], null));
+            else i--;
+
             startConnected++;
             lastConnected--;
         }
         this.rounds[this.rounds.length - 1].lastFightIndex = numberOfMatches - 1
-        console.log("mecze")
-        console.log(this.matches)
         if (this.matches.length>0)
             this.matches[0].actualPlaying = true
     }
@@ -92,9 +90,9 @@ export default class RoundRobinDraw implements IDraw {
         this.getActualMatch().actualPlaying = true
     }
 
-    playActualMatch(firstWinn: boolean): void {
+    playActualMatch(firstWin: boolean): void {
         try{
-            if(firstWinn){
+            if(firstWin){
                 this.getActualMatch().firstCompetitor.points ++
             }else{
                 this.getActualMatch().secondCompetitor.points ++
@@ -103,7 +101,7 @@ export default class RoundRobinDraw implements IDraw {
             console.log(e)
         }
 
-        this.getActualMatch().playMatch(firstWinn);
+        this.getActualMatch().playMatch(firstWin);
 
         this.goToNextMatch();
     }

@@ -4,7 +4,7 @@ export default class IndividualMatch {
     private _firstCompetitor: Competitor | null
     private _secondCompetitor: Competitor | null
     private _winner: Competitor | null
-    private _losser: Competitor | null
+    private _looser: Competitor | null
     private _actualPlaying: boolean
 
 
@@ -12,7 +12,7 @@ export default class IndividualMatch {
         this._firstCompetitor = firstCompetitor;
         this._secondCompetitor = secondCompetitor;
         this._winner = winner;
-        this._losser = null
+        this._looser = null
         this._actualPlaying = false
     }
 
@@ -50,7 +50,7 @@ export default class IndividualMatch {
 
     playMatch(isFirstWinner: boolean) {
         this._winner = isFirstWinner ? this._firstCompetitor : this._secondCompetitor;
-        this._losser = isFirstWinner ? this._secondCompetitor : this._firstCompetitor;
+        this._looser = isFirstWinner ? this._secondCompetitor : this._firstCompetitor;
     }
 
 
@@ -62,11 +62,11 @@ export default class IndividualMatch {
         this._actualPlaying = value;
     }
 
-    get losser(): Competitor | null {
-        return this._losser;
+    get looser(): Competitor | null {
+        return this._looser;
     }
 
-    set losser(value: Competitor | null) {
-        this._losser = value;
+    set looser(value: Competitor | null) {
+        this._looser = value;
     }
 }
