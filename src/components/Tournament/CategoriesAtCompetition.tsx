@@ -51,11 +51,10 @@ function CategoriesAtCompetition() {
                     },
                 }}
                 onRowClick={(event, rowData) => {
-                    // @ts-ignore
                     navigate("/tournament-draw", {
                         state: {
                             rowData: rowData,
-                            drawFromDatabase: drawsFromDatabase[rowData.tableData.id]
+                            drawFromDatabase: drawsFromDatabase[rowData!.id]
                         }
                     })
                 }}

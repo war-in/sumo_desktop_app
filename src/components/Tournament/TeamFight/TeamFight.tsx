@@ -3,7 +3,6 @@ import {Model} from "../Model";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import Competitor from "../../../objects/Competitor";
 import PersonalDetails from "../../../objects/PersonalDetails";
-import Panel from "../Panel";
 
 type Props = {
   model: Model
@@ -20,7 +19,7 @@ function generateTeam(competitors: Competitor[]) {
       return (
         <Row>
           <Button>
-            {competitor.personalDetails.name + ' ' + competitor.personalDetails.surname}
+            {competitor.personalDetails?.name + ' ' + competitor.personalDetails?.surname}
           </Button>
         </Row>
       )
@@ -32,17 +31,17 @@ const TeamFight: React.FC<Props> = (props) => {
   const team1: Team = {
     name: "lubzina",
     competitors: [
-      new Competitor(1, new PersonalDetails(1, "Kuba", "Nowakowski", null, null, null), "Lubzina", "lubzina", null, null),
-      new Competitor(2, new PersonalDetails(2, "Marcin", "Warchoł", null, null, null), "Lubzina", "lubzina", null, null),
-      new Competitor(3, new PersonalDetails(3, "Gabi", "Erazmus", null, null, null), "Lubzina", "lubzina", null, null),
+      new Competitor(1, new PersonalDetails(1, "Kuba", "Nowakowski", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(2, new PersonalDetails(2, "Marcin", "Warchoł", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(3, new PersonalDetails(3, "Gabi", "Erazmus", "", null, null), "Lubzina", "lubzina", null),
     ]
   }
   const team2: Team = {
     name: "debica",
     competitors: [
-      new Competitor(4, new PersonalDetails(4, "Adam", "Nowak", null, null, null), "Lubzina", "lubzina", null, null),
-      new Competitor(5, new PersonalDetails(5, "Piotr", "Stawarski", null, null, null), "Lubzina", "lubzina", null, null),
-      new Competitor(6, new PersonalDetails(6, "Kasia", "Wyszyńska", null, null, null), "Lubzina", "lubzina", null, null),
+      new Competitor(4, new PersonalDetails(4, "Adam", "Nowak", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(5, new PersonalDetails(5, "Piotr", "Stawarski", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(6, new PersonalDetails(6, "Kasia", "Wyszyńska", "", null, null), "Lubzina", "lubzina", null),
     ]
   }
 

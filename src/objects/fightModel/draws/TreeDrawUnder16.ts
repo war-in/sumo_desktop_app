@@ -11,7 +11,7 @@ export default class TreeDrawUnder16 implements IDraw {
     actualFightIndexToArrayIndex: Map<number, number>
 
     constructor(competitors: Competitor[]) {
-        this.matches = new Array(24).fill(new IndividualMatch())
+        this.matches = new Array(24).fill(new IndividualMatch(null, null, null))
         this.competitors = competitors
         let actualCompetitor = 0;
         this.actualFightIndex = 0
