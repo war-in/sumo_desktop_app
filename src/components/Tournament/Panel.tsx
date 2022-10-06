@@ -16,8 +16,8 @@ const Panel: React.FC<Props> = (props) => {
     const [nextMatch, setNextMatch] = useState<IndividualMatch>(props.model.draw.getNextMatch())
     const [hidden, setHidden] = useState<boolean>(false)
 
-    const playActualMatch = (firstWin: boolean) => {
-        props.model.draw.playActualMatch(firstWin)
+    const playActualMatch = async (firstWin: boolean) => {
+        await props.model.draw.playActualMatch(firstWin, props.model.rowData.id)
         props.updateModelView()
         setActualMatch(props.model.draw.getActualMatch())
         setNextMatch(props.model.draw.getNextMatch())
@@ -61,8 +61,8 @@ const Panel: React.FC<Props> = (props) => {
                     <Col className="col-8">
                         <Row>
                             <Col>
-                                <Button className="panel-button-current" onClick={() => {
-                                    playActualMatch(true)
+                                <Button className="panel-button-current" onClick={async () => {
+                                    await playActualMatch(true)
                                 }}>
                                     {firstCompetitor ? firstCompetitor.personalDetails?.name + ' ' + firstCompetitor.personalDetails?.surname : ""}
                                 </Button>

@@ -2,6 +2,7 @@ import {IDraw} from "./IDraw";
 import IndividualMatch from "../IndividualMatch";
 import {Round} from "../Round";
 import Competitor from "../../Competitor";
+import FightController from "../FightController";
 
 export default class TreeDrawUnder8 implements IDraw {
     actualFightIndex: number;
@@ -79,7 +80,7 @@ export default class TreeDrawUnder8 implements IDraw {
         this.getActualMatch().actualPlaying = true
     }
 
-    playActualMatch(firstWinn: boolean): void {
+    async playActualMatch(firstWinn: boolean, drawId: number): Promise<void> {
         this.getActualMatch().playMatch(firstWinn);
         //przepisanie wygranego z eliminacji do pół finałów
         //a przegranego do repasarzy
@@ -134,6 +135,8 @@ export default class TreeDrawUnder8 implements IDraw {
                     break;
             }
         }
+
+        await FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex);
 
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex++
