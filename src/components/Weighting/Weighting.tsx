@@ -80,10 +80,18 @@ function Weighting() {
             await axios.get(desktopServerUrl + `weighting/competitors?competitionId=` + competitionId)
                 .then(response => {
                     setCompetitorsData(response.data);
+                    sessionStorage.setItem("competitorsData", JSON.stringify(response.data));
                 })
         }
-        fetchData()
+        const localStorageData = JSON.parse(sessionStorage.getItem("competitorsData"));
+        console.log(localStorageData)
+        if (localStorageData) {
+            setCompetitorsData(localStorageData);
+        } else {
+            fetchData()
+        }
     }, []);
+
 
     function Competitors() {
 
