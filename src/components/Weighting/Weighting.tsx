@@ -83,15 +83,13 @@ function Weighting() {
                     sessionStorage.setItem("competitorsData", JSON.stringify(response.data));
                 })
         }
-        const localStorageData = JSON.parse(sessionStorage.getItem("competitorsData"));
-        console.log(localStorageData)
-        if (localStorageData) {
-            setCompetitorsData(localStorageData);
+        const sessionStorageData = JSON.parse(sessionStorage.getItem("competitorsData"));
+        if (sessionStorageData) {
+            setCompetitorsData(sessionStorageData);
         } else {
             fetchData()
         }
     }, []);
-
 
     function Competitors() {
 
