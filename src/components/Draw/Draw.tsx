@@ -10,15 +10,39 @@ const competitionId = 10;
 const region = "EUROPE";
 const desktopServerUrl = "http://localhost:8080/";
 
-let selectedDrawType = {};
-let generatedCombats = {};
-let categoriesToIndexes = {};
+type Category = {
+    category: {
+        id: number
+    },
+    competitors: object[]
+}
+
+type GeneratedCombat = {
+    drawType: any,
+    combats: any
+}
+
+type DrawType = {
+    id: number,
+    numberOfCompetitors: number,
+    region: {
+        region: string
+    }
+}
+
+type Competitor = {
+    personalDetails: any
+}
+
+let selectedDrawType : DrawType | null = null;
+let generatedCombats: { [key: number]: GeneratedCombat | null } = {};
+let categoriesToIndexes: { [key: number]: number } = {};
 
 function Draw() {
-    const [categories, setCategories] = useState([]);
-    const [buttons, setButtons] = useState([]);
-    const [selectedCategoryId, setSelectedCategoryId] = useState();
-    const [combats, setCombats] = useState([]);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [buttons, setButtons] = useState<DrawType[]>([]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
+    const [combats, setCombats] = useState<Competitor[]>([]);
 
     const [state, setState] = useState({buttonsVisible: false, combatsVisible: false});
     const showButtons = () => {
@@ -42,7 +66,7 @@ function Draw() {
         return generatedCombats[categoryId] != null;
     }
 
-    function CategoryDetails({categoryId}) {
+    function CategoryDetails(categoryId: number) {
         const Columns = [
             {"title": undefined, "field": "id"},
             {"title": undefined, "field": "personalDetails.surname"},
@@ -95,17 +119,18 @@ function Draw() {
                         detailPanelType: "single",
                         grouping: true,
                     }}
-                    onRowClick={async (event, rowData) => {
+                    onRowClick={async (_event, rowData: Category) => {
                         if (rowData == null) return
                         if (combatsAlreadyGenerated(rowData.category.id)) {
-                            selectedDrawType = generatedCombats[rowData.category.id].drawType;
-                            setCombats(generatedCombats[rowData.category.id].combats);
+                            selectedDrawType = generatedCombats[rowData.category.id]!.drawType;
+                            setCombats(generatedCombats[rowData.category.id]!.combats);
                             showCombats();
                         } else {
                             setSelectedCategoryId(rowData.category.id)
                             await axios.get(desktopServerUrl + `draw/suggested-draw-types?numberOfCompetitors=` + rowData.competitors.length + `&region=` + region)
                                 .then(response => {
                                     setButtons(response.data)
+                                    console.log(response.data)
                                 })
                             showButtons()
                         }
@@ -125,7 +150,7 @@ function Draw() {
         );
     }
 
-    function GenerateCombatsButton({drawType}) {
+    function GenerateCombatsButton(drawType : DrawType) {
         let displayName;
         if (drawType.numberOfCompetitors == 0) {
             displayName = "Round Robin Draw";
@@ -149,7 +174,7 @@ function Draw() {
     function GenerateCombatsButtons() {
         let buttonsList = [];
         buttons.forEach((button) => {
-            buttonsList.push(<GenerateCombatsButton drawType={button}/>)
+            buttonsList.push(<GenerateCombatsButton id={button.id} numberOfCompetitors={button.numberOfCompetitors} region={button.region}/>)
         })
         return (
             <Box className="combats">
@@ -178,29 +203,31 @@ function Draw() {
     }
 
     function Combats() {
-        const dragItem = useRef();
-        const dragOverItem = useRef();
-        const dragStart = (e, position) => {
+        const dragItem = useRef(null);
+        const dragOverItem = useRef(null);
+        const dragStart = (_e: React.DragEvent<HTMLElement>, position: number) => {
             dragItem.current = position;
         };
-        const dragEnter = (e, position) => {
+        const dragEnter = (_e: React.DragEvent<HTMLElement>, position: number) => {
             dragOverItem.current = position;
         };
 
-        const drop = (e) => {
-            const copyCombats = [...combats];
-            const dragItemContent = copyCombats[dragItem.current];
-            const dragOverItemContent = copyCombats[dragOverItem.current];
-            copyCombats.splice(dragItem.current, 1, dragOverItemContent);
-            copyCombats.splice(dragOverItem.current, 1, dragItemContent);
-            dragItem.current = null;
-            dragOverItem.current = null;
-            setCombats(copyCombats);
+        const drop = () => {
+            if (dragItem.current != null && dragOverItem.current != null) {
+                const copyCombats = [...combats];
+                const dragItemContent = copyCombats[dragItem.current];
+                const dragOverItemContent = copyCombats[dragOverItem.current];
+                copyCombats.splice(dragItem.current, 1, dragOverItemContent);
+                copyCombats.splice(dragOverItem.current, 1, dragItemContent);
+                dragItem.current = null;
+                dragOverItem.current = null;
+                setCombats(copyCombats);
+            }
         };
 
         let left = [];
         let right = [];
-        if (selectedDrawType.numberOfCompetitors == 0 || selectedDrawType.numberOfCompetitors == 5) {
+        if (selectedDrawType!= null && (selectedDrawType.numberOfCompetitors == 0 || selectedDrawType.numberOfCompetitors == 5)) {
             for (let i = 0; i < combats.length; i++) {
                 left.push(<Box className="combat">
                         <Row className="detail"
@@ -211,7 +238,7 @@ function Draw() {
                     </Box>
                 );
             }
-        } else if (selectedDrawType.numberOfCompetitors == 10) {
+        } else if (selectedDrawType!= null && selectedDrawType.numberOfCompetitors == 10) {
             for (let i = 0; i < combats.length / 2; i++) {
                 left.push(<Box className="combat">
                         <Row className="detail"

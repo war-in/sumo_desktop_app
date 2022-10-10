@@ -15,8 +15,6 @@ const desktopServerUrl = "http://localhost:8080/";
 
 function Weighting() {
 
-
-
     const [personalDetails, setPersonalDetails] = useState(() => new PersonalDetails(
         null,
         "",
