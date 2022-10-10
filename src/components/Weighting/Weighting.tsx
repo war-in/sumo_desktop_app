@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Col, Container, Image, Row} from 'react-bootstrap';
 import {Box, Button, Input} from '@material-ui/core';
 import MaterialTable from 'material-table';
@@ -103,6 +103,7 @@ function Weighting() {
     const [weight, setWeight] = useState<number>(0);
     const [weightingDetails, setWeightingDetails] = useState<WeightingDetailsType[]>([]);
     const [competitorsData, setCompetitorsData] = useState<CompetitorType[]>([]);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     let dict: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
 
@@ -159,7 +160,7 @@ function Weighting() {
                     maxBodyHeight: 250,
                     grouping: true,
                 }}
-                onRowClick={(_event, rowData: CompetitorType) => {
+                onRowClick={(_event, rowData?: CompetitorType) => {
                     if (rowData == null) return
                     setCategories(dict[rowData.personalDetails.id].categories);
                     setWeightingDetails(dict[rowData.personalDetails.id].weightDetails);
@@ -227,13 +228,14 @@ function Weighting() {
                     <Row className="detail">{competitor.club}</Row>
                     <Row className="detail">{personalDetails.sex}</Row>
                     <Row>Weight:</Row>
-                    <Row><Input id="weightInput" className="detail" defaultValue={weight}></Input></Row>
+                    <Row><Input id="weightInput" className="detail" defaultValue={weight} ref={inputRef}></Input></Row>
                     <Row className="button">
                         <Button onClick={async () => {
-                            let w = Number(await document.getElementById("weightInput").value);
+                            const inputValue = inputRef.current?.children[0] as HTMLInputElement
+                            if (inputValue == null) return
                             for (const wd of weightingDetails) {
                                 let body = wd
-                                body.weight = w
+                                body.weight = inputValue.valueAsNumber
                                 await axios.post(desktopServerUrl + `weighting/update-weighing-details`, body)
                             }
                         }}>OK</Button>

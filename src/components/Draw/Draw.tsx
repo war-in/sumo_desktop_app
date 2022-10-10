@@ -66,7 +66,7 @@ function Draw() {
         return generatedCombats[categoryId] != null;
     }
 
-    function CategoryDetails(props: {categoryId: number}) {
+    function CategoryDetails(props: { categoryId: number }) {
         const Columns = [
             {"title": undefined, "field": "id"},
             {"title": undefined, "field": "personalDetails.surname"},
@@ -119,7 +119,7 @@ function Draw() {
                         detailPanelType: "single",
                         grouping: true,
                     }}
-                    onRowClick={async (_event, rowData: Category) => {
+                    onRowClick={async (_event, rowData?: Category) => {
                         if (rowData == null) return
                         if (combatsAlreadyGenerated(rowData.category.id)) {
                             selectedDrawType = generatedCombats[rowData.category.id]!.drawType;
@@ -150,7 +150,7 @@ function Draw() {
         );
     }
 
-    function GenerateCombatsButton(props: {drawType: DrawType}) {
+    function GenerateCombatsButton(props: { drawType: DrawType }) {
         let displayName;
         if (props.drawType.numberOfCompetitors == 0) {
             displayName = "Round Robin Draw";
@@ -172,13 +172,13 @@ function Draw() {
     }
 
     function GenerateCombatsButtons() {
-        let buttonsList : typeof GenerateCombatsButton[] = [];
+        let buttonsList: typeof GenerateCombatsButton[] = [];
         buttons.forEach((button) => {
-            buttonsList.push(<GenerateCombatsButton drawType={button}/>)
+            buttonsList.push(() => <GenerateCombatsButton drawType={button}/>)
         })
         return (
             <Box className="combats">
-                {buttonsList}
+                {buttonsList.map(button => (<>{button}</>))}
             </Box>
         );
     }
@@ -203,8 +203,8 @@ function Draw() {
     }
 
     function Combats() {
-        const dragItem = useRef(null);
-        const dragOverItem = useRef(null);
+        const dragItem = useRef<number |  null>(null);
+        const dragOverItem = useRef<number |  null>(null);
         const dragStart = (_e: React.DragEvent<HTMLElement>, position: number) => {
             dragItem.current = position;
         };
@@ -225,7 +225,7 @@ function Draw() {
             }
         };
 
-        function Detail(props: {index: number}) {
+        function Detail(props: { index: number }) {
             return (
                 <Row className="detail"
                      onDragStart={(e) => dragStart(e, props.index)}
@@ -236,7 +236,7 @@ function Draw() {
             );
         }
 
-        function TwoElementCombat(props: {index: number}) {
+        function TwoElementCombat(props: { index: number }) {
             return (
                 <Box className="combat">
                     <Detail index={props.index}/>
