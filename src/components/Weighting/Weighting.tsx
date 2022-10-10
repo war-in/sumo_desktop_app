@@ -13,68 +13,98 @@ const desktopServerUrl = "http://localhost:8080/";
 
 //TODO: the 'club' field is missing in data received from the endpoint - add the field or remove club info from front
 
+type PersonalDetailsType = {
+    id: number,
+    name: string,
+    surname: string,
+    phoneNumber: string,
+    linkToProfilePicture: string,
+    birthDate: [
+        number,
+        number,
+        number
+    ],
+    sex: {
+        sex: string
+    }
+}
+
+type CompetitorType = {
+    id: number,
+    personalDetails: PersonalDetailsType,
+    status: string,
+    country: string
+}
+
+type CategoryType = {
+    id: number,
+    ageCategory: {
+        id: number,
+        name: string,
+        oldestCompetitorBirthYear: [
+            number,
+            number,
+            number
+        ],
+        youngestCompetitorBirthYear: [
+            number,
+            number,
+            number
+        ]
+    },
+    weightCategory: string,
+    sex: {
+        sex: string
+    }
+}
+
+type WeightingDetailsType = {
+    id: number,
+    registration: {
+        id: number,
+        categoryAtCompetition: {
+            id: number,
+            competition: {
+                id: number,
+                idFromServer: number,
+                name: string,
+                city: string,
+                startDate: string,
+                endDate: string,
+                type: {
+                    type: string
+                }
+            },
+            category: CategoryType,
+            date: string
+        },
+        competitor: CompetitorType
+    }
+    weight: number,
+    date: string
+}
+
 function Weighting() {
 
     const [personalDetails, setPersonalDetails] = useState(() => new PersonalDetails(
-        null,
+        0,
         "",
         "",
         "blank.png",
         "",
         ""));
     const [competitor, setCompetitor] = useState(() => new Competitor(
-        null,
+        0,
         personalDetails,
         "",
         "",
-        null));
-    const [categories, setCategories] = useState([
-        {
-            "id": null,
-            "ageCategory": {
-                "id": null,
-                "name": null,
-                "oldestCompetitorBirthYear": [
-                    null,
-                    null,
-                    null
-                ],
-                "youngestCompetitorBirthYear": [
-                    null,
-                    null,
-                    null
-                ]
-            },
-            "weightCategory": null,
-            "sex": {
-                "sex": null
-            }
-        }
-    ]);
-    const [weight, setWeight] = useState(null);
-    const [weightingDetails, setWeightingDetails] = useState([]);
-    const [competitorsData, setCompetitorsData] = useState([{
-        "id": null,
-        "personalDetails": {
-            "id": null,
-            "name": null,
-            "surname": null,
-            "phoneNumber": null,
-            "linkToProfilePicture": undefined,
-            "birthDate": [
-                null,
-                null,
-                null
-            ],
-            "sex": {
-                "sex": null
-            }
-        },
-        "status": null,
-        "country": null
-    }]);
+        0));
+    const [categories, setCategories] = useState<CategoryType[]>([]);
+    const [weight, setWeight] = useState<number>(0);
+    const [weightingDetails, setWeightingDetails] = useState<WeightingDetailsType[]>([]);
+    const [competitorsData, setCompetitorsData] = useState<CompetitorType[]>([]);
 
-    let dict = {};
+    let dict: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
 
     useEffect(() => {
         const fetchData = async () => {
@@ -86,28 +116,26 @@ function Weighting() {
         fetchData()
     }, []);
 
-
     function Competitors() {
 
         useEffect(() => {
             const fetchData = async () => {
                 for (const comp of competitorsData) {
-                    let cat = null;
+                    let cat: CategoryType[] = [];
                     await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + comp.personalDetails.id)
                         .then(response => {
                             cat = response.data;
                         })
-
-                    let wd = [];
+                    let wd: WeightingDetailsType[] = [];
                     for (const category of cat) {
                         await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
                             .then(response => {
                                 wd.push(response.data)
                             }).catch(e => {
-                              console.log(e)
-                          })
+                                console.log(e)
+                            })
                     }
-                    dict[comp.personalDetails.id] = { categories: cat, weightDetails: wd }
+                    dict[comp.personalDetails.id] = {categories: cat, weightDetails: wd}
                 }
             }
             fetchData()
@@ -121,8 +149,6 @@ function Weighting() {
             {"title": "Sex", "field": "personalDetails.sex.sex"}
         ]
 
-        console.log("kategorie na zawodach")
-        console.log(competitorsData)
         return (
             <MaterialTable
                 title="Competitors"
@@ -131,16 +157,16 @@ function Weighting() {
                 options={{
                     doubleHorizontalScroll: true,
                     maxBodyHeight: 250,
-                    grouping:true,
+                    grouping: true,
                 }}
-                onRowClick={(_event, rowData) => {
+                onRowClick={(_event, rowData: CompetitorType) => {
                     if (rowData == null) return
                     setCategories(dict[rowData.personalDetails.id].categories);
                     setWeightingDetails(dict[rowData.personalDetails.id].weightDetails);
                     setWeight(dict[rowData.personalDetails.id].weightDetails[0].weight);
                     setPersonalDetails(new PersonalDetails(rowData.personalDetails.id,
                         rowData.personalDetails.name, rowData.personalDetails.surname,
-                        rowData.personalDetails.linkToProfilePicture, rowData.personalDetails.birthDate[0],
+                        rowData.personalDetails.linkToProfilePicture, rowData.personalDetails.birthDate[0].toString(),
                         rowData.personalDetails.sex.sex
                     ))
                     setCompetitor(new Competitor(rowData.personalDetails.id, personalDetails,
@@ -174,26 +200,25 @@ function Weighting() {
 
     function CompetitorDetails() {
 
-      function showImage(personalDetails) {
-
-        let fileExists = true;
-        try {
-          require(`/public/images/${personalDetails.profilePhoto}`);
-        } catch {
-          fileExists = false;
+        function showImage() {
+            let fileExists = true;
+            try {
+                require(`/public/images/${personalDetails.profilePhoto}`);
+            } catch {
+                fileExists = false;
+            }
+            return fileExists;
         }
-
-        return fileExists;
-      }
 
         return (
             <Box className="details-card">
                 <Box className="photo-box">
-                  {
-                    showImage(personalDetails) ?
-                      (<Image className="photo" src={require(`/public/images/${personalDetails.profilePhoto}`).default}/>):
-                      (<Image className="photo" src={require(`/public/images/blank.png`).default}/>)
-                  }
+                    {
+                        showImage() ?
+                            (<Image className="photo"
+                                    src={require(`/public/images/${personalDetails.profilePhoto}`).default}/>) :
+                            (<Image className="photo" src={require(`/public/images/blank.png`).default}/>)
+                    }
                 </Box>
                 <Box>
                     <Row className="detail">{personalDetails.name} {personalDetails.surname}</Row>
@@ -205,10 +230,10 @@ function Weighting() {
                     <Row><Input id="weightInput" className="detail" defaultValue={weight}></Input></Row>
                     <Row className="button">
                         <Button onClick={async () => {
-                            dict[personalDetails.id].weightDetails.weight = Number(await document.getElementById("weightInput").value);
+                            let w = Number(await document.getElementById("weightInput").value);
                             for (const wd of weightingDetails) {
                                 let body = wd
-                                body.weight = dict[personalDetails.id].weightDetails.weight
+                                body.weight = w
                                 await axios.post(desktopServerUrl + `weighting/update-weighing-details`, body)
                             }
                         }}>OK</Button>
