@@ -57,9 +57,15 @@ function Draw() {
             await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + competitionId)
                 .then(response => {
                     setCategories(response.data)
+                    sessionStorage.setItem("categories", JSON.stringify(response.data));
                 })
         }
-        fetchData()
+        const sessionStorageData = JSON.parse(sessionStorage.getItem("categories"));
+        if (sessionStorageData) {
+            setCategories(sessionStorageData);
+        } else {
+            fetchData()
+        }
     }, []);
 
     function combatsAlreadyGenerated(categoryId: number) {
