@@ -16,7 +16,7 @@ export default class RoundRobinDraw implements IDraw {
     playedMatches: number;
     currentBucket: Bucket | null;
 
-    constructor(competitors: Competitor[], drawId: number) {
+    constructor(competitors: Competitor[], drawId: number, saveFightsToDatabase: boolean) {
         this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = []
@@ -71,7 +71,8 @@ export default class RoundRobinDraw implements IDraw {
         if (this.matches.length>0)
             this.matches[0].actualPlaying = true
 
-        this.saveGeneratedFights(drawId).finally();
+        if (saveFightsToDatabase)
+            this.saveGeneratedFights(drawId).finally();
     }
 
     async saveGeneratedFights(drawId: number): Promise<void> {

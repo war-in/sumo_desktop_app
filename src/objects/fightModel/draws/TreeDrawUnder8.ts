@@ -11,7 +11,7 @@ export default class TreeDrawUnder8 implements IDraw {
     competitors: Competitor[]
     actualFightIndexToArrayIndex: Map<number, number>
 
-    constructor(competitors: Competitor[], drawId: number) {
+    constructor(competitors: Competitor[], drawId: number, saveFightsToDatabase: boolean) {
         // this.matches = new Array(12)
         this.matches = new Array(30).fill(new IndividualMatch(null, null, null))
         this.competitors = competitors
@@ -54,7 +54,8 @@ export default class TreeDrawUnder8 implements IDraw {
         this.rounds.push(new Round("Finał", startFightIndex, fightIndex - 1))
         this.matches[4].actualPlaying = true
 
-        this.saveGeneratedFights(drawId).finally();
+        if (saveFightsToDatabase)
+            this.saveGeneratedFights(drawId).finally();
     }
 
     async saveGeneratedFights(drawId: number): Promise<void> {
