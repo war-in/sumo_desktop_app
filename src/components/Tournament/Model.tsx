@@ -35,16 +35,15 @@ export class Model {
   constructor(drawFromDatabase: DrawFromDatabase, rowData: RowData, competitors: Competitor[]) {
     this.drawFromDatabase = drawFromDatabase;
     this.rowData = rowData;
-    if(competitors.length == 16){
-      this.draw = new TreeDrawUnder16(competitors);
-      this.drawVisualizer =  new TreeDrawUnder16Visualizer(this.draw as TreeDrawUnder16)
-    }
-    else if(competitors.length == 8){
-      this.draw = new TreeDrawUnder8(competitors);
-      this.drawVisualizer =  new TreeDrawUnder8Visualizer(this.draw as TreeDrawUnder8)
-    }else{
-      this.draw = new RoundRobinDraw(competitors);
-      this.drawVisualizer =  new RoundRobinDrawVisualizer(this.draw as RoundRobinDraw)
+    if (competitors.length == 16) {
+      this.draw = new TreeDrawUnder16(competitors, rowData.id);
+      this.drawVisualizer = new TreeDrawUnder16Visualizer(this.draw as TreeDrawUnder16)
+    } else if (competitors.length == 8) {
+      this.draw = new TreeDrawUnder8(competitors, rowData.id);
+      this.drawVisualizer = new TreeDrawUnder8Visualizer(this.draw as TreeDrawUnder8)
+    } else {
+      this.draw = new RoundRobinDraw(competitors, rowData.id);
+      this.drawVisualizer = new RoundRobinDrawVisualizer(this.draw as RoundRobinDraw)
     }
 
   }

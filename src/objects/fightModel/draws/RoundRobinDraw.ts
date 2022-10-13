@@ -16,7 +16,7 @@ export default class RoundRobinDraw implements IDraw {
     playedMatches: number;
     currentBucket: Bucket | null;
 
-    constructor(competitors: Competitor[]) {
+    constructor(competitors: Competitor[], drawId: number) {
         this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = []
@@ -70,6 +70,14 @@ export default class RoundRobinDraw implements IDraw {
         this.rounds[this.rounds.length - 1].lastFightIndex = numberOfMatches - 1
         if (this.matches.length>0)
             this.matches[0].actualPlaying = true
+
+        this.saveGeneratedFights(drawId).finally();
+    }
+
+    async saveGeneratedFights(drawId: number): Promise<void> {
+        for(let i=0; i < this.matches.length; i++) {
+            await FightController.saveFight(this.matches[i], drawId, i);
+        }
     }
 
     getActualMatch(): IndividualMatch {

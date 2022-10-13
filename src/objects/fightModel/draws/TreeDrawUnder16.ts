@@ -11,7 +11,7 @@ export default class TreeDrawUnder16 implements IDraw {
     competitors: Competitor[]
     actualFightIndexToArrayIndex: Map<number, number>
 
-    constructor(competitors: Competitor[]) {
+    constructor(competitors: Competitor[], drawId: number) {
         this.matches = new Array(24).fill(new IndividualMatch(null, null, null))
         this.competitors = competitors
         let actualCompetitor = 0;
@@ -76,6 +76,14 @@ export default class TreeDrawUnder16 implements IDraw {
         this.actualFightIndexToArrayIndex.set(fightIndex, 1)
         this.rounds.push(new Round("Finał", startFightIndex, startFightIndex))
         this.matches[8].actualPlaying = true
+
+        this.saveGeneratedFights(drawId).finally();
+    }
+
+    async saveGeneratedFights(drawId: number): Promise<void> {
+        for(let i=0; i < this.matches.length; i++) {
+            await FightController.saveFight(this.matches[i], drawId, i);
+        }
     }
 
     getActualMatch(): IndividualMatch {

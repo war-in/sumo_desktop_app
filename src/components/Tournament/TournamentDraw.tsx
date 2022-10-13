@@ -68,13 +68,11 @@ function TournamentDraw() {
         const fetchData = async () => {
             await axios.get("http://localhost:8080/draw/ready-draw?drawId="+rowData.id)
                 .then(response => {
-                    console.log("zawodnicy")
-                    console.log(response)
                     setModel(new Model(drawFromDatabase, rowData, createCompetitors(response.data)))
                     setCompetitors(response.data);
                 })
         }
-        fetchData()
+        fetchData();
     }, []);
 
     const [fullDrawVisible,setFullDrawVisible] = useState<boolean>(false)
@@ -82,10 +80,6 @@ function TournamentDraw() {
     const hideFullDrawModal = ()=>{setFullDrawVisible(false)}
     const hideResults = ()=>{setResultsVisible(false)}
     let visualizer = model.drawVisualizer
-
-
-
-    console.log(model)
 
     return (
         <Container className="tournament-container h-100">

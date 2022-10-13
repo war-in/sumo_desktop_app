@@ -17,4 +17,5 @@ export interface IDraw {
     goToNextMatch():void
     goToPrevMatch():void
     goToMatch(matchNumber:number):void
+    saveGeneratedFights(drawId: number): Promise<void>
 }
