@@ -105,44 +105,43 @@ function Weighting() {
     const [competitorsData, setCompetitorsData] = useState<CompetitorType[]>([]);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    let dict: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
+    let categoriesAndWeightingDetailsByCompetitorId: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get(desktopServerUrl + `weighting/competitors?competitionId=` + competitionId)
-                .then(response => {
-                    setCompetitorsData(response.data);
-                    sessionStorage.setItem("competitorsData", JSON.stringify(response.data));
-                })
+            const { data } = await axios.get(desktopServerUrl + `weighting/competitors?competitionId=` + competitionId)
+            return data;
         }
-        const sessionStorageData = JSON.parse(sessionStorage.getItem("competitorsData"));
+        const sessionStorageData = sessionStorage.getItem("competitorsData");
         if (sessionStorageData) {
-            setCompetitorsData(sessionStorageData);
+            setCompetitorsData(JSON.parse(sessionStorageData));
         } else {
-            fetchData()
+            fetchData().then(data => {
+                setCompetitorsData(data);
+                sessionStorage.setItem("competitorsData", JSON.stringify(data));
+            })
         }
     }, []);
 
     function Competitors() {
-
+        const fetchCategoriesData = async (comp: CompetitorType) => {
+            const { data } = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + comp.personalDetails.id)
+            return data;
+        }
+        const fetchWeightingData = async (category: CategoryType, comp: CompetitorType) => {
+            const { data } = await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
+            return data;
+        }
         useEffect(() => {
-            const fetchData = async () => {
+            const fetchData = () => {
                 for (const comp of competitorsData) {
-                    let cat: CategoryType[] = [];
-                    await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + comp.personalDetails.id)
-                        .then(response => {
-                            cat = response.data;
-                        })
-                    let wd: WeightingDetailsType[] = [];
-                    for (const category of cat) {
-                        await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
-                            .then(response => {
-                                wd.push(response.data)
-                            }).catch(e => {
-                                console.log(e)
-                            })
+                    let fetchedCategories: CategoryType[] = [];
+                    fetchCategoriesData(comp).then(data => fetchedCategories = data)
+                    let fetchedWeightingDetails: WeightingDetailsType[] = [];
+                    for (const category of fetchedCategories) {
+                        fetchWeightingData(category, comp).then(data => fetchedWeightingDetails.push(data));
                     }
-                    dict[comp.personalDetails.id] = {categories: cat, weightDetails: wd}
+                    categoriesAndWeightingDetailsByCompetitorId[comp.personalDetails.id] = {categories: fetchedCategories, weightDetails: fetchedWeightingDetails}
                 }
             }
             fetchData()
@@ -168,9 +167,10 @@ function Weighting() {
                 }}
                 onRowClick={(_event, rowData?: CompetitorType) => {
                     if (rowData == null) return
-                    setCategories(dict[rowData.personalDetails.id].categories);
-                    setWeightingDetails(dict[rowData.personalDetails.id].weightDetails);
-                    setWeight(dict[rowData.personalDetails.id].weightDetails[0].weight);
+                    let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[rowData.personalDetails.id]
+                    setCategories(categoriesAndWeightingDetails.categories);
+                    setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                    setWeight(categoriesAndWeightingDetails.weightDetails[0].weight);
                     setPersonalDetails(new PersonalDetails(rowData.personalDetails.id,
                         rowData.personalDetails.name, rowData.personalDetails.surname,
                         rowData.personalDetails.linkToProfilePicture, rowData.personalDetails.birthDate[0].toString(),

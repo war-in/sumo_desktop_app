@@ -17,17 +17,17 @@ type Category = {
     competitors: object[]
 }
 
-type GeneratedCombat = {
-    drawType: any,
-    combats: any
-}
-
 type DrawType = {
     id: number,
     numberOfCompetitors: number,
     region: {
         region: string
     }
+}
+
+type GeneratedCombat = {
+    drawType: DrawType,
+    combats: any
 }
 
 type Competitor = {
@@ -52,19 +52,20 @@ function Draw() {
         setState({buttonsVisible: false, combatsVisible: true})
     }
 
+    const fetchData = async () => {
+        const { data } = await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + competitionId);
+        return data;
+    }
+
     useEffect(() => {
-        const fetchData = async () => {
-            await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + competitionId)
-                .then(response => {
-                    setCategories(response.data)
-                    sessionStorage.setItem("categories", JSON.stringify(response.data));
-                })
-        }
-        const sessionStorageData = JSON.parse(sessionStorage.getItem("categories"));
+        const sessionStorageData = sessionStorage.getItem("categories");
         if (sessionStorageData) {
-            setCategories(sessionStorageData);
+            setCategories(JSON.parse(sessionStorageData));
         } else {
-            fetchData()
+            fetchData().then(data => {
+                setCategories(data)
+                sessionStorage.setItem("categories", JSON.stringify(data));
+            })
         }
     }, []);
 
@@ -157,7 +158,7 @@ function Draw() {
     }
 
     function GenerateCombatsButton(props: { drawType: DrawType }) {
-        let displayName;
+        let displayName: string;
         if (props.drawType.numberOfCompetitors == 0) {
             displayName = "Round Robin Draw";
         } else {
@@ -197,7 +198,7 @@ function Draw() {
                 categoryAtCompetitionId: selectedCategoryId
             }
             await axios.post(desktopServerUrl + `draw/save-draw`, body)
-            generatedCombats[selectedCategoryId] = {combats: combats, drawType: selectedDrawType};
+            generatedCombats[selectedCategoryId] = {combats: combats, drawType: selectedDrawType!};
         }}>Save</Button>);
     }
 
@@ -251,34 +252,28 @@ function Draw() {
             );
         }
 
-        let left = [];
-        let right = [];
+        let left : typeof Box[] = [];
+        let right : typeof Box[] = [];
         if (selectedDrawType != null && (selectedDrawType.numberOfCompetitors == 0 || selectedDrawType.numberOfCompetitors == 5)) {
             for (let i = 0; i < combats.length; i++) {
-                left.push(<Box className="combat">
+                left.push(() => <Box className="combat">
                         <Detail index={i}/>
                     </Box>
                 );
             }
         } else if (selectedDrawType != null && selectedDrawType.numberOfCompetitors == 10) {
             for (let i = 0; i < combats.length / 2; i++) {
-                left.push(<Box className="combat">
-                        <Detail index={i}/>
-                    </Box>
-                );
+                left.push(() => <Box className="combat"><Detail index={i}/></Box>);
             }
             for (let i = combats.length / 2; i < combats.length; i++) {
-                right.push(<Box className="combat">
-                        <Detail index={i}/>
-                    </Box>
-                );
+                right.push(() => <Box className="combat"><Detail index={i}/></Box>);
             }
         } else {
             for (let i = 0; i < combats.length / 2; i += 2) {
-                left.push(<TwoElementCombat index={i}/>);
+                left.push(() => <TwoElementCombat index={i}/>);
             }
             for (let i = combats.length / 2; i < combats.length; i += 2) {
-                right.push(<TwoElementCombat index={i}/>);
+                right.push(() => <TwoElementCombat index={i}/>);
             }
         }
 
