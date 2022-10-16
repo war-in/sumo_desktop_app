@@ -4,6 +4,7 @@ import './Draw.css';
 import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
 import axios from "axios";
+import Competitor from "../../objects/Competitor";
 
 //TODO: competitionId, region and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
 const competitionId = 10;
@@ -28,10 +29,6 @@ type DrawType = {
 type GeneratedCombat = {
     drawType: DrawType,
     combats: any
-}
-
-type Competitor = {
-    personalDetails: any
 }
 
 let selectedDrawType: DrawType | null = null;

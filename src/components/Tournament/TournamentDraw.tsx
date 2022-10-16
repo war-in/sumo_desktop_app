@@ -47,7 +47,7 @@ function createCompetitors(competitors: Competitor[]) {
     return (
         competitors.map(competitor => {
             console.log(competitor)
-            const personal_details = new PersonalDetails(competitor.personalDetails!.id, competitor.personalDetails!.name, competitor.personalDetails!.surname, "", null, null);
+            const personal_details = new PersonalDetails(competitor.personalDetails.id, competitor.personalDetails.name, competitor.personalDetails.surname, "", "", null, null);
             return new Competitor(competitor.id, personal_details, "", "", 0);
         })
     )

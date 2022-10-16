@@ -4,7 +4,6 @@ import {Col, Container, Row} from "react-bootstrap";
 import TreeDrawUnder8 from "./TreeDrawUnder8";
 import MatchVisualisation from "../../../components/Tournament/MatchVisualisation";
 import Competitor from "../../Competitor";
-import Category from "../../Category";
 import PersonalDetails from "../../PersonalDetails";
 
 export default class TreeDrawUnder16Visualizer implements IDrawVisualizer {
@@ -24,8 +23,8 @@ export default class TreeDrawUnder16Visualizer implements IDrawVisualizer {
     }
 
     reinitializeslider() {
-        let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
-        let competitor = new Competitor(null, personal, "Wolny Los", "Wolny Los", new Category("Wolny Los", "Wolny Los", "Wolny Los"), 0)
+        let personal = new PersonalDetails(-1, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", null, "Wolny Los")
+        let competitor = new Competitor(-1, personal, "Wolny Los", "Wolny Los", 0)
 
         this.slidersForRounds = []
         for (let i = 0; i < this.draw.rounds.length; i++) {

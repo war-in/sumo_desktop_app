@@ -9,7 +9,7 @@ export default class RoundRobinDraw implements IDraw {
     matches: IndividualMatch[];
     rounds: Round[];
     competitors: Competitor[]
-    carousel:Competitor[]
+    carousel: Competitor[]
 
     constructor(competitors: Competitor[]) {
         this.actualFightIndex = 0
@@ -17,8 +17,8 @@ export default class RoundRobinDraw implements IDraw {
         this.rounds = []
         this.carousel = competitors.slice()
 
-        let personal = new PersonalDetails(null, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
-        let freeFight = new Competitor(null, personal, "Wolny Los", "Wolny Los", 0)
+        let personal = new PersonalDetails(-1, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", null, "Wolny Los")
+        let freeFight = new Competitor(-1, personal, "Wolny Los", "Wolny Los", 0)
 
         let numberOfMatches = (this.carousel.length * (this.carousel.length - 1) / 2)
         let numberOfRounds = this.carousel.length
@@ -60,7 +60,7 @@ export default class RoundRobinDraw implements IDraw {
             lastConnected--;
         }
         this.rounds[this.rounds.length - 1].lastFightIndex = numberOfMatches - 1
-        if (this.matches.length>0)
+        if (this.matches.length > 0)
             this.matches[0].actualPlaying = true
     }
 
@@ -90,13 +90,13 @@ export default class RoundRobinDraw implements IDraw {
     }
 
     playActualMatch(firstWin: boolean): void {
-        try{
-            if(firstWin){
-                this.getActualMatch().firstCompetitor!.points ++
-            }else{
-                this.getActualMatch().secondCompetitor!.points ++
+        try {
+            if (firstWin) {
+                this.getActualMatch().firstCompetitor!.points++
+            } else {
+                this.getActualMatch().secondCompetitor!.points++
             }
-        }catch (e){
+        } catch (e) {
             console.log(e)
         }
 
