@@ -1,22 +1,18 @@
 export default class PersonalDetails {
     private _id: number;
-    private _name: string;
-    private _surname: string;
-    private _phoneNumber: string | null;
-    private _linkToProfilePicture: string | null;
-    private _birthDate: [number, number, number] | null;
-    private _sex: {
-        sex: string | null
-    } ;
+    private _name: string | null;
+    private _surname: string | null;
+    private _profilePhoto: string | undefined;
+    private _birthdate: string | null;
+    private _sex: string | null;
 
-    constructor(id: number, name: string, surname: string, phoneNumber: string | null, profilePhoto: string | null, birthdate: [number, number, number] | null, sex: string | null) {
+    constructor(id: number, name: string | null, surname: string | null, profilePhoto: string | undefined, birthdate: string | null, sex: string | null) {
         this._id = id;
         this._name = name;
         this._surname = surname;
-        this._phoneNumber = phoneNumber;
-        this._linkToProfilePicture = profilePhoto;
-        this._birthDate = birthdate;
-        this._sex = { sex: sex }
+        this._profilePhoto = profilePhoto;
+        this._birthdate = birthdate;
+        this._sex = sex;
     }
 
     get id(): number {
@@ -27,51 +23,43 @@ export default class PersonalDetails {
         this._id = value;
     }
 
-    get name(): string {
+    get name(): string | null {
         return this._name;
     }
 
-    set name(value: string) {
+    set name(value: string | null) {
         this._name = value;
     }
 
-    get surname(): string {
+    get surname(): string | null {
         return this._surname;
     }
 
-    set surname(value: string) {
+    set surname(value: string | null) {
         this._surname = value;
     }
 
-    get phoneNumber(): string | null {
-        return this._phoneNumber;
+    get profilePhoto(): string | undefined {
+        return this._profilePhoto;
     }
 
-    set phoneNumber(value: string | null) {
-        this._phoneNumber = value;
+    set profilePhoto(value: string | undefined) {
+        this._profilePhoto = value;
     }
 
-    get profilePhoto(): string | null {
-        return this._linkToProfilePicture;
+    get birthdate(): string | null {
+        return this._birthdate;
     }
 
-    set profilePhoto(value: string | null) {
-        this._linkToProfilePicture = value;
-    }
-
-    get birthdate(): [number, number, number] | null {
-        return this._birthDate;
-    }
-
-    set birthdate(value: [number, number, number] | null) {
-        this._birthDate = value;
+    set birthdate(value: string | null) {
+        this._birthdate = value;
     }
 
     get sex(): string | null {
-        return this._sex.sex;
+        return this._sex;
     }
 
     set sex(value: string | null) {
-        this._sex.sex = value;
+        this._sex = value;
     }
 }

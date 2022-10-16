@@ -31,17 +31,17 @@ const TeamFight: React.FC<Props> = (props) => {
   const team1: Team = {
     name: "lubzina",
     competitors: [
-      new Competitor(1, new PersonalDetails(1, "Kuba", "Nowakowski", "", "", null, null), "Lubzina", "lubzina", null),
-      new Competitor(2, new PersonalDetails(2, "Marcin", "Warchoł", "", "", null, null), "Lubzina", "lubzina", null),
-      new Competitor(3, new PersonalDetails(3, "Gabi", "Erazmus", "", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(1, new PersonalDetails(1, "Kuba", "Nowakowski", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(2, new PersonalDetails(2, "Marcin", "Warchoł", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(3, new PersonalDetails(3, "Gabi", "Erazmus", "", null, null), "Lubzina", "lubzina", null),
     ]
   }
   const team2: Team = {
     name: "debica",
     competitors: [
-      new Competitor(4, new PersonalDetails(4, "Adam", "Nowak", "", "", null, null), "Lubzina", "lubzina", null),
-      new Competitor(5, new PersonalDetails(5, "Piotr", "Stawarski", "", "", null, null), "Lubzina", "lubzina", null),
-      new Competitor(6, new PersonalDetails(6, "Kasia", "Wyszyńska", "", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(4, new PersonalDetails(4, "Adam", "Nowak", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(5, new PersonalDetails(5, "Piotr", "Stawarski", "", null, null), "Lubzina", "lubzina", null),
+      new Competitor(6, new PersonalDetails(6, "Kasia", "Wyszyńska", "", null, null), "Lubzina", "lubzina", null),
     ]
   }
 
