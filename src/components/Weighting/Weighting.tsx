@@ -86,19 +86,8 @@ type WeightingDetailsType = {
 
 function Weighting() {
 
-    const [personalDetails, setPersonalDetails] = useState(() => new PersonalDetails(
-        0,
-        "",
-        "",
-        "blank.png",
-        "",
-        ""));
-    const [competitor, setCompetitor] = useState(() => new Competitor(
-        0,
-        personalDetails,
-        "",
-        "",
-        0));
+    const [personalDetails, setPersonalDetails] = useState<PersonalDetails>();
+    const [competitor, setCompetitor] = useState<Competitor>();
     const [categories, setCategories] = useState<CategoryType[]>([]);
     const [weight, setWeight] = useState<number>(0);
     const [weightingDetails, setWeightingDetails] = useState<WeightingDetailsType[]>([]);
@@ -176,7 +165,7 @@ function Weighting() {
                         rowData.personalDetails.linkToProfilePicture, rowData.personalDetails.birthDate[0].toString(),
                         rowData.personalDetails.sex.sex
                     ))
-                    setCompetitor(new Competitor(rowData.personalDetails.id, personalDetails,
+                    setCompetitor(new Competitor(rowData.personalDetails.id, personalDetails!,
                         rowData.country, "", weight))
                 }}
             />
@@ -210,7 +199,7 @@ function Weighting() {
         function showImage() {
             let fileExists = true;
             try {
-                require(`/public/images/${personalDetails.profilePhoto}`);
+                require(`/public/images/${personalDetails!.profilePhoto}`);
             } catch {
                 fileExists = false;
             }
@@ -223,16 +212,16 @@ function Weighting() {
                     {
                         showImage() ?
                             (<Image className="photo"
-                                    src={require(`/public/images/${personalDetails.profilePhoto}`).default}/>) :
+                                    src={require(`/public/images/${personalDetails!.profilePhoto}`).default}/>) :
                             (<Image className="photo" src={require(`/public/images/blank.png`).default}/>)
                     }
                 </Box>
                 <Box>
-                    <Row className="detail">{personalDetails.name} {personalDetails.surname}</Row>
-                    <Row className="detail">{personalDetails.birthdate}</Row>
-                    <Row className="detail">{competitor.country}</Row>
-                    <Row className="detail">{competitor.club}</Row>
-                    <Row className="detail">{personalDetails.sex}</Row>
+                    <Row className="detail">{personalDetails!.name} {personalDetails!.surname}</Row>
+                    <Row className="detail">{personalDetails!.birthdate}</Row>
+                    <Row className="detail">{competitor!.country}</Row>
+                    <Row className="detail">{competitor!.club}</Row>
+                    <Row className="detail">{personalDetails!.sex}</Row>
                     <Row>Weight:</Row>
                     <Row><Input id="weightInput" className="detail" defaultValue={weight} ref={inputRef}></Input></Row>
                     <Row className="button">
