@@ -98,7 +98,7 @@ function Weighting() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data } = await axios.get(desktopServerUrl + `weighting/competitors?competitionId=` + competitionId)
+            const {data} = await axios.get(desktopServerUrl + `weighting/competitors?competitionId=` + competitionId)
             return data;
         }
         const sessionStorageData = sessionStorage.getItem("competitorsData");
@@ -114,23 +114,31 @@ function Weighting() {
 
     function Competitors() {
         const fetchCategoriesData = async (comp: CompetitorType) => {
-            const { data } = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + comp.personalDetails.id)
+            const {data} = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + comp.personalDetails.id)
             return data;
         }
         const fetchWeightingData = async (category: CategoryType, comp: CompetitorType) => {
-            const { data } = await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
+            const {data} = await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
             return data;
+        }
+        const fetchDataForCompetitor = async (comp: CompetitorType) => {
+            let fetchedCategories: CategoryType[] = [];
+            await fetchCategoriesData(comp).then(data => fetchedCategories = data)
+            let fetchedWeightingDetails: WeightingDetailsType[] = [];
+            for (const category of fetchedCategories) {
+                await fetchWeightingData(category, comp).then(data => fetchedWeightingDetails.push(data));
+            }
+            return {
+                categories: fetchedCategories,
+                weightDetails: fetchedWeightingDetails
+            }
         }
         useEffect(() => {
             const fetchData = () => {
                 for (const comp of competitorsData) {
-                    let fetchedCategories: CategoryType[] = [];
-                    fetchCategoriesData(comp).then(data => fetchedCategories = data)
-                    let fetchedWeightingDetails: WeightingDetailsType[] = [];
-                    for (const category of fetchedCategories) {
-                        fetchWeightingData(category, comp).then(data => fetchedWeightingDetails.push(data));
-                    }
-                    categoriesAndWeightingDetailsByCompetitorId[comp.personalDetails.id] = {categories: fetchedCategories, weightDetails: fetchedWeightingDetails}
+                    fetchDataForCompetitor(comp).then(data => {
+                        categoriesAndWeightingDetailsByCompetitorId[comp.personalDetails.id] = data
+                    })
                 }
             }
             fetchData()
@@ -157,6 +165,7 @@ function Weighting() {
                 onRowClick={(_event, rowData?: CompetitorType) => {
                     if (rowData == null) return
                     let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[rowData.personalDetails.id]
+                    if (categoriesAndWeightingDetails == null) return
                     setCategories(categoriesAndWeightingDetails.categories);
                     setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
                     setWeight(categoriesAndWeightingDetails.weightDetails[0].weight);
@@ -217,11 +226,12 @@ function Weighting() {
                     }
                 </Box>
                 <Box>
-                    <Row className="detail">{personalDetails!.name} {personalDetails!.surname}</Row>
-                    <Row className="detail">{personalDetails!.birthdate}</Row>
-                    <Row className="detail">{competitor!.country}</Row>
-                    <Row className="detail">{competitor!.club}</Row>
-                    <Row className="detail">{personalDetails!.sex}</Row>
+                    <Row
+                        className="detail">{personalDetails && personalDetails.name} {personalDetails && personalDetails.surname}</Row>
+                    <Row className="detail">{personalDetails && personalDetails.birthdate}</Row>
+                    <Row className="detail">{competitor && competitor.country}</Row>
+                    <Row className="detail">{competitor && competitor.club}</Row>
+                    <Row className="detail">{personalDetails && personalDetails.sex}</Row>
                     <Row>Weight:</Row>
                     <Row><Input id="weightInput" className="detail" defaultValue={weight} ref={inputRef}></Input></Row>
                     <Row className="button">
@@ -229,9 +239,12 @@ function Weighting() {
                             const inputValue = inputRef.current?.children[0] as HTMLInputElement
                             if (inputValue == null) return
                             for (const wd of weightingDetails) {
-                                let body = wd
-                                body.weight = inputValue.valueAsNumber
-                                await axios.post(desktopServerUrl + `weighting/update-weighing-details`, body)
+                                let body = {
+                                    categoryAtCompetitionId: wd.registration.categoryAtCompetition.id,
+                                    competitorId: competitor?.id,
+                                    weight: Number(inputValue.value)
+                                }
+                                await axios.post(desktopServerUrl + `weighting/update-weighting-details`, body)
                             }
                         }}>OK</Button>
                     </Row>
