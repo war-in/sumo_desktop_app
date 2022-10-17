@@ -84,6 +84,8 @@ type WeightingDetailsType = {
     date: string
 }
 
+let pageIndex = 1;
+
 function Weighting() {
 
     const [personalDetails, setPersonalDetails] = useState<PersonalDetails>();
@@ -161,6 +163,10 @@ function Weighting() {
                     doubleHorizontalScroll: true,
                     maxBodyHeight: 250,
                     grouping: true,
+                    initialPage: pageIndex
+                }}
+                onChangePage={(page) => {
+                    pageIndex = page;
                 }}
                 onRowClick={(_event, rowData?: CompetitorType) => {
                     if (rowData == null) return

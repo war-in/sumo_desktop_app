@@ -38,6 +38,8 @@ let selectedDrawType: DrawType | null = null;
 let generatedCombats: { [key: number]: GeneratedCombat | null } = {};
 let categoriesToIndexes: { [key: number]: number } = {};
 
+let pageIndex = 1;
+
 function Draw() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [buttons, setButtons] = useState<DrawType[]>([]);
@@ -125,6 +127,10 @@ function Draw() {
                         maxBodyHeight: 500,
                         detailPanelType: "single",
                         grouping: true,
+                        initialPage: pageIndex
+                    }}
+                    onChangePage={(page) => {
+                        pageIndex = page;
                     }}
                     onRowClick={async (_event, rowData?: Category) => {
                         if (rowData == null) return
