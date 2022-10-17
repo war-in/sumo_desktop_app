@@ -137,7 +137,6 @@ function Draw() {
                             await axios.get(desktopServerUrl + `draw/suggested-draw-types?numberOfCompetitors=` + rowData.competitors.length + `&region=` + region)
                                 .then(response => {
                                     setButtons(response.data)
-                                    console.log(response.data)
                                 })
                             showButtons()
                         }
@@ -179,13 +178,13 @@ function Draw() {
     }
 
     function GenerateCombatsButtons() {
-        let buttonsList: typeof GenerateCombatsButton[] = [];
+        let buttonsList : any[] = [];
         buttons.forEach((button) => {
-            buttonsList.push(() => <GenerateCombatsButton drawType={button}/>)
+            buttonsList.push(<GenerateCombatsButton drawType={button}/>)
         })
         return (
             <Box className="combats">
-                {buttonsList.map(button => (<>{button}</>))}
+                {buttonsList}
             </Box>
         );
     }
@@ -252,28 +251,28 @@ function Draw() {
             );
         }
 
-        let left : typeof Box[] = [];
-        let right : typeof Box[] = [];
+        let left : any[] = [];
+        let right : any[] = [];
         if (selectedDrawType != null && (selectedDrawType.numberOfCompetitors == 0 || selectedDrawType.numberOfCompetitors == 5)) {
             for (let i = 0; i < combats.length; i++) {
-                left.push(() => <Box className="combat">
+                left.push(<Box className="combat">
                         <Detail index={i}/>
                     </Box>
                 );
             }
         } else if (selectedDrawType != null && selectedDrawType.numberOfCompetitors == 10) {
             for (let i = 0; i < combats.length / 2; i++) {
-                left.push(() => <Box className="combat"><Detail index={i}/></Box>);
+                left.push(<Box className="combat"><Detail index={i}/></Box>);
             }
             for (let i = combats.length / 2; i < combats.length; i++) {
-                right.push(() => <Box className="combat"><Detail index={i}/></Box>);
+                right.push(<Box className="combat"><Detail index={i}/></Box>);
             }
         } else {
             for (let i = 0; i < combats.length / 2; i += 2) {
-                left.push(() => <TwoElementCombat index={i}/>);
+                left.push(<TwoElementCombat index={i}/>);
             }
             for (let i = combats.length / 2; i < combats.length; i += 2) {
-                right.push(() => <TwoElementCombat index={i}/>);
+                right.push(<TwoElementCombat index={i}/>);
             }
         }
 
