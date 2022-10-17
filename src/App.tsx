@@ -38,7 +38,6 @@ export function App() {
               <Route path='/tournament' element={<TournamentMenu />} />
               <Route path='/weighting' element={<Weighting />} />
               <Route path='/tournament-draw' element={<TournamentDraw />} />
-              {/*<Route path='/team-fight' element={<TeamFight model={undefined}/>} />*/}
             </Routes>
           </Col>
         </Row>

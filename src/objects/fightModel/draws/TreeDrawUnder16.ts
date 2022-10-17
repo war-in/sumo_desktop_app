@@ -23,21 +23,15 @@ export default class TreeDrawUnder16 implements IDraw {
         let startFightIndex
         //eliminacje
         startFightIndex = fightIndex
-        for (let i = 8; i <= 11; i++) {
+        for (let i = 8; i <= 15; i++) {
             this.matches[i] = new IndividualMatch(competitors[actualCompetitor], competitors[actualCompetitor + 1], null)
             actualCompetitor += 2
             this.actualFightIndexToArrayIndex.set(fightIndex, i)
             fightIndex++
         }
-        this.rounds.push(new Round("Eliminacje I", startFightIndex, fightIndex - 1))
-        for (let i = 12; i <= 15; i++) {
-            this.matches[i] = new IndividualMatch(competitors[actualCompetitor], competitors[actualCompetitor + 1], null)
-            actualCompetitor += 2
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        this.rounds.push(new Round("Eliminacje II", startFightIndex, fightIndex - 1))
+        this.rounds.push(new Round("Eliminacje", startFightIndex, fightIndex - 1))
         startFightIndex = fightIndex
+
         // 1/4 finału
         for (let i = 4; i <= 7; i++) {
             this.matches[i] = new IndividualMatch(null, null, null)
@@ -63,14 +57,24 @@ export default class TreeDrawUnder16 implements IDraw {
         this.rounds.push(new Round("Repasarze I runda", startFightIndex, fightIndex - 1))
         startFightIndex = fightIndex
 
-        //repasarze II runda i brąz
-        for (let i = 19; i >= 16; i--) {
+        //repasarze II runda
+        for (let i = 19; i >= 18; i--) {
             this.matches[i] = new IndividualMatch(null, null, null)
             this.actualFightIndexToArrayIndex.set(fightIndex, i)
             fightIndex++
         }
-        this.rounds.push(new Round("Repasarze II i brązy", startFightIndex, fightIndex - 1))
+        this.rounds.push(new Round("Repasarze II runda", startFightIndex, fightIndex - 1))
         startFightIndex = fightIndex
+
+        //brązy
+        for (let i = 17; i >= 16; i--) {
+            this.matches[i] = new IndividualMatch(null, null, null)
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        this.rounds.push(new Round("Brązy", startFightIndex, fightIndex - 1))
+        startFightIndex = fightIndex
+
         //finał
         this.matches[1] = new IndividualMatch(null, null, null)
         this.actualFightIndexToArrayIndex.set(fightIndex, 1)
@@ -100,6 +104,10 @@ export default class TreeDrawUnder16 implements IDraw {
     }
 
     goToNextMatch(): void {
+        if (this.actualFightIndex + 1 == this.matches.length ||
+            (this.getNextMatch().firstCompetitor == null && this.getNextMatch().secondCompetitor == null)
+        ) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true
@@ -107,6 +115,8 @@ export default class TreeDrawUnder16 implements IDraw {
     }
 
     goToPrevMatch(): void {
+        if (this.actualFightIndex == 0) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true

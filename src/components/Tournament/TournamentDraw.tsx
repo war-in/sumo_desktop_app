@@ -15,12 +15,10 @@ import {IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 import axios from "axios";
 
 
-
 type LocationState = {
     rowData: RowData,
     drawFromDatabase: DrawFromDatabase
 }
-
 
 
 function slider(model: Model,visualizer:IDrawVisualizer) {
@@ -28,13 +26,14 @@ function slider(model: Model,visualizer:IDrawVisualizer) {
 
     return (
         <IconContext.Provider value={{color: '#feb886',size:'60px'}}>
-        <Carousel variant={"dark"} interval={null} className={"carousel"} prevIcon={<IoIosArrowBack/>} nextIcon={<IoIosArrowForward/>}>
-            {slides.map(slide => {
-                return (
-                    <Carousel.Item>
-                        {slide}
-                    </Carousel.Item>
-                )
+        <Carousel variant={"dark"} interval={null} className="carousel alignVertically" prevIcon={<IoIosArrowBack/>} nextIcon={<IoIosArrowForward/>}>
+            {
+                slides.map(slide => {
+                    return (
+                        <Carousel.Item>
+                            {slide}
+                        </Carousel.Item>
+                    )
             })}
         </Carousel>
         </IconContext.Provider>
@@ -44,9 +43,20 @@ function slider(model: Model,visualizer:IDrawVisualizer) {
 function createCompetitors(competitors: Competitor[]) {
     return (
         competitors.map(competitor => {
-            console.log(competitor)
-            const personal_details = new PersonalDetails(competitor.personalDetails!.id, competitor.personalDetails!.name, competitor.personalDetails!.surname, "", null, null);
-            return new Competitor(competitor.id, personal_details, "", "", 0);
+            const personal_details = new PersonalDetails(
+                competitor.personalDetails!.id,
+                competitor.personalDetails!.name,
+                competitor.personalDetails!.surname,
+                "",
+                null,
+                null);
+
+            return new Competitor(
+                competitor.id,
+                personal_details,
+                competitor.country,
+                "",
+                0);
         })
     )
 
@@ -81,11 +91,11 @@ function TournamentDraw() {
 
     return (
         <Container className="tournament-container h-100">
-                <h1 className="h-10 p-0 m-0">{rowData.weight}kg {rowData.age} {rowData.sex}</h1>
-                <IconContext.Provider value={{color: '#feb886',size:'60px'}}>
-                        <RiIcons.RiFullscreenLine onClick={()=>setFullDrawVisible(true)}/>
-                        <GiIcons.GiPodium onClick={()=>setResultsVisible(true)}/>
-                </IconContext.Provider>
+            <h1 className="h-10 p-0 m-0">{rowData.weight} {rowData.age} {rowData.sex}</h1>
+            <IconContext.Provider value={{color: '#feb886',size:'60px'}}>
+                <RiIcons.RiFullscreenLine onClick={()=>setFullDrawVisible(true)}/>
+                <GiIcons.GiPodium onClick={()=>setResultsVisible(true)}/>
+            </IconContext.Provider>
             <FullScreenModal show={fullDrawVisible} onHide={hideFullDrawModal} content={visualizer?.fullDraw()} header="Cała krzyżówka"/>
             <FullScreenModal show={resultsVisible} onHide={hideResults} content={visualizer?.results()} header="Wyniki"/>
 

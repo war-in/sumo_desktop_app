@@ -3,8 +3,7 @@ import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import TreeDrawUnder8 from "./TreeDrawUnder8";
 import MatchVisualisation from "../../../components/Tournament/MatchVisualisation";
-import Competitor from "../../Competitor";
-import PersonalDetails from "../../PersonalDetails";
+import Final from "../Final";
 
 export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
     draw: TreeDrawUnder8;
@@ -30,77 +29,72 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
             switch(i) {
                 case 0:
                     slide = (
-                        <div>
+                        <Container>
                             <h2>{actualRound.roundName}</h2>
                             <Row>
                                 <Col>
                                     <MatchVisualisation match={this.draw.matches[4]}/>
+                                    <MatchVisualisation match={this.draw.matches[5]}/>
                                 </Col>
                                 <Col>
                                     <MatchVisualisation match={this.draw.matches[6]} mirrorView={true}/>
+                                    <MatchVisualisation match={this.draw.matches[7]} mirrorView={true}/>
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col>
-                                    <MatchVisualisation match={this.draw.matches[5]}/>
-
-                                </Col>
-                                <Col>
-                                    <MatchVisualisation match={this.draw.matches[7] } active={true} mirrorView={true}/>
-                                </Col>
-                            </Row>
-                        </div>
+                        </Container>
                     )
                     break;
                 case 1:
                     slide = (
-                        <div>
+                        <Container>
                             <h2>{actualRound.roundName}</h2>
                             <Row>
                                 <Col>
                                     <MatchVisualisation match={this.draw.matches[2]}/>
                                 </Col>
                                 <Col>
-                                    <MatchVisualisation match={this.draw.matches[3]} active={true} mirrorView={true}/>
+                                    <MatchVisualisation match={this.draw.matches[3]} mirrorView={true}/>
                                 </Col>
                             </Row>
-                        </div>
+                        </Container>
                     )
                     break;
                 case 2:
                     slide = (
-                        <div>
+                        <Container>
                             <h2>{actualRound.roundName}</h2>
                             <Row>
-                                <Col className="col-3">
-                                    <MatchVisualisation match={this.draw.matches[10]} showWinner={false}/>
+                                <Col>
+                                    <MatchVisualisation match={this.draw.matches[11]}/>
                                 </Col>
-                                <Col className="col-5">
-                                    <MatchVisualisation match={this.draw.matches[9]}/>
-
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="col-3">
-                                    <MatchVisualisation match={this.draw.matches[11]} showWinner={false}/>
-                                </Col>
-                                <Col className="col-5">
-                                    <MatchVisualisation match={this.draw.matches[8]}/>
+                                <Col>
+                                    <MatchVisualisation match={this.draw.matches[10]} mirrorView={true}/>
                                 </Col>
                             </Row>
-                        </div>
+                        </Container>
                     )
                     break;
                 case 3:
                     slide = (
-                        <div>
+                        <Container>
                             <h2>{actualRound.roundName}</h2>
                             <Row>
                                 <Col>
-                                    <MatchVisualisation match={this.draw.matches[1]}/>
+                                    <MatchVisualisation match={this.draw.matches[9]}/>
+                                </Col>
+                                <Col>
+                                    <MatchVisualisation match={this.draw.matches[8]} mirrorView={true}/>
                                 </Col>
                             </Row>
-                        </div>
+                        </Container>
+                    )
+                    break;
+                case 4:
+                    slide = (
+                        <Container className="h-100">
+                            <h2>{actualRound.roundName}</h2>
+                            <Final match={this.draw.matches[1]}/>
+                        </Container>
                     )
                     break;
 

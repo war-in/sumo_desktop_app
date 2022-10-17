@@ -40,14 +40,23 @@ export default class TreeDrawUnder8 implements IDraw {
         }
         this.rounds.push(new Round("Pół finały", startFightIndex, fightIndex - 1))
         startFightIndex = fightIndex
-        //repasarze i bronzy
-        for (let i = 11; i >= 8; i--) {
+        //repasarze
+        for (let i = 11; i >= 10; i--) {
             this.matches[i] = new IndividualMatch(null, null, null)
             this.actualFightIndexToArrayIndex.set(fightIndex, i)
             fightIndex++
         }
-        this.rounds.push(new Round("Repasarze i brązy", startFightIndex, fightIndex - 1))
+        this.rounds.push(new Round("Repasarze", startFightIndex, fightIndex - 1))
         startFightIndex = fightIndex
+
+        for (let i = 9; i >= 8; i--) {
+            this.matches[i] = new IndividualMatch(null, null, null)
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        this.rounds.push(new Round("Brązy", startFightIndex, fightIndex - 1))
+        startFightIndex = fightIndex
+
         //finał
         this.matches[1] = new IndividualMatch(null, null, null)
         this.actualFightIndexToArrayIndex.set(fightIndex, 1)
@@ -77,6 +86,10 @@ export default class TreeDrawUnder8 implements IDraw {
     }
 
     goToNextMatch(): void {
+        if (this.actualFightIndex + 1 == this.matches.length ||
+            (this.getNextMatch().firstCompetitor == null && this.getNextMatch().secondCompetitor == null)
+        ) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length - 1);
         this.getActualMatch().actualPlaying = true
@@ -84,6 +97,8 @@ export default class TreeDrawUnder8 implements IDraw {
     }
 
     goToPrevMatch(): void {
+        if (this.actualFightIndex == 0) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length - 1);
         this.getActualMatch().actualPlaying = true

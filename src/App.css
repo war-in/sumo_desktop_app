@@ -29,7 +29,12 @@
 
 .competitorBox{
     min-width: 200px;
-    min-height: 60px;
+    min-height: 30px;
+}
+
+.winnerBox{
+    min-width: 200px;
+    min-height: 50px;
 }
 
 .competitorBox-inFullDraw{
@@ -42,4 +47,13 @@
 .fullscreen-modal{
     width: 100VW;
     height: 100VH;
+}
+
+.alignVertically{
+    display: flex;
+    align-items: center;
+}
+
+.importantHeight {
+    height: 100% !important;
 }

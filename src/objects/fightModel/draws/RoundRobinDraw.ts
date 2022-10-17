@@ -94,13 +94,18 @@ export default class RoundRobinDraw implements IDraw {
     }
 
     goToNextMatch(): void {
+        if (this.actualFightIndex + 1 == this.matches.length ||
+            (this.getNextMatch().firstCompetitor == null && this.getNextMatch().secondCompetitor == null)
+        ) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex + 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true
-
     }
 
     goToPrevMatch(): void {
+        if (this.actualFightIndex == 0) return;
+
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex = (this.actualFightIndex - 1) % (this.matches.length);
         this.getActualMatch().actualPlaying = true
@@ -124,7 +129,7 @@ export default class RoundRobinDraw implements IDraw {
         await FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex);
 
         if (this.playedMatches == this.matches.length) {
-            let flag: boolean = true;
+            let breakLoop: boolean = true;
             let stepBack: boolean = false;
             do {
                 if (!stepBack)
@@ -134,14 +139,14 @@ export default class RoundRobinDraw implements IDraw {
                 if (bucketWithOvertime != null) {
                     this.generateNewRounds();
                     this.currentBucket = bucketWithOvertime;
-                    flag = false;
+                    breakLoop = false;
                     stepBack = false;
                 } else {
                     this.setCompetitorsInProperOrder();
                     this.currentBucket = this.currentBucket!.parent
                     stepBack = true;
                 }
-            } while (flag && this.currentBucket != null)
+            } while (breakLoop && this.currentBucket != null)
             if (this.currentBucket != null)
                 this.goToNextMatch();
         }
@@ -156,7 +161,7 @@ export default class RoundRobinDraw implements IDraw {
 
     generateBuckets() {
         let currentBucket = this.currentBucket;
-        currentBucket!.competitors.sort(function (a, b) {return b.points - a.points});
+        currentBucket!.competitors.sort((a, b) => b.points - a.points);
 
         currentBucket!.addBucket(new Bucket([currentBucket!.competitors[0]], currentBucket));
         let numberOfCompetitorsInBucket: number = 1;
