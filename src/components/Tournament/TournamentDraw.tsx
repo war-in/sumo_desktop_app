@@ -21,10 +21,8 @@ type LocationState = {
 }
 
 
-function slider(model: Model, visualizer:IDrawVisualizer) {
-    let slides = []
-
-    slides = visualizer?.getSlidesForRounds()
+function slider(model: Model,visualizer:IDrawVisualizer) {
+    let slides = visualizer?.getSlidesForRounds()
 
     return (
         <IconContext.Provider value={{color: '#feb886',size:'60px'}}>
@@ -69,7 +67,7 @@ function TournamentDraw() {
     const location = useLocation();
     const {rowData, drawFromDatabase} = location.state as LocationState
     const [competitors, setCompetitors] = useState<Competitor[]>([]);
-    const [model, setModel] = useState<Model>(new Model(drawFromDatabase, rowData, createCompetitors(competitors)));
+    const [model, setModel] = useState<Model>(new Model(drawFromDatabase, rowData, createCompetitors(competitors), false));
     const updateModelVisualize = () => {
         let newModel = Object.assign({}, model);
         setModel(newModel)
@@ -78,11 +76,11 @@ function TournamentDraw() {
         const fetchData = async () => {
             await axios.get("http://localhost:8080/draw/ready-draw?drawId="+rowData.id)
                 .then(response => {
-                    setModel(new Model(drawFromDatabase, rowData, createCompetitors(response.data)))
+                    setModel(new Model(drawFromDatabase, rowData, createCompetitors(response.data), true))
                     setCompetitors(response.data);
                 })
         }
-        fetchData()
+        fetchData();
     }, []);
 
     const [fullDrawVisible,setFullDrawVisible] = useState<boolean>(false)

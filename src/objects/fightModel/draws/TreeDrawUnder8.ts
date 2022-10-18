@@ -2,6 +2,7 @@ import {IDraw} from "./IDraw";
 import IndividualMatch from "../IndividualMatch";
 import {Round} from "../Round";
 import Competitor from "../../Competitor";
+import FightController from "../FightController";
 
 export default class TreeDrawUnder8 implements IDraw {
     actualFightIndex: number;
@@ -10,7 +11,7 @@ export default class TreeDrawUnder8 implements IDraw {
     competitors: Competitor[]
     actualFightIndexToArrayIndex: Map<number, number>
 
-    constructor(competitors: Competitor[]) {
+    constructor(competitors: Competitor[], drawId: number, saveFightsToDatabase: boolean) {
         // this.matches = new Array(12)
         this.matches = new Array(30).fill(new IndividualMatch(null, null, null))
         this.competitors = competitors
@@ -61,6 +62,15 @@ export default class TreeDrawUnder8 implements IDraw {
         this.actualFightIndexToArrayIndex.set(fightIndex, 1)
         this.rounds.push(new Round("Finał", startFightIndex, fightIndex - 1))
         this.matches[4].actualPlaying = true
+
+        if (saveFightsToDatabase)
+            this.saveGeneratedFights(drawId).finally();
+    }
+
+    async saveGeneratedFights(drawId: number): Promise<void> {
+        for(let i=0; i < this.matches.length; i++) {
+            await FightController.saveFight(this.matches[i], drawId, i);
+        }
     }
 
     getActualMatch(): IndividualMatch {
@@ -94,7 +104,7 @@ export default class TreeDrawUnder8 implements IDraw {
         this.getActualMatch().actualPlaying = true
     }
 
-    playActualMatch(firstWinn: boolean): void {
+    async playActualMatch(firstWinn: boolean, drawId: number): Promise<void> {
         this.getActualMatch().playMatch(firstWinn);
         //przepisanie wygranego z eliminacji do pół finałów
         //a przegranego do repasarzy
@@ -149,6 +159,8 @@ export default class TreeDrawUnder8 implements IDraw {
                     break;
             }
         }
+
+        await FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex);
 
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex++

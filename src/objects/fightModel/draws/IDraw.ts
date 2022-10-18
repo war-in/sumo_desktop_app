@@ -13,8 +13,9 @@ export interface IDraw {
     getActualMatch():IndividualMatch
     getNextMatch():IndividualMatch
     getActualRound():Round
-    playActualMatch(firstWinn:boolean):void
+    playActualMatch(firstWinn:boolean, drawId: number): Promise<void>
     goToNextMatch():void
     goToPrevMatch():void
     goToMatch(matchNumber:number):void
+    saveGeneratedFights(drawId: number): Promise<void>
 }

@@ -4,6 +4,7 @@ import {Round} from "../Round";
 import Competitor from "../../Competitor";
 import PersonalDetails from "../../PersonalDetails";
 import Bucket from "../Bucket";
+import FightController from "../FightController";
 
 export default class RoundRobinDraw implements IDraw {
     actualFightIndex: number;
@@ -15,7 +16,7 @@ export default class RoundRobinDraw implements IDraw {
     playedMatches: number;
     currentBucket: Bucket | null;
 
-    constructor(competitors: Competitor[]) {
+    constructor(competitors: Competitor[], drawId: number, saveFightsToDatabase: boolean) {
         this.actualFightIndex = 0
         this.competitors = competitors;
         this.rounds = []
@@ -69,6 +70,15 @@ export default class RoundRobinDraw implements IDraw {
         this.rounds[this.rounds.length - 1].lastFightIndex = numberOfMatches - 1
         if (this.matches.length>0)
             this.matches[0].actualPlaying = true
+
+        if (saveFightsToDatabase)
+            this.saveGeneratedFights(drawId).finally();
+    }
+
+    async saveGeneratedFights(drawId: number): Promise<void> {
+        for(let i=0; i < this.matches.length; i++) {
+            await FightController.saveFight(this.matches[i], drawId, i);
+        }
     }
 
     getActualMatch(): IndividualMatch {
@@ -101,7 +111,7 @@ export default class RoundRobinDraw implements IDraw {
         this.getActualMatch().actualPlaying = true
     }
 
-    playActualMatch(firstWin: boolean): void {
+    async playActualMatch(firstWin: boolean, drawId: number): Promise<void> {
         try{
             if(firstWin){
                 this.getActualMatch().firstCompetitor!.points ++
@@ -115,6 +125,8 @@ export default class RoundRobinDraw implements IDraw {
         this.getActualMatch().playMatch(firstWin);
         if (this.getActualMatch().winner != null)
             this.playedMatches++;
+
+        await FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex);
 
         if (this.playedMatches == this.matches.length) {
             let breakLoop: boolean = true;
