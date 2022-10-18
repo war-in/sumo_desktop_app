@@ -22,9 +22,9 @@ function Navbar() {
                 <FaIcons.FaBars onClick={showSidebar}/>
               </Link>
             </Row>
-            {SidebarData.map((item) => {
+            {SidebarData.map((item, index) => {
               return (
-                <Row className="nav-icons">
+                <Row className="nav-icons" key={index}>
                   <Link to={item.path}>
                     {item.icon}
                   </Link>
@@ -46,9 +46,9 @@ function Navbar() {
               </Link>
             </Row>
 
-            {SidebarData.map((item) => {
+            {SidebarData.map((item, index) => {
               return (
-                <Row className="nav-icons nav-text">
+                <Row className="nav-icons nav-text" key={index}>
                   <Link to={item.path} onClick={showSidebar}>
                     {item.icon}
                     <span>{item.title}</span>

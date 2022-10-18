@@ -1,12 +1,12 @@
 export default class PersonalDetails {
-    private _id: number | null;
+    private _id: number;
     private _name: string | null;
     private _surname: string | null;
     private _profilePhoto: string | undefined;
     private _birthdate: string | null;
     private _sex: string | null;
 
-    constructor(id: number | null, name: string | null, surname: string | null, profilePhoto: string | undefined, birthdate: string | null, sex: string | null) {
+    constructor(id: number, name: string | null, surname: string | null, profilePhoto: string | undefined, birthdate: string | null, sex: string | null) {
         this._id = id;
         this._name = name;
         this._surname = surname;
@@ -15,11 +15,11 @@ export default class PersonalDetails {
         this._sex = sex;
     }
 
-    get id(): number | null {
+    get id(): number {
         return this._id;
     }
 
-    set id(value: number | null) {
+    set id(value: number) {
         this._id = value;
     }
 

@@ -1,0 +1,274 @@
+[
+  {
+    "personalDetails": {
+      "id": 1,
+      "name": "Jakub 1",
+      "surname": "01 HRISTOVA MIHAEL\n",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "name": "Jakub 2",
+      "surname": "09 DANINA POLINA\n",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "name": "Jakub 3",
+      "surname": "STEINMETZ STEPH",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "name": "Jakub 4",
+      "surname": "WOLNY LOS",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "name": "Jakub 5",
+      "surname": "Macios Magda",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "name": "Jakub 6",
+      "surname": "Wolny los",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "name": "Jakub 7",
+      "surname": "DUZHENKO ALINA",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 8,
+      "name": "Jakub 8",
+      "surname": "WOLNY LOS",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 1,
+      "name": "Jakub 1",
+      "surname": "KOLESNIK KARYN",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 2,
+      "name": "Jakub 2",
+      "surname": "REIMUND GEA",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 3,
+      "name": "Jakub 3",
+      "surname": "KOZHANOVA IANA",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 4,
+      "name": "Jakub 4",
+      "surname": "WOLNY LOS",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 5,
+      "name": "Jakub 5",
+      "surname": "ROZUM ALEKSAND",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 6,
+      "name": "Jakub 6",
+      "surname": "Wolny los",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 7,
+      "name": "Jakub 7",
+      "surname": "BALJER ROXANA",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  },
+  {
+    "personalDetails": {
+      "id": 8,
+      "name": "Jakub 8",
+      "surname": "WOLNY LOS",
+      "licenseNumber": "791861219",
+      "emailAddress": "jakobn@studemt.agh.edu.pl",
+      "profilePhoto": "https://picsum.photos/40.jpg",
+      "birthdate": "10-05-2000",
+      "sex": "man"
+    },
+    "country": {
+      "name": "Polska"
+    },
+    "category": "115kg",
+    "club": "Samson"
+  }
+]

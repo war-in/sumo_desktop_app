@@ -2,17 +2,57 @@
 
 * {
     font-family: 'Lato', sans-serif;
+    /*background-color: #FFFCF5;*/
+}
+
+#root{
+    background-color: #FFFCF5
+}
+
+.main-container {
+    height: 100vh;
 }
 
 .home,
 .tournament,
 .reports,
 .weighting,
-.draw
+.draw,
+.team-fight
 {
-    overflow-y: scroll;
     margin-top: 20px;
     align-items: center;
     justify-content: center;
     height: 100vh;
+}
+
+.competitorBox{
+    min-width: 200px;
+    min-height: 30px;
+}
+
+.winnerBox{
+    min-width: 200px;
+    min-height: 50px;
+}
+
+.competitorBox-inFullDraw{
+    min-width: 8VW;
+    min-height: 60px;
+}
+
+
+
+.fullscreen-modal{
+    width: 100VW;
+    height: 100VH;
+}
+
+.alignVertically{
+    display: flex;
+    align-items: center;
+}
+
+.importantHeight {
+    height: 100% !important;
 }
