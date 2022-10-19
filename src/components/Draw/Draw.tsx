@@ -108,6 +108,16 @@ function Draw() {
             {"title": "Age", "field": "category.ageCategory.name"},
             {"title": "Sex", "field": "category.sex.sex"},
             {"title": "Nr of competitors", "field": "competitors.length"},
+            {
+                title: "", field: "", render: (rowData: Category) => {
+                    if (combatsAlreadyGenerated(rowData.category.id)) {
+                        return <img src={require(`/public/images/check.svg.png`).default}
+                                    style={{width: 25, borderRadius: '50%'}} alt=""/>
+                    } else {
+                        return <></>
+                    }
+                }
+            }
         ]
 
         useEffect(() => {
