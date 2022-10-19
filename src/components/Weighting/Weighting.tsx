@@ -85,6 +85,7 @@ type WeightingDetailsType = {
 }
 
 let pageIndex = 1;
+let isCompetitorWeighed: { [key: number]: boolean } = {};
 
 function Weighting() {
 
@@ -151,7 +152,17 @@ function Weighting() {
             {"title": "Surname", "field": "personalDetails.surname"},
             {"title": "Birth year", "field": "personalDetails.birthDate[0]"},
             {"title": "Country", "field": "country"},
-            {"title": "Sex", "field": "personalDetails.sex.sex"}
+            {"title": "Sex", "field": "personalDetails.sex.sex"},
+            {
+                title: "", field: "", render: (rowData: CompetitorType) => {
+                    if (isCompetitorWeighed[rowData.personalDetails.id]) {
+                        return <img src={require(`/public/images/check.svg.png`).default}
+                                    style={{width: 25, borderRadius: '50%'}} alt=""/>
+                    } else {
+                        return <></>
+                    }
+                }
+            }
         ]
 
         return (
@@ -252,6 +263,7 @@ function Weighting() {
                                 }
                                 await axios.post(desktopServerUrl + `weighting/update-weighting-details`, body)
                             }
+                            isCompetitorWeighed[competitor!.id!] = true;
                         }}>OK</Button>
                     </Row>
                 </Box>
