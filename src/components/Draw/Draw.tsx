@@ -134,12 +134,12 @@ function Draw() {
                     }}
                     onRowClick={async (_event, rowData?: Category) => {
                         if (rowData == null) return
+                        setSelectedCategoryId(rowData.category.id)
                         if (combatsAlreadyGenerated(rowData.category.id)) {
                             selectedDrawType = generatedCombats[rowData.category.id]!.drawType;
                             setCombats(generatedCombats[rowData.category.id]!.combats);
                             showCombats();
                         } else {
-                            setSelectedCategoryId(rowData.category.id)
                             await axios.get(desktopServerUrl + `draw/suggested-draw-types?numberOfCompetitors=` + rowData.competitors.length + `&region=` + region)
                                 .then(response => {
                                     setButtons(response.data)
@@ -196,7 +196,7 @@ function Draw() {
     }
 
     function SaveCombatsButton() {
-        return (<Button className="save-button" variant="dark" onClick={async () => {
+        return (<Button className="save-button" variant="success" onClick={async () => {
             let body = {
                 competitors: combats,
                 drawType: selectedDrawType,
@@ -212,6 +212,20 @@ function Draw() {
             generatedCombats[selectedCategoryId] = null;
             showButtons()
         }}>Cancel</Button>);
+    }
+
+    function RedrawButton() {
+        return (<Button className="redraw-button" variant="primary" onClick={async () => {
+            let body = {
+                competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
+                drawType: selectedDrawType
+            }
+            await axios.post(desktopServerUrl + `draw`, body)
+                .then(response => {
+                    setCombats(response.data)
+                    showCombats();
+                })
+        }}>Redraw</Button>);
     }
 
     function Combats() {
@@ -300,6 +314,7 @@ function Draw() {
                         </Row>
                     </Container>
                     <SaveCombatsButton/>
+                    <RedrawButton/>
                     <CancelButton/>
                 </div>
             }</div>
