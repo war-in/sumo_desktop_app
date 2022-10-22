@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Col, Container, Image, Row} from 'react-bootstrap';
-import {Box, Button, Input} from '@material-ui/core';
-import MaterialTable from 'material-table';
+import {Button, Col, Container, Image, Row} from 'react-bootstrap';
+import {Box, Input} from '@material-ui/core';
+import MaterialTable, {MTableToolbar} from 'material-table';
 import './Weighting.css';
 import Competitor from "../../objects/Competitor";
 import PersonalDetails from "../../objects/PersonalDetails";
@@ -203,6 +203,15 @@ function Weighting() {
             {"title": "Age category", "field": "ageCategory.name"},
             {"title": "Sex", "field": "sex.sex"},
             {"title": "Weight category", "field": "weightCategory"},
+            {
+                title: "", field: "", render: (rowData: CategoryType) => {
+                    return <img src={require(`/public/images/trash.png`).default}
+                                style={{width: 25}} alt=""
+                                onClick={async () => {
+                                    //delete
+                                }}/>
+                }
+            }
         ]
 
         return (
@@ -214,6 +223,22 @@ function Weighting() {
                     options={{
                         search: false,
                         maxBodyHeight: 150
+                    }}
+                    components={{
+                        Toolbar: props => (
+                            <Row>
+                                <Col>
+                                    <MTableToolbar {...props}/>
+                                </Col>
+                                <Col>
+                                    <div style={{ padding: "10px 10px", textAlign: "right" }}>
+                                        <Button variant="secondary" onClick={async () => {
+                                            //add
+                                        }}>+</Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                        ),
                     }}
                 />
             </Box>
@@ -252,7 +277,7 @@ function Weighting() {
                     <Row>Weight:</Row>
                     <Row><Input id="weightInput" className="detail" defaultValue={weight} ref={inputRef}></Input></Row>
                     <Row className="button">
-                        <Button onClick={async () => {
+                        <Button variant="light" onClick={async () => {
                             const inputValue = inputRef.current?.children[0] as HTMLInputElement
                             if (inputValue == null) return
                             for (const wd of weightingDetails) {
