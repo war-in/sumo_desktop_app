@@ -40,7 +40,7 @@ export class Model {
             this.draw = new TreeDrawUnder16(competitors, fightsFromDatabase, rowData.id, saveFightsToDatabase);
             this.drawVisualizer = new TreeDrawUnder16Visualizer(this.draw as TreeDrawUnder16)
         } else if (competitors.length == 8) {
-            this.draw = new TreeDrawUnder8(competitors, rowData.id, saveFightsToDatabase);
+            this.draw = new TreeDrawUnder8(competitors, fightsFromDatabase, rowData.id, saveFightsToDatabase);
             this.drawVisualizer = new TreeDrawUnder8Visualizer(this.draw as TreeDrawUnder8)
         } else {
             this.draw = new RoundRobinDraw(competitors, rowData.id, saveFightsToDatabase);

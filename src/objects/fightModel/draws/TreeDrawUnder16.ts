@@ -13,16 +13,14 @@ export default class TreeDrawUnder16 implements IDraw {
 
     constructor(competitors: Competitor[], matches: IndividualMatch[], drawId: number, saveFightsToDatabase: boolean) {
         this.competitors = competitors
-        this.rounds = []
 
         this.actualFightIndexToArrayIndex = new Map<number, number>()
         this.initializeActualFightIndexMap()
 
-        if(matches.length != 0) {
+        if (matches.length != 0) {
             this.matches = matches.concat(
-                new Array(24-competitors.length).fill(new IndividualMatch(null, null, null)))
-        }
-        else {
+                new Array(24 - matches.length).fill(new IndividualMatch(null, null, null)))
+        } else {
             this.matches = new Array(24).fill(new IndividualMatch(null, null, null))
 
             let actualCompetitor = 0;
@@ -40,7 +38,9 @@ export default class TreeDrawUnder16 implements IDraw {
             if (saveFightsToDatabase)
                 this.saveGeneratedFights(drawId).finally();
         }
-        this.rounds.push(new Round("Eliminacje", 1,  8));
+
+        this.rounds = []
+        this.rounds.push(new Round("Eliminacje", 1, 8));
         this.rounds.push(new Round("Ćwierć finały", 9, 12));
         this.rounds.push(new Round("Pół finały", 13, 14));
         this.rounds.push(new Round("Repasarze I runda", 15, 18));
@@ -50,11 +50,11 @@ export default class TreeDrawUnder16 implements IDraw {
 
         let [actualFightIndex, indexInArray] = this.findActualFightIndex();
         this.actualFightIndex = actualFightIndex;
-        this.matches[indexInArray].actualPlaying = true
+        this.matches[indexInArray].actualPlaying = true;
     }
 
     async saveGeneratedFights(drawId: number): Promise<void> {
-        for(let i=0; i < this.matches.length; i++) {
+        for (let i = 0; i < this.matches.length; i++) {
             await FightController.saveFight(this.matches[i], drawId, i);
         }
     }
@@ -91,7 +91,7 @@ export default class TreeDrawUnder16 implements IDraw {
     findActualFightIndex(): [number, number] {
         let matchId = 0;
         let minFightId = 100;
-        for (let i=0; i<this.matches.length; i++) {
+        for (let i = 0; i < this.matches.length; i++) {
             let arrayId = this.actualFightIndexToArrayIndex.get(i) as number
             if (i < minFightId && this.matches[arrayId].winner == null) {
                 minFightId = i;
