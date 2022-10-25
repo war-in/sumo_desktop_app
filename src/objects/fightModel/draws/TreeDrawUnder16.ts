@@ -13,36 +13,10 @@ export default class TreeDrawUnder16 implements IDraw {
 
     constructor(competitors: Competitor[], matches: IndividualMatch[], drawId: number, saveFightsToDatabase: boolean) {
         this.competitors = competitors
-        this.actualFightIndex = 0
         this.rounds = []
 
         this.actualFightIndexToArrayIndex = new Map<number, number>()
-        let fightIndex = 0
-        for (let i = 8; i <= 15; i++) {
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        for (let i = 4; i <= 7; i++) {
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        for (let i = 2; i <= 3; i++) {
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        for (let i = 20; i <= 23; i++) {
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        for (let i = 19; i >= 18; i--) {
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        for (let i = 17; i >= 16; i--) {
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        this.actualFightIndexToArrayIndex.set(fightIndex, 1)
+        this.initializeActualFightIndexMap()
 
         if(matches.length != 0) {
             this.matches = matches.concat(
@@ -74,13 +48,58 @@ export default class TreeDrawUnder16 implements IDraw {
         this.rounds.push(new Round("Brązy", 21, 22));
         this.rounds.push(new Round("Finał", 23, 23));
 
-        this.matches[8].actualPlaying = true
+        let [actualFightIndex, indexInArray] = this.findActualFightIndex();
+        this.actualFightIndex = actualFightIndex;
+        this.matches[indexInArray].actualPlaying = true
     }
 
     async saveGeneratedFights(drawId: number): Promise<void> {
         for(let i=0; i < this.matches.length; i++) {
             await FightController.saveFight(this.matches[i], drawId, i);
         }
+    }
+
+    initializeActualFightIndexMap(): void {
+        let fightIndex = 0
+        for (let i = 8; i <= 15; i++) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        for (let i = 4; i <= 7; i++) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        for (let i = 2; i <= 3; i++) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        for (let i = 20; i <= 23; i++) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        for (let i = 19; i >= 18; i--) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        for (let i = 17; i >= 16; i--) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        this.actualFightIndexToArrayIndex.set(fightIndex, 1)
+    }
+
+    findActualFightIndex(): [number, number] {
+        let matchId = 0;
+        let minFightId = 100;
+        for (let i=0; i<this.matches.length; i++) {
+            let arrayId = this.actualFightIndexToArrayIndex.get(i) as number
+            if (i < minFightId && this.matches[arrayId].winner == null) {
+                minFightId = i;
+                matchId = arrayId;
+                break;
+            }
+        }
+        return [minFightId, matchId];
     }
 
     getActualMatch(): IndividualMatch {
