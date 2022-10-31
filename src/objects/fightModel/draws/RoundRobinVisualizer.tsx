@@ -29,7 +29,7 @@ export default class RoundRobinDrawVisualizer implements IDrawVisualizer {
             let matches = (matchesInRounds.map(match => {
                 return (
                     <Col className=" .mx-auto mt-4 col-xs-12 col-s-12 col-md-6 col-l-4 col-xl-4 col-xxl-3">
-                        <MatchVisualisation match={match} active={true}/>
+                        <MatchVisualisation match={match}/>
                     </Col>
                 )
             }))
@@ -45,25 +45,25 @@ export default class RoundRobinDrawVisualizer implements IDrawVisualizer {
     }
 
     fullDraw(): React.ReactNode {
-        return (
-            <>
-            {
-                this.draw.competitors.map(competitor => {
-                    return (
-                        <>
-                        {
-                            competitor.personalDetails!.name + " " + competitor.personalDetails!.name + " " +
-                            competitor.points
-                        }
-                        < br/>
-                        </>)
-                })
-            }
-            </>
-        )
+        return undefined;
     }
 
     results(): React.ReactNode {
-        return undefined;
+        return (
+            <>
+                {
+                    this.draw.competitors.map(competitor => {
+                        return (
+                            <>
+                                {
+                                    competitor.personalDetails!.name + " " + competitor.personalDetails!.name + " " +
+                                    competitor.points
+                                }
+                                < br/>
+                            </>)
+                    })
+                }
+            </>
+        )
     }
 }

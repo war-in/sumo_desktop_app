@@ -13,7 +13,7 @@ export default class RoundRobinDraw implements IDraw {
     competitors: Competitor[];
     carousel: Competitor[];
     bucket: Bucket;
-    playedMatches: number;
+    playedMatches: number = 0;
     currentBucket: Bucket | null;
 
     constructor(competitors: Competitor[], matches: IndividualMatch[], drawId: number, saveFightsToDatabase: boolean) {
@@ -38,7 +38,11 @@ export default class RoundRobinDraw implements IDraw {
         this.createRounds(numberOfMatches, numberOfRounds);
 
         if (matches.length > 0) {
-            this.matches = matches
+            this.matches = matches.slice(0, numberOfMatches);
+            this.matches[0].actualPlaying = true;
+
+            for (let i = 0; i < this.countPlayedMatches(matches); i++)
+                this.playActualMatch(matches[i].winner == matches[i].firstCompetitor, drawId).finally();
         } else {
             for (let i = 0; i < numberOfMatches; i++) {
                 if (lastConnected <= startConnected) {
@@ -76,7 +80,7 @@ export default class RoundRobinDraw implements IDraw {
             this.matches[this.actualFightIndex].actualPlaying = true;
         }
 
-        this.playedMatches = this.countPlayedMatches();
+        this.playedMatches = this.countPlayedMatches(this.matches);
     }
 
     async saveGeneratedFights(drawId: number): Promise<void> {
@@ -104,10 +108,10 @@ export default class RoundRobinDraw implements IDraw {
         return 0;
     }
 
-    countPlayedMatches(): number {
-        let playedMatches = this.actualFightIndex - 1;
-        for (let i = this.actualFightIndex; i < this.matches.length; i++) {
-            if (this.matches[i].winner != null)
+    countPlayedMatches(matches: IndividualMatch[]): number {
+        let playedMatches = 0;
+        for (let i = 0; i < matches.length; i++) {
+            if (matches[i].winner != null)
                 playedMatches++;
         }
         return playedMatches;
@@ -144,21 +148,16 @@ export default class RoundRobinDraw implements IDraw {
     }
 
     async playActualMatch(firstWin: boolean, drawId: number): Promise<void> {
-        try {
-            if (firstWin) {
-                this.getActualMatch().firstCompetitor!.points++
-            } else {
-                this.getActualMatch().secondCompetitor!.points++
-            }
-        } catch (e) {
-            console.log(e)
-        }
+        if (firstWin)
+            this.getActualMatch().firstCompetitor!.points++;
+        else
+            this.getActualMatch().secondCompetitor!.points++;
 
         this.getActualMatch().playMatch(firstWin);
         if (this.getActualMatch().winner != null)
             this.playedMatches++;
 
-        await FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex);
+        FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex).finally();
 
         if (this.playedMatches == this.matches.length) {
             let breakLoop: boolean = true;
@@ -169,7 +168,7 @@ export default class RoundRobinDraw implements IDraw {
 
                 let bucketWithOvertime = this.findBucketWithOvertime();
                 if (bucketWithOvertime != null) {
-                    this.generateNewRounds();
+                    this.generateNewRounds(drawId);
                     this.currentBucket = bucketWithOvertime;
                     breakLoop = false;
                     stepBack = false;
@@ -230,7 +229,7 @@ export default class RoundRobinDraw implements IDraw {
         return currentBucket!.buckets[currentBucket!.currentBucketIndex]
     }
 
-    generateNewRounds() {
+    generateNewRounds(drawId: number) {
         let bucketWhichNeedsOvertime = this.findBucketWithOvertime();
 
         let competitors = bucketWhichNeedsOvertime!.competitors;
@@ -271,9 +270,10 @@ export default class RoundRobinDraw implements IDraw {
                 startConnected = 0;
                 lastConnected = this.carousel.length - 1;
             }
-            if (this.carousel[lastConnected] != freeFight)
+            if (this.carousel[lastConnected] != freeFight) {
                 this.matches.push(new IndividualMatch(this.carousel[startConnected], this.carousel[lastConnected], null));
-            else i--;
+                FightController.saveFight(this.matches[this.matches.length - 1], drawId, this.matches.length - 1).finally();
+            } else i--;
 
             startConnected++;
             lastConnected--;

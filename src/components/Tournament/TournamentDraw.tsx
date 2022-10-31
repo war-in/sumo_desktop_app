@@ -115,13 +115,14 @@ function TournamentDraw() {
         const fetchData = async () => {
             await axios.get("http://localhost:8080/draw/with-fights?drawId=" + rowData.id)
                 .then(response => {
+                    const _competitors = createCompetitors((response.data as CompetitorsAndFightsInDraw).competitors);
                     setModel(new Model(
                         drawFromDatabase,
                         rowData,
-                        createCompetitors((response.data as CompetitorsAndFightsInDraw).competitors),
+                        _competitors,
                         createFights(
                             (response.data as CompetitorsAndFightsInDraw).fights,
-                            (response.data as CompetitorsAndFightsInDraw).competitors
+                            _competitors
                         ),
                         true))
                     setCompetitors((response.data as CompetitorsAndFightsInDraw).competitors);
