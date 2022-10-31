@@ -43,7 +43,7 @@ export class Model {
             this.draw = new TreeDrawUnder8(competitors, fightsFromDatabase, rowData.id, saveFightsToDatabase);
             this.drawVisualizer = new TreeDrawUnder8Visualizer(this.draw as TreeDrawUnder8)
         } else {
-            this.draw = new RoundRobinDraw(competitors, rowData.id, saveFightsToDatabase);
+            this.draw = new RoundRobinDraw(competitors, fightsFromDatabase, rowData.id, saveFightsToDatabase);
             this.drawVisualizer = new RoundRobinDrawVisualizer(this.draw as RoundRobinDraw)
         }
 

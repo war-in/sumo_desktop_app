@@ -1,9 +1,9 @@
-export class Round{
-    private _roundName:string
-    private _firstFightIndex:number
-    private _lastFightIndex:number|undefined
+export class Round {
+    private _roundName: string
+    private _firstFightIndex: number
+    private _lastFightIndex: number
 
-    constructor(roundName: string, firstFightIndex: number, lastFightIndex: number|undefined) {
+    constructor(roundName: string, firstFightIndex: number, lastFightIndex: number) {
         this._roundName = roundName;
         this._firstFightIndex = firstFightIndex;
         this._lastFightIndex = lastFightIndex;
@@ -25,11 +25,11 @@ export class Round{
         this._firstFightIndex = value;
     }
 
-    get lastFightIndex(): number|undefined {
+    get lastFightIndex(): number {
         return this._lastFightIndex;
     }
 
-    set lastFightIndex(value: number|undefined) {
+    set lastFightIndex(value: number) {
         this._lastFightIndex = value;
     }
 }
