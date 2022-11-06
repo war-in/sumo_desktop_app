@@ -56,3 +56,8 @@
 .importantHeight {
     height: 100% !important;
 }
+
+.StandardButton{
+    background-color: #feb886 !important;
+    border-color: #f59d6c !important;
+}
