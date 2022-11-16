@@ -41,3 +41,19 @@
     background: #F7F7F7;
     border-radius: 5px;
 }
+
+select{
+    background-color: #F9CDA5;
+}
+
+.cancel-btn{
+    background-color: white !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
+.save-btn {
+    background-color: #F9CDA5 !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}

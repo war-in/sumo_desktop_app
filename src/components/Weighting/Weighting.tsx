@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Col, Container, Image, Row} from 'react-bootstrap';
+import {Button, Col, Container, Image, Modal, ModalBody, ModalFooter, ModalHeader, Row, Form} from 'react-bootstrap';
 import {Box, Input} from '@material-ui/core';
 import MaterialTable, {MTableToolbar} from 'material-table';
 import './Weighting.css';
@@ -95,9 +95,19 @@ function Weighting() {
     const [weight, setWeight] = useState<number>(0);
     const [weightingDetails, setWeightingDetails] = useState<WeightingDetailsType[]>([]);
     const [competitorsData, setCompetitorsData] = useState<CompetitorType[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const selectAgeRef = useRef<HTMLSelectElement | null>(null);
+    const selectWeightRef = useRef<HTMLSelectElement | null>(null);
 
     let categoriesAndWeightingDetailsByCompetitorId: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
+
+    const saveCategory = () => {
+        // TODO: save new category using endpoint
+        //  use variables: selectAgeRef.current?.value (selected age), selectWeightRef.current?.value (selected weight)
+        setIsModalOpen(false)
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -232,9 +242,7 @@ function Weighting() {
                                 </Col>
                                 <Col>
                                     <div style={{ padding: "10px 10px", textAlign: "right" }}>
-                                        <Button variant="secondary" onClick={async () => {
-                                            //add
-                                        }}>+</Button>
+                                        <Button variant="secondary" onClick={() => setIsModalOpen(true)}>+</Button>
                                     </div>
                                 </Col>
                             </Row>
@@ -297,18 +305,54 @@ function Weighting() {
     }
 
     return (
-        <Container className="weighting">
-            <h1 className="title">Competitors weighting</h1>
-            <Row>
-                <Col className="col-3">
-                    <CompetitorDetails/>
-                </Col>
-                <Col className="col-8">
-                    <Competitors/>
-                    <Categories/>
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <Container className="weighting">
+                <h1 className="title">Competitors weighting</h1>
+                <Row>
+                    <Col className="col-3">
+                        <CompetitorDetails/>
+                    </Col>
+                    <Col className="col-8">
+                        <Competitors/>
+                        <Categories/>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+                <ModalHeader closeButton>
+                    <h4>Add category</h4>
+                </ModalHeader>
+                <ModalBody>
+                    <div className={'d-flex justify-content-center align-items-center gap-4'}>
+                        <Form.Group className={'d-flex justify-content-center flex-column'}>
+                            <Form.Label>Age category</Form.Label>
+                            <select ref={selectAgeRef}>
+                                <option>junior</option>
+                                <option>mid</option>
+                                <option>senior</option>
+                            </select>
+                        </Form.Group>
+
+                        <Form.Group className={'d-flex justify-content-center flex-column'}>
+                            <Form.Label>Weight category</Form.Label>
+                            <select ref={selectWeightRef}>
+                                <option>70kg</option>
+                                <option>100kg</option>
+                                <option>150kg</option>
+                            </select>
+                        </Form.Group>
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button className={'cancel-btn'} onClick={() => {
+                        setIsModalOpen(false)
+                    }}>Cancel</Button>
+                    <Button onClick={saveCategory} className={'save-btn'}>Save</Button>
+                </ModalFooter>
+            </Modal>
+        </>
+
     );
 }
 
