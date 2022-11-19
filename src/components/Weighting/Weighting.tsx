@@ -98,15 +98,47 @@ function Weighting() {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const selectAgeRef = useRef<HTMLSelectElement | null>(null);
-    const selectWeightRef = useRef<HTMLSelectElement | null>(null);
+    const selectCatRef = useRef<HTMLSelectElement | null>(null);
+
+    const [categoriesToChoseFrom, setCategoriesToChoseFrom] = useState<CategoryType[]>([]);
 
     let categoriesAndWeightingDetailsByCompetitorId: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
 
+    const fetchCategoriesData = async (id: number) => {
+        const {data} = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + id)
+        return data;
+    }
+    const fetchWeightingData = async (categoryId: number, competitorId: number) => {
+        const {data} = await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + categoryId + `&competitorId=` + competitorId)
+        return data;
+    }
+    const fetchDataForCompetitor = async (id: number) => {
+        let fetchedCategories: CategoryType[] = [];
+        await fetchCategoriesData(id).then(data => fetchedCategories = data)
+        let fetchedWeightingDetails: WeightingDetailsType[] = [];
+        for (const category of fetchedCategories) {
+            await fetchWeightingData(category.id, id).then(data => fetchedWeightingDetails.push(data));
+        }
+        return {
+            categories: fetchedCategories,
+            weightDetails: fetchedWeightingDetails
+        }
+    }
+
     const saveCategory = () => {
-        // TODO: save new category using endpoint
-        //  use variables: selectAgeRef.current?.value (selected age), selectWeightRef.current?.value (selected weight)
-        setIsModalOpen(false)
+        const add = async () => {
+            await axios.post(desktopServerUrl + `/weighting/addRegistration?competitorId=`
+                + personalDetails!.id + `&categoryAtCompetitionId=` + selectCatRef.current!.value);
+        }
+        add().then(() => {
+            fetchDataForCompetitor(personalDetails!.id).then(data => {
+                categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id] = data;
+                let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
+                setCategories(categoriesAndWeightingDetails.categories);
+                setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                setIsModalOpen(false)
+            })
+        })
     }
 
     useEffect(() => {
@@ -126,30 +158,10 @@ function Weighting() {
     }, []);
 
     function Competitors() {
-        const fetchCategoriesData = async (comp: CompetitorType) => {
-            const {data} = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + comp.personalDetails.id)
-            return data;
-        }
-        const fetchWeightingData = async (category: CategoryType, comp: CompetitorType) => {
-            const {data} = await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
-            return data;
-        }
-        const fetchDataForCompetitor = async (comp: CompetitorType) => {
-            let fetchedCategories: CategoryType[] = [];
-            await fetchCategoriesData(comp).then(data => fetchedCategories = data)
-            let fetchedWeightingDetails: WeightingDetailsType[] = [];
-            for (const category of fetchedCategories) {
-                await fetchWeightingData(category, comp).then(data => fetchedWeightingDetails.push(data));
-            }
-            return {
-                categories: fetchedCategories,
-                weightDetails: fetchedWeightingDetails
-            }
-        }
         useEffect(() => {
             const fetchData = () => {
                 for (const comp of competitorsData) {
-                    fetchDataForCompetitor(comp).then(data => {
+                    fetchDataForCompetitor(comp.personalDetails.id).then(data => {
                         categoriesAndWeightingDetailsByCompetitorId[comp.personalDetails.id] = data
                     })
                 }
@@ -217,8 +229,19 @@ function Weighting() {
                 title: "", field: "", render: (rowData: CategoryType) => {
                     return <img src={require(`/public/images/trash.png`).default}
                                 style={{width: 25}} alt=""
-                                onClick={async () => {
-                                    //delete
+                                onClick={() => {
+                                    const remove = async () => {
+                                        await axios.delete(desktopServerUrl + `/weighting/removeRegistration?competitorId=`
+                                            + personalDetails!.id + `&categoryAtCompetitionId=` + rowData.id);
+                                    }
+                                    remove().then(() => {
+                                        fetchDataForCompetitor(personalDetails!.id).then(data => {
+                                            categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id] = data;
+                                            let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
+                                            setCategories(categoriesAndWeightingDetails.categories);
+                                            setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                                        })
+                                    })
                                 }}/>
                 }
             }
@@ -242,7 +265,22 @@ function Weighting() {
                                 </Col>
                                 <Col>
                                     <div style={{ padding: "10px 10px", textAlign: "right" }}>
-                                        <Button variant="secondary" onClick={() => setIsModalOpen(true)}>+</Button>
+                                        <Button variant="secondary" onClick={() => {
+                                            const fetchData = async () => {
+                                                const {data} = await axios.get(desktopServerUrl + `weighting/getCategoriesForCompetitor?competitionId=`
+                                                    + competitionId + `&competitorId=` + personalDetails!.id)
+                                                return data;
+                                            }
+                                            fetchData().then(data => {
+                                                console.log(data)
+                                                let categoriesList: CategoryType[] = [];
+                                                for (const ct of data) {
+                                                    categoriesList.push(ct.category);
+                                                }
+                                                setCategoriesToChoseFrom(categoriesList);
+                                                setIsModalOpen(true);
+                                            })
+                                        }}>+</Button>
                                     </div>
                                 </Col>
                             </Row>
@@ -304,6 +342,35 @@ function Weighting() {
         );
     }
 
+    function CategoryModal() {
+
+        return (
+            <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+                <ModalHeader closeButton>
+                    <h4>Add category</h4>
+                </ModalHeader>
+                <ModalBody>
+                    <div className={'d-flex justify-content-center align-items-center'}>
+                        <Form.Group className={'d-flex justify-content-center flex-column'}>
+                            <Form.Label>Choose category</Form.Label>
+                            <select ref={selectCatRef}>
+                                {categoriesToChoseFrom.map((category) => (
+                                    <option value={category.id}>{category.ageCategory.name}, {category.weightCategory}</option>
+                                ))}
+                            </select>
+                        </Form.Group>
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button className={'cancel-btn'} onClick={() => {
+                        setIsModalOpen(false)
+                    }}>Cancel</Button>
+                    <Button onClick={saveCategory} className={'save-btn'}>Save</Button>
+                </ModalFooter>
+            </Modal>
+        );
+    }
+
     return (
         <>
             <Container className="weighting">
@@ -318,41 +385,8 @@ function Weighting() {
                     </Col>
                 </Row>
             </Container>
-
-            <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
-                <ModalHeader closeButton>
-                    <h4>Add category</h4>
-                </ModalHeader>
-                <ModalBody>
-                    <div className={'d-flex justify-content-center align-items-center gap-4'}>
-                        <Form.Group className={'d-flex justify-content-center flex-column'}>
-                            <Form.Label>Age category</Form.Label>
-                            <select ref={selectAgeRef}>
-                                <option>junior</option>
-                                <option>mid</option>
-                                <option>senior</option>
-                            </select>
-                        </Form.Group>
-
-                        <Form.Group className={'d-flex justify-content-center flex-column'}>
-                            <Form.Label>Weight category</Form.Label>
-                            <select ref={selectWeightRef}>
-                                <option>70kg</option>
-                                <option>100kg</option>
-                                <option>150kg</option>
-                            </select>
-                        </Form.Group>
-                    </div>
-                </ModalBody>
-                <ModalFooter>
-                    <Button className={'cancel-btn'} onClick={() => {
-                        setIsModalOpen(false)
-                    }}>Cancel</Button>
-                    <Button onClick={saveCategory} className={'save-btn'}>Save</Button>
-                </ModalFooter>
-            </Modal>
+            <CategoryModal/>
         </>
-
     );
 }
 
