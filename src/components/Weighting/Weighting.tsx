@@ -136,6 +136,7 @@ function Weighting() {
                 let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
                 setCategories(categoriesAndWeightingDetails.categories);
                 setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                selectCatRef.current = null;
                 setIsModalOpen(false)
             })
         })
@@ -267,7 +268,7 @@ function Weighting() {
                                     <div style={{ padding: "10px 10px", textAlign: "right" }}>
                                         <Button variant="secondary" onClick={() => {
                                             const fetchData = async () => {
-                                                const {data} = await axios.get(desktopServerUrl + `weighting/getCategoriesForCompetitor?competitionId=`
+                                                const {data} = await axios.get(desktopServerUrl + `weighting/getAvailableCategoriesForCompetitor?competitionId=`
                                                     + competitionId + `&competitorId=` + personalDetails!.id)
                                                 return data;
                                             }
