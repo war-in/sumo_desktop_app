@@ -206,7 +206,7 @@ function Draw() {
     }
 
     function SaveCombatsButton() {
-        return (<Button className="save-button" variant="success" onClick={async () => {
+        return (<Button className="save-button" onClick={async () => {
             let body = {
                 competitors: combats,
                 drawType: selectedDrawType,
@@ -218,14 +218,14 @@ function Draw() {
     }
 
     function CancelButton() {
-        return (<Button className="cancel-button" variant="danger" onClick={async () => {
+        return (<Button className="cancel-button" onClick={async () => {
             generatedCombats[selectedCategoryId] = null;
             showButtons()
         }}>Cancel</Button>);
     }
 
     function RedrawButton() {
-        return (<Button className="redraw-button" variant="primary" onClick={async () => {
+        return (<Button className="redraw-button" onClick={async () => {
             let body = {
                 competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
                 drawType: selectedDrawType

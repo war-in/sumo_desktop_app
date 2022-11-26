@@ -273,7 +273,6 @@ function Weighting() {
                                                 return data;
                                             }
                                             fetchData().then(data => {
-                                                console.log(data)
                                                 let categoriesList: CategoryType[] = [];
                                                 for (const ct of data) {
                                                     categoriesList.push(ct.category);
@@ -356,7 +355,7 @@ function Weighting() {
                             <Form.Label>Choose category</Form.Label>
                             <select ref={selectCatRef}>
                                 {categoriesToChoseFrom.map((category) => (
-                                    <option value={category.id}>{category.ageCategory.name}, {category.weightCategory}</option>
+                                    <option key={category.id} value={category.id}>{category.ageCategory.name}, {category.weightCategory}</option>
                                 ))}
                             </select>
                         </Form.Group>

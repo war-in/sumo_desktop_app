@@ -11,22 +11,30 @@
 }
 
 .save-button {
-    width: 150px;
     margin-top: 20px;
-    margin-left: 220px;
-}
-
-.cancel-button {
-    width: 150px;
-    margin-top: 20px;
-    margin-left: 220px;
-    margin-bottom: 50px;
+    margin-right: 20px;
+    margin-left: 130px;
+    width: 100px;
+    background-color: black !important;
+    border: 2px solid black !important;
+    color: white !important;
 }
 
 .redraw-button {
-    width: 150px;
     margin-top: 20px;
-    margin-left: 220px;
+    margin-right: 20px;
+    width: 100px;
+    background-color: #F9CDA5 !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
+.cancel-button{
+    margin-top: 20px;
+    width: 100px;
+    background-color: white !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
 }
 
 .combats{
