@@ -104,8 +104,8 @@ function Weighting() {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const selectAgeCatRef = useRef<HTMLSelectElement | null>(null);
-    const selectWeightCatRef = useRef<HTMLSelectElement | null>(null);
+    const selectAgeCatRef = useRef<Array<HTMLSelectElement | null>>([]);
+    const selectWeightCatRef = useRef<Array<HTMLSelectElement | null>>([]);
 
     const [ageCategorySelectOptions, setAgeCategorySelectOptions] = useState<string[]>([]);
     const [weightCategorySelectOptions, setWeightCategorySelectOptions] = useState<WeightSelectOption[]>([]);
@@ -135,8 +135,12 @@ function Weighting() {
 
     const saveCategory = () => {
         const add = async () => {
-            await axios.post(desktopServerUrl + `/weighting/addRegistration?competitorId=`
-                + personalDetails!.id + `&categoryAtCompetitionId=` + selectWeightCatRef.current!.value);
+            for (const element of selectWeightCatRef.current){
+                if (element!=null){
+                    await axios.post(desktopServerUrl + `/weighting/addRegistration?competitorId=`
+                        + personalDetails!.id + `&categoryAtCompetitionId=` + element.value);
+                }
+            }
         }
         add().then(() => {
             fetchDataForCompetitor(personalDetails!.id).then(data => {
@@ -144,8 +148,8 @@ function Weighting() {
                 let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
                 setCategories(categoriesAndWeightingDetails.categories);
                 setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
-                selectAgeCatRef.current = null;
-                selectWeightCatRef.current = null;
+                selectAgeCatRef.current = [];
+                selectWeightCatRef.current = [];
                 setIsModalOpen(false)
             })
         })
@@ -361,40 +365,60 @@ function Weighting() {
         );
     }
 
-    function CategoryModal() {
+    function SingleCategorySelect(props: { index: number }) {
         const [ageSelectAnswer, setAgeSelectAnswer] = useState<string>(ageCategorySelectOptions[0]);
+        return (
+            <div className={'d-flex justify-content-center align-items-center gap-4'}>
+                <Form.Group className={'d-flex justify-content-center flex-column'}>
+                    <Form.Label>Age category:</Form.Label>
+                    <select ref={el => selectAgeCatRef.current[props.index] = el} onChange={(e) => {setAgeSelectAnswer(e.target.value)}} value={ageSelectAnswer}>
+                        {
+                            ageCategorySelectOptions
+                                .map((option) =>
+                                    <option key={option} value={option}>
+                                        {option}
+                                    </option>)
+                        }
+                    </select>
+                </Form.Group>
+                <Form.Group className={'d-flex justify-content-center flex-column'}>
+                    <Form.Label>Weight category:</Form.Label>
+                    <select ref={el => selectWeightCatRef.current[props.index] = el}>
+                        {
+                            weightCategorySelectOptions
+                                .filter(option => {return option.key == ageSelectAnswer})
+                                .map((option) =>
+                                    <option key={option.categoryId} value={option.categoryId}>
+                                        {option.displayName}
+                                    </option>)
+                        }
+                    </select>
+                </Form.Group>
+            </div>
+        );
+    }
+
+    function CategoryModal() {
+        const [numberOfCategoriesToAdd, setNumberOfCategoriesToAdd] = useState<number>(1);
+        const indexes = [];
+        for (let i = 0; i < numberOfCategoriesToAdd; i++) {
+            indexes.push(i);
+        }
         return (
             <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
                 <ModalHeader closeButton>
                     <h4>Add category</h4>
                 </ModalHeader>
                 <ModalBody>
+                    <div>
+                        {indexes.map((i) => <SingleCategorySelect index={i}/>)}
+                    </div>
                     <div className={'d-flex justify-content-center align-items-center gap-4'}>
-                        <Form.Group className={'d-flex justify-content-center flex-column'}>
-                            <Form.Label>Age category:</Form.Label>
-                            <select ref={selectAgeCatRef} onChange={(e) => {setAgeSelectAnswer(e.target.value)}} value={ageSelectAnswer}>
-                                {
-                                    ageCategorySelectOptions
-                                        .map((option) =>
-                                            <option key={option} value={option}>
-                                                {option}
-                                            </option>)
-                                }
-                            </select>
-                        </Form.Group>
-                        <Form.Group className={'d-flex justify-content-center flex-column'}>
-                            <Form.Label>Weight category:</Form.Label>
-                            <select ref={selectWeightCatRef}>
-                                {
-                                    weightCategorySelectOptions
-                                        .filter(option => {return option.key == ageSelectAnswer})
-                                        .map((option) =>
-                                            <option key={option.categoryId} value={option.categoryId}>
-                                                {option.displayName}
-                                            </option>)
-                                }
-                            </select>
-                        </Form.Group>
+                        <Button className={'plus-btn'} onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd+1)}>+</Button>
+                        {
+                            (numberOfCategoriesToAdd>1) &&
+                            <Button className={'minus-btn'} onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd-1)}>-</Button>
+                        }
                     </div>
                 </ModalBody>
                 <ModalFooter>

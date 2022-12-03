@@ -46,6 +46,20 @@ select{
     background-color: #F9CDA5;
 }
 
+.plus-btn{
+    margin-top: 20px;
+    background-color: #F9CDA5 !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
+.minus-btn{
+    margin-top: 20px;
+    background-color: white !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
 .cancel-btn{
     background-color: white !important;
     border: 2px solid #F9CDA5 !important;
