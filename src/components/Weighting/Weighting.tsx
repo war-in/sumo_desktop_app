@@ -58,6 +58,12 @@ type CategoryType = {
     }
 }
 
+type WeightSelectOption = {
+    key: string,
+    categoryId: number,
+    displayName: string
+}
+
 type WeightingDetailsType = {
     id: number,
     registration: {
@@ -98,9 +104,11 @@ function Weighting() {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const selectCatRef = useRef<HTMLSelectElement | null>(null);
+    const selectAgeCatRef = useRef<HTMLSelectElement | null>(null);
+    const selectWeightCatRef = useRef<HTMLSelectElement | null>(null);
 
-    const [categoriesToChoseFrom, setCategoriesToChoseFrom] = useState<CategoryType[]>([]);
+    const [ageCategorySelectOptions, setAgeCategorySelectOptions] = useState<string[]>([]);
+    const [weightCategorySelectOptions, setWeightCategorySelectOptions] = useState<WeightSelectOption[]>([]);
 
     let categoriesAndWeightingDetailsByCompetitorId: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
 
@@ -128,7 +136,7 @@ function Weighting() {
     const saveCategory = () => {
         const add = async () => {
             await axios.post(desktopServerUrl + `/weighting/addRegistration?competitorId=`
-                + personalDetails!.id + `&categoryAtCompetitionId=` + selectCatRef.current!.value);
+                + personalDetails!.id + `&categoryAtCompetitionId=` + selectWeightCatRef.current!.value);
         }
         add().then(() => {
             fetchDataForCompetitor(personalDetails!.id).then(data => {
@@ -136,7 +144,8 @@ function Weighting() {
                 let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
                 setCategories(categoriesAndWeightingDetails.categories);
                 setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
-                selectCatRef.current = null;
+                selectAgeCatRef.current = null;
+                selectWeightCatRef.current = null;
                 setIsModalOpen(false)
             })
         })
@@ -273,11 +282,21 @@ function Weighting() {
                                                 return data;
                                             }
                                             fetchData().then(data => {
-                                                let categoriesList: CategoryType[] = [];
+                                                let ageCategorySelectOptionsTemp : string[] = [];
+                                                let weightCategorySelectOptionsTemp : WeightSelectOption[] = [];
                                                 for (const ct of data) {
-                                                    categoriesList.push(ct.category);
+                                                    if (ageCategorySelectOptionsTemp.indexOf(ct.category.ageCategory.name) < 0) {
+                                                        ageCategorySelectOptionsTemp.push(ct.category.ageCategory.name)
+                                                    }
+                                                    let wso : WeightSelectOption = {
+                                                        key: ct.category.ageCategory.name,
+                                                        categoryId: ct.category.id,
+                                                        displayName: ct.category.weightCategory
+                                                    }
+                                                    weightCategorySelectOptionsTemp.push(wso)
                                                 }
-                                                setCategoriesToChoseFrom(categoriesList);
+                                                setAgeCategorySelectOptions(ageCategorySelectOptionsTemp);
+                                                setWeightCategorySelectOptions(weightCategorySelectOptionsTemp);
                                                 setIsModalOpen(true);
                                             })
                                         }}>+</Button>
@@ -343,20 +362,37 @@ function Weighting() {
     }
 
     function CategoryModal() {
-
+        const [ageSelectAnswer, setAgeSelectAnswer] = useState<string>(ageCategorySelectOptions[0]);
         return (
             <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
                 <ModalHeader closeButton>
                     <h4>Add category</h4>
                 </ModalHeader>
                 <ModalBody>
-                    <div className={'d-flex justify-content-center align-items-center'}>
+                    <div className={'d-flex justify-content-center align-items-center gap-4'}>
                         <Form.Group className={'d-flex justify-content-center flex-column'}>
-                            <Form.Label>Choose category</Form.Label>
-                            <select ref={selectCatRef}>
-                                {categoriesToChoseFrom.map((category) => (
-                                    <option key={category.id} value={category.id}>{category.ageCategory.name}, {category.weightCategory}</option>
-                                ))}
+                            <Form.Label>Age category:</Form.Label>
+                            <select ref={selectAgeCatRef} onChange={(e) => {setAgeSelectAnswer(e.target.value)}} value={ageSelectAnswer}>
+                                {
+                                    ageCategorySelectOptions
+                                        .map((option) =>
+                                            <option key={option} value={option}>
+                                                {option}
+                                            </option>)
+                                }
+                            </select>
+                        </Form.Group>
+                        <Form.Group className={'d-flex justify-content-center flex-column'}>
+                            <Form.Label>Weight category:</Form.Label>
+                            <select ref={selectWeightCatRef}>
+                                {
+                                    weightCategorySelectOptions
+                                        .filter(option => {return option.key == ageSelectAnswer})
+                                        .map((option) =>
+                                            <option key={option.categoryId} value={option.categoryId}>
+                                                {option.displayName}
+                                            </option>)
+                                }
                             </select>
                         </Form.Group>
                     </div>
