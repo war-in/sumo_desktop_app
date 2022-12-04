@@ -6,6 +6,7 @@ import './Weighting.css';
 import Competitor from "../../objects/Competitor";
 import PersonalDetails from "../../objects/PersonalDetails";
 import axios from "axios";
+import {BsTrash} from "react-icons/bs";
 
 //TODO: competitionId and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
 const competitionId = 10;
@@ -241,8 +242,7 @@ function Weighting() {
             {"title": "Weight category", "field": "weightCategory"},
             {
                 title: "", field: "", render: (rowData: CategoryType) => {
-                    return <img src={require(`/public/images/trash.png`).default}
-                                style={{width: 25}} alt=""
+                    return <BsTrash
                                 onClick={() => {
                                     const remove = async () => {
                                         await axios.delete(desktopServerUrl + `/weighting/removeRegistration?competitorId=`
@@ -371,7 +371,7 @@ function Weighting() {
             <div className={'d-flex justify-content-center align-items-center gap-4'}>
                 <Form.Group className={'d-flex justify-content-center flex-column'}>
                     <Form.Label>Age category:</Form.Label>
-                    <select ref={el => selectAgeCatRef.current[props.index] = el} onChange={(e) => {setAgeSelectAnswer(e.target.value)}} value={ageSelectAnswer}>
+                    <Form.Select ref={(el: HTMLSelectElement) => selectAgeCatRef.current[props.index] = el} onChange={(e) => {setAgeSelectAnswer(e.target.value)}} value={ageSelectAnswer}>
                         {
                             ageCategorySelectOptions
                                 .map((option) =>
@@ -379,11 +379,11 @@ function Weighting() {
                                         {option}
                                     </option>)
                         }
-                    </select>
+                    </Form.Select>
                 </Form.Group>
                 <Form.Group className={'d-flex justify-content-center flex-column'}>
                     <Form.Label>Weight category:</Form.Label>
-                    <select ref={el => selectWeightCatRef.current[props.index] = el}>
+                    <Form.Select ref={(el: HTMLSelectElement) => selectWeightCatRef.current[props.index] = el}>
                         {
                             weightCategorySelectOptions
                                 .filter(option => {return option.key == ageSelectAnswer})
@@ -392,7 +392,7 @@ function Weighting() {
                                         {option.displayName}
                                     </option>)
                         }
-                    </select>
+                    </Form.Select>
                 </Form.Group>
             </div>
         );
