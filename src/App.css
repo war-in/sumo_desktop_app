@@ -20,10 +20,10 @@
 .draw,
 .team-fight
 {
-    margin-top: 20px;
+    margin-left: auto;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
 }
 
 .competitorBox{

@@ -3,9 +3,9 @@ import {Container} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {DrawFromDatabase, RowData} from "./Model";
 // @ts-ignore
-import response from "../../mocks/CategoriesAtCompetition.json";
 import axios from "axios";
 import MaterialTable from "@material-table/core";
+
 
 function CategoriesAtCompetition() {
     let navigate = useNavigate();
@@ -19,18 +19,18 @@ function CategoriesAtCompetition() {
         {"title": "Sex", "field": "sex", "cellStyle": styles},
     ]
     const [categories, setCategories] = useState<RowData[]>([]);
+    const [drawsFromDatabase, setDrawsFromDatabase] = useState<DrawFromDatabase[]>([])
 
     useEffect(() => {
         const fetchData = async () => {
             await axios.get("http://localhost:8080/tournament/menu?competitionId=10")
                 .then(response => {
                     setCategories(response.data.dataset);
+                    setDrawsFromDatabase(response.data.draws)
                 })
         }
         fetchData()
     }, []);
-
-    const drawsFromDatabase: DrawFromDatabase[] = response.draws
 
     return (
         <Container className="tournament-box">

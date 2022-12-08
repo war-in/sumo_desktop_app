@@ -1,0 +1,12 @@
+.report-title {
+    height: 10%;
+}
+
+.individualReports {
+    height: 50%;
+    margin: auto !important;
+}
+
+.groupReports {
+    height: 30%;
+}
