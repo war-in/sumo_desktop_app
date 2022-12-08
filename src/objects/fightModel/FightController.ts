@@ -6,7 +6,14 @@ const desktopServerUrl = "http://localhost:8080/"
 
 export default class FightController {
     static async saveFight(individualMatch: IndividualMatch, drawId: number, numberOfPlaceInDraw: number): Promise<void> {
-        console.log(individualMatch.firstCompetitor)
+        let winner: number = 0;
+        if (individualMatch.winner == null)
+            winner = 0;
+        else if (individualMatch.winner == individualMatch.firstCompetitor)
+            winner = 1;
+        else if (individualMatch.winner == individualMatch.secondCompetitor)
+            winner = 2;
+
         const body = {
             draw: {
                 id: drawId
@@ -17,7 +24,7 @@ export default class FightController {
             secondCompetitor: {
                 id: individualMatch.secondCompetitor?.id
             },
-            winner: individualMatch.winner == individualMatch.firstCompetitor,
+            whoIsWinner: winner,
             numberOfPlaceInDraw: numberOfPlaceInDraw,
         }
 

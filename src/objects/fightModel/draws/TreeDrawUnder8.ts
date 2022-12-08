@@ -11,66 +11,85 @@ export default class TreeDrawUnder8 implements IDraw {
     competitors: Competitor[]
     actualFightIndexToArrayIndex: Map<number, number>
 
-    constructor(competitors: Competitor[], drawId: number, saveFightsToDatabase: boolean) {
-        // this.matches = new Array(12)
-        this.matches = new Array(30).fill(new IndividualMatch(null, null, null))
+    constructor(competitors: Competitor[], matches: IndividualMatch[], drawId: number, saveFightsToDatabase: boolean) {
         this.competitors = competitors
-        let actualCompetitor = 0;
-        this.actualFightIndex = 0
-        this.rounds = []
-        // key actualFightindex value: place in match array
+
         this.actualFightIndexToArrayIndex = new Map<number, number>()
-        let fightIndex = 0
-        let startFightIndex
-        //eliminacje
-        startFightIndex = fightIndex
-        for (let i = 4; i <= 7; i++) {
-            this.matches[i] = new IndividualMatch(competitors[actualCompetitor], competitors[actualCompetitor + 1], null)
-            actualCompetitor += 2
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        this.rounds.push(new Round("Eliminacje", startFightIndex, fightIndex - 1))
-        startFightIndex = fightIndex
-        //pół finały
-        for (let i = 2; i < 4; i++) {
-            this.matches[i] = new IndividualMatch(null, null, null)
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        this.rounds.push(new Round("Pół finały", startFightIndex, fightIndex - 1))
-        startFightIndex = fightIndex
-        //repasarze
-        for (let i = 11; i >= 10; i--) {
-            this.matches[i] = new IndividualMatch(null, null, null)
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
-        }
-        this.rounds.push(new Round("Repasarze", startFightIndex, fightIndex - 1))
-        startFightIndex = fightIndex
+        this.initializeActualFightIndexMap();
 
-        for (let i = 9; i >= 8; i--) {
-            this.matches[i] = new IndividualMatch(null, null, null)
-            this.actualFightIndexToArrayIndex.set(fightIndex, i)
-            fightIndex++
+        if (matches.length != 0) {
+            this.matches = matches.concat(
+                new Array(12 - matches.length).fill(new IndividualMatch(null, null, null)))
+        } else {
+            this.matches = new Array(12).fill(new IndividualMatch(null, null, null));
+
+            let actualCompetitor = 0;
+            for (let i = 4; i <= 7; i++) {
+                this.matches[i] = new IndividualMatch(competitors[actualCompetitor], competitors[actualCompetitor + 1], null)
+                actualCompetitor += 2
+            }
+
+            for (let i = 1; i < 4; i++)
+                this.matches[i] = new IndividualMatch(null, null, null)
+
+            for (let i = 11; i >= 8; i--)
+                this.matches[i] = new IndividualMatch(null, null, null)
+
+            if (saveFightsToDatabase)
+                this.saveGeneratedFights(drawId).finally();
         }
-        this.rounds.push(new Round("Brązy", startFightIndex, fightIndex - 1))
-        startFightIndex = fightIndex
 
-        //finał
-        this.matches[1] = new IndividualMatch(null, null, null)
-        this.actualFightIndexToArrayIndex.set(fightIndex, 1)
-        this.rounds.push(new Round("Finał", startFightIndex, fightIndex - 1))
-        this.matches[4].actualPlaying = true
+        this.rounds = []
+        this.rounds.push(new Round("Eliminacje", 1, 4));
+        this.rounds.push(new Round("Pół finały", 5, 6));
+        this.rounds.push(new Round("Repasarze", 7, 8));
+        this.rounds.push(new Round("Brązy", 9, 10));
+        this.rounds.push(new Round("Finał", 11, 11));
 
-        if (saveFightsToDatabase)
-            this.saveGeneratedFights(drawId).finally();
+        let [actualFightIndex, indexInArray] = this.findActualFightIndex();
+        this.actualFightIndex = actualFightIndex;
+        this.matches[indexInArray].actualPlaying = true;
     }
 
     async saveGeneratedFights(drawId: number): Promise<void> {
-        for(let i=0; i < this.matches.length; i++) {
+        for (let i = 0; i < this.matches.length; i++) {
             await FightController.saveFight(this.matches[i], drawId, i);
         }
+    }
+
+    initializeActualFightIndexMap(): void {
+        let fightIndex = 0
+        for (let i = 4; i <= 7; i++) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++;
+        }
+        for (let i = 2; i < 4; i++) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        for (let i = 11; i >= 10; i--) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        for (let i = 9; i >= 8; i--) {
+            this.actualFightIndexToArrayIndex.set(fightIndex, i)
+            fightIndex++
+        }
+        this.actualFightIndexToArrayIndex.set(fightIndex, 1)
+    }
+
+    findActualFightIndex(): [number, number] {
+        let matchId = 0;
+        let minFightId = 100;
+        for (let i = 0; i < this.matches.length; i++) {
+            let arrayId = this.actualFightIndexToArrayIndex.get(i) as number
+            if (i < minFightId && this.matches[arrayId].winner == null) {
+                minFightId = i;
+                matchId = arrayId;
+                break;
+            }
+        }
+        return [minFightId, matchId];
     }
 
     getActualMatch(): IndividualMatch {
@@ -115,18 +134,24 @@ export default class TreeDrawUnder8 implements IDraw {
                 this.matches[parentIndex].firstCompetitor = this.getActualMatch().winner
             else
                 this.matches[parentIndex].secondCompetitor = this.getActualMatch().winner
+            await FightController.saveFight(this.matches[parentIndex], drawId, parentIndex)
+
             switch (this.actualFightIndex) {
                 case 0:
                     this.matches[10].firstCompetitor = firstWinn ? this.getActualMatch().secondCompetitor : this.getActualMatch().firstCompetitor
+                    await FightController.saveFight(this.matches[10], drawId, 10)
                     break;
                 case 1:
                     this.matches[10].secondCompetitor = firstWinn ? this.getActualMatch().secondCompetitor : this.getActualMatch().firstCompetitor
+                    await FightController.saveFight(this.matches[10], drawId, 10)
                     break;
                 case 2:
                     this.matches[11].firstCompetitor = firstWinn ? this.getActualMatch().secondCompetitor : this.getActualMatch().firstCompetitor
+                    await FightController.saveFight(this.matches[11], drawId, 11)
                     break;
                 case 3:
                     this.matches[11].secondCompetitor = firstWinn ? this.getActualMatch().secondCompetitor : this.getActualMatch().firstCompetitor
+                    await FightController.saveFight(this.matches[11], drawId, 11)
                     break;
 
             }
@@ -140,11 +165,14 @@ export default class TreeDrawUnder8 implements IDraw {
                 this.matches[parentIndex].firstCompetitor = this.getActualMatch().winner
             else
                 this.matches[parentIndex].secondCompetitor = this.getActualMatch().winner
+            await FightController.saveFight(this.matches[parentIndex], drawId, parentIndex)
             //przepisanie do walki o brąz przegranego
             if (this.actualFightIndex == 4) {
                 this.matches[8].secondCompetitor = firstWinn ? this.getActualMatch().secondCompetitor : this.getActualMatch().firstCompetitor
+                await FightController.saveFight(this.matches[8], drawId, 8)
             } else {
                 this.matches[9].secondCompetitor = firstWinn ? this.getActualMatch().secondCompetitor : this.getActualMatch().firstCompetitor
+                await FightController.saveFight(this.matches[9], drawId, 9)
             }
         }
         // debugger
@@ -153,14 +181,16 @@ export default class TreeDrawUnder8 implements IDraw {
             switch (this.actualFightIndex) {
                 case 6:
                     this.matches[8].firstCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
+                    await FightController.saveFight(this.matches[8], drawId, 8)
                     break;
                 case 7:
                     this.matches[9].firstCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
+                    await FightController.saveFight(this.matches[9], drawId, 9)
                     break;
             }
         }
 
-        await FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex);
+        await FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndexToArrayIndex.get(this.actualFightIndex) as number);
 
         this.getActualMatch().actualPlaying = false
         this.actualFightIndex++
@@ -172,7 +202,4 @@ export default class TreeDrawUnder8 implements IDraw {
     getActualRound(): Round {
         return this.rounds[0];
     }
-
-
-
 }
