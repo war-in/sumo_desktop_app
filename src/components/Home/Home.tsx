@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Container} from "react-bootstrap";
+import LoginForm from "./LoginForm";
 
 function Home() {
+    const [isUserLoggedIn,setIsUserLoggedIn] = useState<boolean>(false)
+
   return (
     <Container className='home'>
       <h1>Home</h1>
+        {isUserLoggedIn ?
+            ("ZALOGOWANO I ZAJEBIście") :
+            (<LoginForm setUserLoggedIn={setIsUserLoggedIn}/>)
+        }
     </Container>
   );
 }
