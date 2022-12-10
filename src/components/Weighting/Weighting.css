@@ -71,3 +71,15 @@ select{
     border: 2px solid #F9CDA5 !important;
     color: black !important;
 }
+
+.trash {
+    width: 25px;
+    height: 25px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+}
+
+.trash:hover {
+    cursor: pointer;
+    background-color: #d0cdcd;
+}

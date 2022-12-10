@@ -6,7 +6,7 @@ import './Weighting.css';
 import Competitor from "../../objects/Competitor";
 import PersonalDetails from "../../objects/PersonalDetails";
 import axios from "axios";
-import {BsTrash} from "react-icons/bs";
+import {BsTrash, BsCheckLg} from "react-icons/bs";
 
 //TODO: competitionId and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
 const competitionId = 10;
@@ -193,8 +193,7 @@ function Weighting() {
             {
                 title: "", field: "", render: (rowData: CompetitorType) => {
                     if (isCompetitorWeighed[rowData.personalDetails.id]) {
-                        return <img src={require(`/public/images/check.svg.png`).default}
-                                    style={{width: 25, borderRadius: '50%'}} alt=""/>
+                        return <BsCheckLg/>
                     } else {
                         return <></>
                     }
@@ -242,7 +241,7 @@ function Weighting() {
             {"title": "Weight category", "field": "weightCategory"},
             {
                 title: "", field: "", render: (rowData: CategoryType) => {
-                    return <BsTrash
+                    return <BsTrash className={"trash"}
                                 onClick={() => {
                                     const remove = async () => {
                                         await axios.delete(desktopServerUrl + `/weighting/removeRegistration?competitorId=`

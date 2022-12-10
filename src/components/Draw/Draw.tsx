@@ -4,6 +4,7 @@ import './Draw.css';
 import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
 import axios from "axios";
+import {BsCheckLg} from "react-icons/bs";
 
 //TODO: competitionId, region and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
 const competitionId = 10;
@@ -111,8 +112,7 @@ function Draw() {
             {
                 title: "", field: "", render: (rowData: Category) => {
                     if (combatsAlreadyGenerated(rowData.category.id)) {
-                        return <img src={require(`/public/images/check.svg.png`).default}
-                                    style={{width: 25, borderRadius: '50%'}} alt=""/>
+                        return <BsCheckLg/>
                     } else {
                         return <></>
                     }
