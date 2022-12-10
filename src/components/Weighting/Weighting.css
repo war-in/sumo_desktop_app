@@ -41,3 +41,45 @@
     background: #F7F7F7;
     border-radius: 5px;
 }
+
+select{
+    background-color: #F9CDA5;
+}
+
+.plus-btn{
+    margin-top: 20px;
+    background-color: #F9CDA5 !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
+.minus-btn{
+    margin-top: 20px;
+    background-color: white !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
+.cancel-btn{
+    background-color: white !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
+.save-btn {
+    background-color: #F9CDA5 !important;
+    border: 2px solid #F9CDA5 !important;
+    color: black !important;
+}
+
+.trash {
+    width: 25px;
+    height: 25px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+}
+
+.trash:hover {
+    cursor: pointer;
+    background-color: #d0cdcd;
+}

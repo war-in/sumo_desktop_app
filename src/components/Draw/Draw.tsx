@@ -4,6 +4,7 @@ import './Draw.css';
 import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
 import axios from "axios";
+import {BsCheckLg} from "react-icons/bs";
 
 //TODO: competitionId, region and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
 const competitionId = 10;
@@ -111,8 +112,7 @@ function Draw() {
             {
                 title: "", field: "", render: (rowData: Category) => {
                     if (combatsAlreadyGenerated(rowData.category.id)) {
-                        return <img src={require(`/public/images/check.svg.png`).default}
-                                    style={{width: 25, borderRadius: '50%'}} alt=""/>
+                        return <BsCheckLg/>
                     } else {
                         return <></>
                     }
@@ -206,7 +206,7 @@ function Draw() {
     }
 
     function SaveCombatsButton() {
-        return (<Button className="save-button" variant="success" onClick={async () => {
+        return (<Button className="save-button" onClick={async () => {
             let body = {
                 competitors: combats,
                 drawType: selectedDrawType,
@@ -218,14 +218,14 @@ function Draw() {
     }
 
     function CancelButton() {
-        return (<Button className="cancel-button" variant="danger" onClick={async () => {
+        return (<Button className="cancel-button" onClick={async () => {
             generatedCombats[selectedCategoryId] = null;
             showButtons()
         }}>Cancel</Button>);
     }
 
     function RedrawButton() {
-        return (<Button className="redraw-button" variant="primary" onClick={async () => {
+        return (<Button className="redraw-button" onClick={async () => {
             let body = {
                 competitors: categories[categoriesToIndexes[selectedCategoryId]].competitors,
                 drawType: selectedDrawType

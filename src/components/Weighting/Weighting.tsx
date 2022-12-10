@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Col, Container, Image, Row} from 'react-bootstrap';
-import {Box, Button, Input} from '@material-ui/core';
-import MaterialTable from 'material-table';
+import {Button, Col, Container, Image, Modal, ModalBody, ModalFooter, ModalHeader, Row, Form} from 'react-bootstrap';
+import {Box, Input} from '@material-ui/core';
+import MaterialTable, {MTableToolbar} from 'material-table';
 import './Weighting.css';
 import Competitor from "../../objects/Competitor";
 import PersonalDetails from "../../objects/PersonalDetails";
 import axios from "axios";
+import {BsTrash, BsCheckLg} from "react-icons/bs";
 
 //TODO: competitionId and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
 const competitionId = 10;
@@ -58,6 +59,12 @@ type CategoryType = {
     }
 }
 
+type WeightSelectOption = {
+    key: string,
+    categoryId: number,
+    displayName: string
+}
+
 type WeightingDetailsType = {
     id: number,
     registration: {
@@ -95,9 +102,59 @@ function Weighting() {
     const [weight, setWeight] = useState<number>(0);
     const [weightingDetails, setWeightingDetails] = useState<WeightingDetailsType[]>([]);
     const [competitorsData, setCompetitorsData] = useState<CompetitorType[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const selectAgeCatRef = useRef<Array<HTMLSelectElement | null>>([]);
+    const selectWeightCatRef = useRef<Array<HTMLSelectElement | null>>([]);
+
+    const [ageCategorySelectOptions, setAgeCategorySelectOptions] = useState<string[]>([]);
+    const [weightCategorySelectOptions, setWeightCategorySelectOptions] = useState<WeightSelectOption[]>([]);
 
     let categoriesAndWeightingDetailsByCompetitorId: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
+
+    const fetchCategoriesData = async (id: number) => {
+        const {data} = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + id)
+        return data;
+    }
+    const fetchWeightingData = async (categoryId: number, competitorId: number) => {
+        const {data} = await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + categoryId + `&competitorId=` + competitorId)
+        return data;
+    }
+    const fetchDataForCompetitor = async (id: number) => {
+        let fetchedCategories: CategoryType[] = [];
+        await fetchCategoriesData(id).then(data => fetchedCategories = data)
+        let fetchedWeightingDetails: WeightingDetailsType[] = [];
+        for (const category of fetchedCategories) {
+            await fetchWeightingData(category.id, id).then(data => fetchedWeightingDetails.push(data));
+        }
+        return {
+            categories: fetchedCategories,
+            weightDetails: fetchedWeightingDetails
+        }
+    }
+
+    const saveCategory = () => {
+        const add = async () => {
+            for (const element of selectWeightCatRef.current){
+                if (element!=null){
+                    await axios.post(desktopServerUrl + `/weighting/addRegistration?competitorId=`
+                        + personalDetails!.id + `&categoryAtCompetitionId=` + element.value);
+                }
+            }
+        }
+        add().then(() => {
+            fetchDataForCompetitor(personalDetails!.id).then(data => {
+                categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id] = data;
+                let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
+                setCategories(categoriesAndWeightingDetails.categories);
+                setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                selectAgeCatRef.current = [];
+                selectWeightCatRef.current = [];
+                setIsModalOpen(false)
+            })
+        })
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -116,30 +173,10 @@ function Weighting() {
     }, []);
 
     function Competitors() {
-        const fetchCategoriesData = async (comp: CompetitorType) => {
-            const {data} = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + comp.personalDetails.id)
-            return data;
-        }
-        const fetchWeightingData = async (category: CategoryType, comp: CompetitorType) => {
-            const {data} = await axios.get(desktopServerUrl + `weighting/weighting-details?categoryAtCompetitionId=` + category.id + `&competitorId=` + comp.personalDetails.id)
-            return data;
-        }
-        const fetchDataForCompetitor = async (comp: CompetitorType) => {
-            let fetchedCategories: CategoryType[] = [];
-            await fetchCategoriesData(comp).then(data => fetchedCategories = data)
-            let fetchedWeightingDetails: WeightingDetailsType[] = [];
-            for (const category of fetchedCategories) {
-                await fetchWeightingData(category, comp).then(data => fetchedWeightingDetails.push(data));
-            }
-            return {
-                categories: fetchedCategories,
-                weightDetails: fetchedWeightingDetails
-            }
-        }
         useEffect(() => {
             const fetchData = () => {
                 for (const comp of competitorsData) {
-                    fetchDataForCompetitor(comp).then(data => {
+                    fetchDataForCompetitor(comp.personalDetails.id).then(data => {
                         categoriesAndWeightingDetailsByCompetitorId[comp.personalDetails.id] = data
                     })
                 }
@@ -156,8 +193,7 @@ function Weighting() {
             {
                 title: "", field: "", render: (rowData: CompetitorType) => {
                     if (isCompetitorWeighed[rowData.personalDetails.id]) {
-                        return <img src={require(`/public/images/check.svg.png`).default}
-                                    style={{width: 25, borderRadius: '50%'}} alt=""/>
+                        return <BsCheckLg/>
                     } else {
                         return <></>
                     }
@@ -203,6 +239,25 @@ function Weighting() {
             {"title": "Age category", "field": "ageCategory.name"},
             {"title": "Sex", "field": "sex.sex"},
             {"title": "Weight category", "field": "weightCategory"},
+            {
+                title: "", field: "", render: (rowData: CategoryType) => {
+                    return <BsTrash className={"trash"}
+                                onClick={() => {
+                                    const remove = async () => {
+                                        await axios.delete(desktopServerUrl + `/weighting/removeRegistration?competitorId=`
+                                            + personalDetails!.id + `&categoryAtCompetitionId=` + rowData.id);
+                                    }
+                                    remove().then(() => {
+                                        fetchDataForCompetitor(personalDetails!.id).then(data => {
+                                            categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id] = data;
+                                            let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
+                                            setCategories(categoriesAndWeightingDetails.categories);
+                                            setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                                        })
+                                    })
+                                }}/>
+                }
+            }
         ]
 
         return (
@@ -214,6 +269,44 @@ function Weighting() {
                     options={{
                         search: false,
                         maxBodyHeight: 150
+                    }}
+                    components={{
+                        Toolbar: props => (
+                            <Row>
+                                <Col>
+                                    <MTableToolbar {...props}/>
+                                </Col>
+                                <Col>
+                                    <div style={{ padding: "10px 10px", textAlign: "right" }}>
+                                        <Button variant="secondary" onClick={() => {
+                                            const fetchData = async () => {
+                                                const {data} = await axios.get(desktopServerUrl + `weighting/getAvailableCategoriesForCompetitor?competitionId=`
+                                                    + competitionId + `&competitorId=` + personalDetails!.id)
+                                                return data;
+                                            }
+                                            fetchData().then(data => {
+                                                let ageCategorySelectOptionsTemp : string[] = [];
+                                                let weightCategorySelectOptionsTemp : WeightSelectOption[] = [];
+                                                for (const ct of data) {
+                                                    if (ageCategorySelectOptionsTemp.indexOf(ct.category.ageCategory.name) < 0) {
+                                                        ageCategorySelectOptionsTemp.push(ct.category.ageCategory.name)
+                                                    }
+                                                    let wso : WeightSelectOption = {
+                                                        key: ct.category.ageCategory.name,
+                                                        categoryId: ct.category.id,
+                                                        displayName: ct.category.weightCategory
+                                                    }
+                                                    weightCategorySelectOptionsTemp.push(wso)
+                                                }
+                                                setAgeCategorySelectOptions(ageCategorySelectOptionsTemp);
+                                                setWeightCategorySelectOptions(weightCategorySelectOptionsTemp);
+                                                setIsModalOpen(true);
+                                            })
+                                        }}>+</Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                        ),
                     }}
                 />
             </Box>
@@ -252,7 +345,7 @@ function Weighting() {
                     <Row>Weight:</Row>
                     <Row><Input id="weightInput" className="detail" defaultValue={weight} ref={inputRef}></Input></Row>
                     <Row className="button">
-                        <Button onClick={async () => {
+                        <Button variant="light" onClick={async () => {
                             const inputValue = inputRef.current?.children[0] as HTMLInputElement
                             if (inputValue == null) return
                             for (const wd of weightingDetails) {
@@ -271,19 +364,88 @@ function Weighting() {
         );
     }
 
+    function SingleCategorySelect(props: { index: number }) {
+        const [ageSelectAnswer, setAgeSelectAnswer] = useState<string>(ageCategorySelectOptions[0]);
+        return (
+            <div className={'d-flex justify-content-center align-items-center gap-4'}>
+                <Form.Group className={'d-flex justify-content-center flex-column'}>
+                    <Form.Label>Age category:</Form.Label>
+                    <Form.Select ref={(el: HTMLSelectElement) => selectAgeCatRef.current[props.index] = el} onChange={(e) => {setAgeSelectAnswer(e.target.value)}} value={ageSelectAnswer}>
+                        {
+                            ageCategorySelectOptions
+                                .map((option) =>
+                                    <option key={option} value={option}>
+                                        {option}
+                                    </option>)
+                        }
+                    </Form.Select>
+                </Form.Group>
+                <Form.Group className={'d-flex justify-content-center flex-column'}>
+                    <Form.Label>Weight category:</Form.Label>
+                    <Form.Select ref={(el: HTMLSelectElement) => selectWeightCatRef.current[props.index] = el}>
+                        {
+                            weightCategorySelectOptions
+                                .filter(option => {return option.key == ageSelectAnswer})
+                                .map((option) =>
+                                    <option key={option.categoryId} value={option.categoryId}>
+                                        {option.displayName}
+                                    </option>)
+                        }
+                    </Form.Select>
+                </Form.Group>
+            </div>
+        );
+    }
+
+    function CategoryModal() {
+        const [numberOfCategoriesToAdd, setNumberOfCategoriesToAdd] = useState<number>(1);
+        const indexes = [];
+        for (let i = 0; i < numberOfCategoriesToAdd; i++) {
+            indexes.push(i);
+        }
+        return (
+            <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+                <ModalHeader closeButton>
+                    <h4>Add category</h4>
+                </ModalHeader>
+                <ModalBody>
+                    <div>
+                        {indexes.map((i) => <SingleCategorySelect index={i}/>)}
+                    </div>
+                    <div className={'d-flex justify-content-center align-items-center gap-4'}>
+                        <Button className={'plus-btn'} onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd+1)}>+</Button>
+                        {
+                            (numberOfCategoriesToAdd>1) &&
+                            <Button className={'minus-btn'} onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd-1)}>-</Button>
+                        }
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button className={'cancel-btn'} onClick={() => {
+                        setIsModalOpen(false)
+                    }}>Cancel</Button>
+                    <Button onClick={saveCategory} className={'save-btn'}>Save</Button>
+                </ModalFooter>
+            </Modal>
+        );
+    }
+
     return (
-        <Container className="weighting">
-            <h1 className="title">Competitors weighting</h1>
-            <Row>
-                <Col className="col-3">
-                    <CompetitorDetails/>
-                </Col>
-                <Col className="col-8">
-                    <Competitors/>
-                    <Categories/>
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <Container className="weighting">
+                <h1 className="title">Competitors weighting</h1>
+                <Row>
+                    <Col className="col-3">
+                        <CompetitorDetails/>
+                    </Col>
+                    <Col className="col-8">
+                        <Competitors/>
+                        <Categories/>
+                    </Col>
+                </Row>
+            </Container>
+            <CategoryModal/>
+        </>
     );
 }
 
