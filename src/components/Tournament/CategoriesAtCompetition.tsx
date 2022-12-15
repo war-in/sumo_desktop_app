@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Container} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {DrawFromDatabase, RowData} from "./Model";
+// @ts-ignore
 import axios from "axios";
 import MaterialTable from "@material-table/core";
 
