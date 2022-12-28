@@ -5,9 +5,9 @@ import MaterialTable from "material-table";
 import {Box} from "@material-ui/core";
 import axios from "axios";
 import {BsCheckLg} from "react-icons/bs";
+import Competition from "../../objects/Competition";
 
 //TODO: competitionId, region and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
-const competitionId = 10;
 const region = "EUROPE";
 const desktopServerUrl = "http://localhost:8080/";
 
@@ -41,7 +41,11 @@ let categoriesToIndexes: { [key: number]: number } = {};
 
 let pageIndex = 1;
 
-function Draw() {
+type Props = {
+    competition?: Competition
+}
+
+const Draw : React.FC < Props > = (props: Props) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [buttons, setButtons] = useState<DrawType[]>([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
@@ -56,7 +60,7 @@ function Draw() {
     }
 
     const fetchData = async () => {
-        const { data } = await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + competitionId);
+        const { data } = await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + props.competition?.id);
         return data;
     }
 

@@ -6,8 +6,13 @@ import {DrawFromDatabase, RowData} from "./Model";
 import response from "../../mocks/CategoriesAtCompetition.json";
 import axios from "axios";
 import MaterialTable from "@material-table/core";
+import Competition from "../../objects/Competition";
 
-function CategoriesAtCompetition() {
+type Props = {
+    competition?: Competition
+}
+
+const CategoriesAtCompetition: React.FC < Props > = (props: Props) => {
     let navigate = useNavigate();
 
     const styles: React.CSSProperties = {
@@ -22,7 +27,7 @@ function CategoriesAtCompetition() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get("http://localhost:8080/tournament/menu?competitionId=10")
+            await axios.get("http://localhost:8080/tournament/menu?competitionId="+props.competition?.id)
                 .then(response => {
                     setCategories(response.data.dataset);
                 })

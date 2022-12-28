@@ -1,15 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Col, Container, Image, Modal, ModalBody, ModalFooter, ModalHeader, Row, Form} from 'react-bootstrap';
+import {Button, Col, Container, Form, Image, Modal, ModalBody, ModalFooter, ModalHeader, Row} from 'react-bootstrap';
 import {Box, Input} from '@material-ui/core';
 import MaterialTable, {MTableToolbar} from 'material-table';
 import './Weighting.css';
 import Competitor from "../../objects/Competitor";
 import PersonalDetails from "../../objects/PersonalDetails";
 import axios from "axios";
-import {BsTrash, BsCheckLg} from "react-icons/bs";
+import {BsCheckLg, BsTrash} from "react-icons/bs";
+import Competition from "../../objects/Competition";
 
-//TODO: competitionId and desktopServerUrl are set as constants for development - this needs to be fixed before deploy
-const competitionId = 10;
 const desktopServerUrl = "http://localhost:8080/";
 
 //TODO: the 'club' field is missing in data received from the endpoint - add the field or remove club info from front
@@ -94,7 +93,11 @@ type WeightingDetailsType = {
 let pageIndex = 1;
 let isCompetitorWeighed: { [key: number]: boolean } = {};
 
-function Weighting() {
+type Props = {
+    competition?: Competition
+}
+
+const Weighting: React.FC < Props > = (props: Props) => {
 
     const [personalDetails, setPersonalDetails] = useState<PersonalDetails>();
     const [competitor, setCompetitor] = useState<Competitor>();
@@ -114,7 +117,7 @@ function Weighting() {
     let categoriesAndWeightingDetailsByCompetitorId: { [key: number]: { categories: CategoryType[], weightDetails: WeightingDetailsType[] } } = {};
 
     const fetchCategoriesData = async (id: number) => {
-        const {data} = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + competitionId + `&competitorId=` + id)
+        const {data} = await axios.get(desktopServerUrl + `weighting/categories?competitionId=` + props.competition?.id + `&competitorId=` + id)
         return data;
     }
     const fetchWeightingData = async (categoryId: number, competitorId: number) => {
@@ -136,8 +139,8 @@ function Weighting() {
 
     const saveCategory = () => {
         const add = async () => {
-            for (const element of selectWeightCatRef.current){
-                if (element!=null){
+            for (const element of selectWeightCatRef.current) {
+                if (element != null) {
                     await axios.post(desktopServerUrl + `/weighting/addRegistration?competitorId=`
                         + personalDetails!.id + `&categoryAtCompetitionId=` + element.value);
                 }
@@ -158,7 +161,7 @@ function Weighting() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const {data} = await axios.get(desktopServerUrl + `weighting/competitors?competitionId=` + competitionId)
+            const {data} = await axios.get(desktopServerUrl + `weighting/competitors?competitionId=` + props.competition?.id)
             return data;
         }
         const sessionStorageData = sessionStorage.getItem("competitorsData");
@@ -242,20 +245,20 @@ function Weighting() {
             {
                 title: "", field: "", render: (rowData: CategoryType) => {
                     return <BsTrash className={"trash"}
-                                onClick={() => {
-                                    const remove = async () => {
-                                        await axios.delete(desktopServerUrl + `/weighting/removeRegistration?competitorId=`
-                                            + personalDetails!.id + `&categoryAtCompetitionId=` + rowData.id);
-                                    }
-                                    remove().then(() => {
-                                        fetchDataForCompetitor(personalDetails!.id).then(data => {
-                                            categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id] = data;
-                                            let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
-                                            setCategories(categoriesAndWeightingDetails.categories);
-                                            setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                                    onClick={() => {
+                                        const remove = async () => {
+                                            await axios.delete(desktopServerUrl + `/weighting/removeRegistration?competitorId=`
+                                                + personalDetails!.id + `&categoryAtCompetitionId=` + rowData.id);
+                                        }
+                                        remove().then(() => {
+                                            fetchDataForCompetitor(personalDetails!.id).then(data => {
+                                                categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id] = data;
+                                                let categoriesAndWeightingDetails = categoriesAndWeightingDetailsByCompetitorId[personalDetails!.id];
+                                                setCategories(categoriesAndWeightingDetails.categories);
+                                                setWeightingDetails(categoriesAndWeightingDetails.weightDetails);
+                                            })
                                         })
-                                    })
-                                }}/>
+                                    }}/>
                 }
             }
         ]
@@ -271,27 +274,27 @@ function Weighting() {
                         maxBodyHeight: 150
                     }}
                     components={{
-                        Toolbar: props => (
+                        Toolbar: values => (
                             <Row>
                                 <Col>
-                                    <MTableToolbar {...props}/>
+                                    <MTableToolbar {...values}/>
                                 </Col>
                                 <Col>
-                                    <div style={{ padding: "10px 10px", textAlign: "right" }}>
+                                    <div style={{padding: "10px 10px", textAlign: "right"}}>
                                         <Button variant="secondary" onClick={() => {
                                             const fetchData = async () => {
                                                 const {data} = await axios.get(desktopServerUrl + `weighting/getAvailableCategoriesForCompetitor?competitionId=`
-                                                    + competitionId + `&competitorId=` + personalDetails!.id)
+                                                    + props.competition?.id + `&competitorId=` + personalDetails!.id)
                                                 return data;
                                             }
                                             fetchData().then(data => {
-                                                let ageCategorySelectOptionsTemp : string[] = [];
-                                                let weightCategorySelectOptionsTemp : WeightSelectOption[] = [];
+                                                let ageCategorySelectOptionsTemp: string[] = [];
+                                                let weightCategorySelectOptionsTemp: WeightSelectOption[] = [];
                                                 for (const ct of data) {
                                                     if (ageCategorySelectOptionsTemp.indexOf(ct.category.ageCategory.name) < 0) {
                                                         ageCategorySelectOptionsTemp.push(ct.category.ageCategory.name)
                                                     }
-                                                    let wso : WeightSelectOption = {
+                                                    let wso: WeightSelectOption = {
                                                         key: ct.category.ageCategory.name,
                                                         categoryId: ct.category.id,
                                                         displayName: ct.category.weightCategory
@@ -370,7 +373,10 @@ function Weighting() {
             <div className={'d-flex justify-content-center align-items-center gap-4'}>
                 <Form.Group className={'d-flex justify-content-center flex-column'}>
                     <Form.Label>Age category:</Form.Label>
-                    <Form.Select ref={(el: HTMLSelectElement) => selectAgeCatRef.current[props.index] = el} onChange={(e) => {setAgeSelectAnswer(e.target.value)}} value={ageSelectAnswer}>
+                    <Form.Select ref={(el: HTMLSelectElement) => selectAgeCatRef.current[props.index] = el}
+                                 onChange={(e) => {
+                                     setAgeSelectAnswer(e.target.value)
+                                 }} value={ageSelectAnswer}>
                         {
                             ageCategorySelectOptions
                                 .map((option) =>
@@ -385,7 +391,9 @@ function Weighting() {
                     <Form.Select ref={(el: HTMLSelectElement) => selectWeightCatRef.current[props.index] = el}>
                         {
                             weightCategorySelectOptions
-                                .filter(option => {return option.key == ageSelectAnswer})
+                                .filter(option => {
+                                    return option.key == ageSelectAnswer
+                                })
                                 .map((option) =>
                                     <option key={option.categoryId} value={option.categoryId}>
                                         {option.displayName}
@@ -413,10 +421,12 @@ function Weighting() {
                         {indexes.map((i) => <SingleCategorySelect index={i}/>)}
                     </div>
                     <div className={'d-flex justify-content-center align-items-center gap-4'}>
-                        <Button className={'plus-btn'} onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd+1)}>+</Button>
+                        <Button className={'plus-btn'}
+                                onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd + 1)}>+</Button>
                         {
-                            (numberOfCategoriesToAdd>1) &&
-                            <Button className={'minus-btn'} onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd-1)}>-</Button>
+                            (numberOfCategoriesToAdd > 1) &&
+                            <Button className={'minus-btn'}
+                                    onClick={() => setNumberOfCategoriesToAdd(numberOfCategoriesToAdd - 1)}>-</Button>
                         }
                     </div>
                 </ModalBody>
