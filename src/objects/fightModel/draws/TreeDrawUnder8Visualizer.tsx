@@ -110,7 +110,7 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
             return (
                 <Container fluid={true}>
                     <Row>
-                        <h1>Główna krzyżówka</h1>
+                        <h1>Main draw</h1>
                     </Row>
                     <Row>
                         <Col>
@@ -351,7 +351,7 @@ export default class TreeDrawUnder8Visualizer implements IDrawVisualizer {
                         </Col>
                     </Row>
                     <Row>
-                        <h1>Repasarze</h1>
+                        <h1>Repechage</h1>
                     </Row>
                     <Row>
                         <Col>

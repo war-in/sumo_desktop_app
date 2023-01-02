@@ -40,13 +40,13 @@ export default class TreeDrawUnder16 implements IDraw {
         }
 
         this.rounds = []
-        this.rounds.push(new Round("Eliminacje", 1, 8));
-        this.rounds.push(new Round("Ćwierć finały", 9, 12));
-        this.rounds.push(new Round("Pół finały", 13, 14));
-        this.rounds.push(new Round("Repasarze I runda", 15, 18));
-        this.rounds.push(new Round("Repasarze II runda", 19, 20));
-        this.rounds.push(new Round("Brązy", 21, 22));
-        this.rounds.push(new Round("Finał", 23, 23));
+        this.rounds.push(new Round("Elimination", 1, 8));
+        this.rounds.push(new Round("Quarter-finals", 9, 12));
+        this.rounds.push(new Round("Semi-finals", 13, 14));
+        this.rounds.push(new Round("Repechage I st round", 15, 18));
+        this.rounds.push(new Round("Repechage II nd round", 19, 20));
+        this.rounds.push(new Round("Bronze medals", 21, 22));
+        this.rounds.push(new Round("Final", 23, 23));
 
         let [actualFightIndex, indexInArray] = this.findActualFightIndex();
         this.actualFightIndex = actualFightIndex;

@@ -9,7 +9,7 @@ function Home() {
     <Container className='home'>
       <h1>Home</h1>
         {isUserLoggedIn ?
-            ("ZALOGOWANO I ZAJEBIście") :
+            ("Logged in") :
             (<LoginForm setUserLoggedIn={setIsUserLoggedIn}/>)
         }
     </Container>
