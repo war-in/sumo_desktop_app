@@ -235,8 +235,8 @@ export default class RoundRobinDraw implements IDraw {
         let competitors = bucketWhichNeedsOvertime!.competitors;
         this.carousel = competitors.slice()
 
-        let personal = new PersonalDetails(0, "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los", "Wolny Los")
-        let freeFight = new Competitor(null, personal, "Wolny Los", "Wolny Los", 0)
+        let personal = new PersonalDetails(0, "Free", "Fight", "Free Fight", "Free Fight", "Free Fight")
+        let freeFight = new Competitor(null, personal, "Free Fight", "Free Fight", 0)
 
         let numberOfMatches = (this.carousel.length * (this.carousel.length - 1) / 2)
         let numberOfRounds = this.carousel.length
@@ -245,14 +245,14 @@ export default class RoundRobinDraw implements IDraw {
         let roundsBefore = this.rounds.length
         let roundIndex = this.rounds.length + 1
 
-        this.rounds.push(new Round("Runda " + roundIndex, this.playedMatches, 0))
+        this.rounds.push(new Round("Round " + roundIndex, this.playedMatches, 0))
         for (let i = 0; i < numberOfMatches; i++) {
             if (lastConnected <= startConnected) {
                 roundIndex++
                 this.rounds[this.rounds.length - 1].lastFightIndex = this.playedMatches + i - 1
 
                 if (numberOfRounds != 4 || roundIndex - roundsBefore != 4)
-                    this.rounds.push(new Round("Runda " + roundIndex, this.playedMatches + i, 0))
+                    this.rounds.push(new Round("Round " + roundIndex, this.playedMatches + i, 0))
 
                 if (numberOfRounds % 2 == 0 && roundIndex == roundsBefore + Math.floor(numberOfRounds / 2) + 1) {
                     this.carousel = this.carousel.concat([freeFight])

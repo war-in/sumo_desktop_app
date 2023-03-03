@@ -149,9 +149,9 @@ function TournamentDraw() {
                 <GiIcons.GiPodium onClick={() => setResultsVisible(true)}/>
             </IconContext.Provider>
             <FullScreenModal show={fullDrawVisible} onHide={hideFullDrawModal} content={visualizer?.fullDraw()}
-                             header="Cała krzyżówka"/>
+                             header="Entire draw"/>
             <FullScreenModal show={resultsVisible} onHide={hideResults} content={visualizer?.results()}
-                             header="Wyniki"/>
+                             header="Results"/>
 
             <Row className="draw-row h-90">
                 {slider(model, visualizer)}

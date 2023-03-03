@@ -45,7 +45,7 @@ const LoginForm: React.FC<Props> = (props) => {
                 <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange}/>
             </Form.Group>
             <Button variant="primary" type="submit" className="StandardButton" onClick={fetchData}>
-                Zaloguj
+                Log in
             </Button>
         </Form>
     )
