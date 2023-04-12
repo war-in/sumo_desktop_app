@@ -158,6 +158,8 @@ export default class RoundRobinDraw implements IDraw {
             this.playedMatches++;
 
         FightController.saveFight(this.getActualMatch(), drawId, this.actualFightIndex).finally();
+        // to refactor
+        FightController.saveResult(drawId,this.competitors)
 
         if (this.playedMatches == this.matches.length) {
             let breakLoop: boolean = true;

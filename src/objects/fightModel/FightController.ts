@@ -1,10 +1,22 @@
 import IndividualMatch from "./IndividualMatch";
 import axios from "axios";
+import Competitor from "../Competitor";
 
 const desktopServerUrl = "http://localhost:8080/"
 
 
 export default class FightController {
+    static async saveResult(categoryAtCompetitionId:number,competitorsInOrder:Competitor[]){
+        // debugger;
+        const body = {
+            categoryAtCompetitionId:categoryAtCompetitionId,
+            competitorsInOrder:competitorsInOrder.map(competitor => ({
+                id:competitor.id
+            }))
+        }
+        await axios.post(desktopServerUrl + '/reports/save', body)
+
+    }
     static async saveFight(individualMatch: IndividualMatch, drawId: number, numberOfPlaceInDraw: number): Promise<void> {
         let winner: number = 0;
         if (individualMatch.winner == null)

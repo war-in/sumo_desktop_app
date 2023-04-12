@@ -9,11 +9,12 @@ export default class TreeDrawUnder16 implements IDraw {
     matches: IndividualMatch[];
     rounds: Round[];
     competitors: Competitor[]
+    results: Competitor[]
     actualFightIndexToArrayIndex: Map<number, number>
 
     constructor(competitors: Competitor[], matches: IndividualMatch[], drawId: number, saveFightsToDatabase: boolean) {
         this.competitors = competitors
-
+        this.results = new Array(16);
         this.actualFightIndexToArrayIndex = new Map<number, number>()
         this.initializeActualFightIndexMap()
 
@@ -152,30 +153,35 @@ export default class TreeDrawUnder16 implements IDraw {
         if (this.actualFightIndex >= 8 && this.actualFightIndex < 12) {
             let index = this.actualFightIndexToArrayIndex.get(this.actualFightIndex) as number
             let parentIndex = Math.floor(index / 2)
-            if (this.actualFightIndex % 2 == 0)
+            if (this.actualFightIndex % 2 == 0) {
                 this.matches[parentIndex].firstCompetitor = this.getActualMatch().winner
-            else
+            } else {
                 this.matches[parentIndex].secondCompetitor = this.getActualMatch().winner
+            }
             await FightController.saveFight(this.matches[parentIndex], drawId, parentIndex)
             switch (this.actualFightIndex) {
                 case 8:
                     this.matches[20].secondCompetitor = this.getActualMatch().looser
                     this.matches[20].firstCompetitor = firstWinn ? this.matches[8].looser : this.matches[9].looser
+                    this.results[15] =<Competitor> (!firstWinn ? this.matches[8].looser : this.matches[9].looser)
                     await FightController.saveFight(this.matches[20], drawId, 20)
                     break;
                 case 9:
                     this.matches[21].secondCompetitor = this.getActualMatch().looser
                     this.matches[21].firstCompetitor = firstWinn ? this.matches[10].looser : this.matches[11].looser
+                    this.results[14] =<Competitor> (!firstWinn ? this.matches[10].looser : this.matches[11].looser)
                     await FightController.saveFight(this.matches[21], drawId, 21)
                     break;
                 case 10:
                     this.matches[22].secondCompetitor = this.getActualMatch().looser
                     this.matches[22].firstCompetitor = firstWinn ? this.matches[12].looser : this.matches[13].looser
+                    this.results[13] =<Competitor> (!firstWinn ? this.matches[12].looser : this.matches[13].looser)
                     await FightController.saveFight(this.matches[22], drawId, 22)
                     break;
                 case 11:
                     this.matches[23].secondCompetitor = this.getActualMatch().looser
                     this.matches[23].firstCompetitor = firstWinn ? this.matches[14].looser : this.matches[15].looser
+                    this.results[12] =<Competitor> (!firstWinn ? this.matches[14].looser : this.matches[15].looser)
                     await FightController.saveFight(this.matches[23], drawId, 23)
                     break;
             }
@@ -206,26 +212,32 @@ export default class TreeDrawUnder16 implements IDraw {
                 case 14:
                     this.matches[18].firstCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
                     await FightController.saveFight(this.matches[18], drawId, 18)
+                    this.results[11] = <Competitor>this.getActualMatch().looser;
                     break;
                 case 15:
                     this.matches[18].secondCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
                     await FightController.saveFight(this.matches[18], drawId, 18)
+                    this.results[10] = <Competitor>this.getActualMatch().looser;
                     break;
                 case 16:
                     this.matches[19].firstCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
                     await FightController.saveFight(this.matches[19], drawId, 19)
+                    this.results[9] = <Competitor>this.getActualMatch().looser;
                     break;
                 case 17:
                     this.matches[19].secondCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
                     await FightController.saveFight(this.matches[19], drawId, 19)
+                    this.results[8] = <Competitor>this.getActualMatch().looser;
                     break;
                 case 18:
                     this.matches[16].firstCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
                     await FightController.saveFight(this.matches[16], drawId, 16)
+                    this.results[7] = <Competitor>this.getActualMatch().looser;
                     break;
                 case 19:
                     this.matches[17].firstCompetitor = firstWinn ? this.getActualMatch().firstCompetitor : this.getActualMatch().secondCompetitor
                     await FightController.saveFight(this.matches[17], drawId, 17)
+                    this.results[6] = <Competitor>this.getActualMatch().looser;
                     break;
             }
         }
@@ -241,6 +253,19 @@ export default class TreeDrawUnder16 implements IDraw {
 
     getActualRound(): Round {
         return this.rounds[0];
+    }
+
+    getResults(): Competitor[] {
+        this.results[0] = <Competitor>this.matches[1]?.winner
+        this.results[1] = <Competitor>this.matches[1]?.looser
+        this.results[2] = <Competitor>this.matches[8]?.winner
+        this.results[3] = <Competitor>this.matches[9]?.winner
+        this.results[4] = <Competitor>this.matches[8]?.looser
+        return this.results;
+    }
+
+    saveresults(): void {
+
     }
 
 }

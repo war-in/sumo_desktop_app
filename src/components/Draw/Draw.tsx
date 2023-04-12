@@ -45,7 +45,7 @@ type Props = {
     competition?: Competition
 }
 
-const Draw : React.FC < Props > = (props: Props) => {
+const Draw: React.FC<Props> = (props: Props) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [buttons, setButtons] = useState<DrawType[]>([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
@@ -60,20 +60,16 @@ const Draw : React.FC < Props > = (props: Props) => {
     }
 
     const fetchData = async () => {
-        const { data } = await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + props.competition?.id);
+        const {data} = await axios.get(desktopServerUrl + `draw/categories-with-competitors?competitionId=` + props.competition?.id);
         return data;
     }
 
     useEffect(() => {
         const sessionStorageData = sessionStorage.getItem("categories");
-        if (sessionStorageData) {
-            setCategories(JSON.parse(sessionStorageData));
-        } else {
-            fetchData().then(data => {
-                setCategories(data)
-                sessionStorage.setItem("categories", JSON.stringify(data));
-            })
-        }
+        fetchData().then(data => {
+            setCategories(data)
+            sessionStorage.setItem("categories", JSON.stringify(data));
+        })
     }, []);
 
     function combatsAlreadyGenerated(categoryId: number) {
@@ -198,7 +194,7 @@ const Draw : React.FC < Props > = (props: Props) => {
     }
 
     function GenerateCombatsButtons() {
-        let buttonsList : any[] = [];
+        let buttonsList: any[] = [];
         buttons.forEach((button) => {
             buttonsList.push(<GenerateCombatsButton drawType={button}/>)
         })
@@ -243,8 +239,8 @@ const Draw : React.FC < Props > = (props: Props) => {
     }
 
     function Combats() {
-        const dragItem = useRef<number |  null>(null);
-        const dragOverItem = useRef<number |  null>(null);
+        const dragItem = useRef<number | null>(null);
+        const dragOverItem = useRef<number | null>(null);
         const dragStart = (_e: React.DragEvent<HTMLElement>, position: number) => {
             dragItem.current = position;
         };
@@ -285,8 +281,8 @@ const Draw : React.FC < Props > = (props: Props) => {
             );
         }
 
-        let left : any[] = [];
-        let right : any[] = [];
+        let left: any[] = [];
+        let right: any[] = [];
         if (selectedDrawType != null && (selectedDrawType.numberOfCompetitors == 0 || selectedDrawType.numberOfCompetitors == 5)) {
             for (let i = 0; i < combats.length; i++) {
                 left.push(<Box className="combat">
