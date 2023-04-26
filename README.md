@@ -29,7 +29,3 @@ yarn package
 ## Contributing
 
 Pull requests are always welcome 😃.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
